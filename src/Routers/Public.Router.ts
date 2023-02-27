@@ -3,23 +3,7 @@ const router = express.Router()
 import registerController from '../Controllers/regsiter.controller'
 import loginController from '../Controllers/login.controller'
 import loginWithPassword from '../Controllers/loginWithPassword'
-import regsiterWithFileController from '../Controllers/registerWithFile'
-import multer from 'multer'
-import schoolController from '../Controllers/school.controller'
-import registerForSchool from '../Controllers/register.school'
-import soundController from '../Controllers/sound.controller'
 
-
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, __dirname + "../../" + "uploads/");
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-bulk-${file.originalname}`);
-    },
-});
-
-const upload = multer({ storage })
 
 
 
@@ -98,25 +82,6 @@ router.route('/login')
 
 
 
-router.route('/create-emp-from-file').post(upload.single('file'), regsiterWithFileController.registerEmpWithFile)
-router.route('/create-school-from-file').post(upload.single('file'), regsiterWithFileController.registerSchoolWithFile)
 
-// verify token
-router.route('/verify-token/:token').get(loginController.verifyLogin)
-
-
-// school router
-router.route('/get-all-school').get(schoolController.getAllSchool)
-router.route('/create-school').post(registerForSchool.registerForSchool)
-router.route('/school-count').get(schoolController.schoolStatCount)
-router.route('/delete-school/:id').delete(schoolController.schoolDelete)
-router.route('/search-school').post(schoolController.searchSchool)
-router.route('/get-school/:id').get(schoolController.schoolViewById)
-
-router.route('/sound-change/:_id').post(soundController.updateSoundSetting)
-router.route('/sound-change/grab/:_id').get(soundController.sendSoundSetting)
-
-
-router.route('/change-password/:_id').post(loginController.changePassword)
 
 export default router

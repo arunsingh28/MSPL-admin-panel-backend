@@ -18,8 +18,11 @@ const loginWithPassword = async (req: Request, res: Response) => {
     try {
         const isMatch = await bcrypt.compare(password, user.password)
         if (!isMatch) return res.json({ message: 'email or password is incorrect.',success: false })
+       
         const refreshToken = token.refreshToken(user._id, user.role)
+        console.log('rf_session:::::::login API',refreshToken)
         const accessToken = token.accessToken(user._id, user.role)
+
         // save the token in db and update the token and time 
         const isAlreadyLogedin = await LoggedInModel.findOne({ user: user._id }).exec()
         if (isAlreadyLogedin) {
@@ -52,7 +55,7 @@ const loginWithPassword = async (req: Request, res: Response) => {
             res.cookie('rf_session', refreshToken, {
                 maxAge: env._register_rf_Cookie,
                 secure: true,
-                httpOnly: false,
+                httpOnly: true,
                 sameSite: 'none',
             })
             return res.status(201).json({ success: true, message: 'login successfully', accessToken,

@@ -7,13 +7,8 @@ import env from '../../config/env'
 
 const authorization = async (req: Request, res: Response, next: NextFunction) => {
     let token;
-    let decoded;
-    // console.log(req.cookies.rf_session)
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer') && req.cookies.rf_session) {
-        token = req.headers.authorization.split(" ")[1]
-        console.log('token', token)
-        decoded = jwt.verify(token, env._jwt_refresh_token_secret_key);
-        console.log('decoded', decoded)
+    if (req.cookies.rf_session) { 
+        token = req.cookies.rf_session
     }
     // token not found in header
     if (!token) {
@@ -23,8 +18,7 @@ const authorization = async (req: Request, res: Response, next: NextFunction) =>
         })
     }
     try {
-        console.log('TK:', await token)
-        decoded = jwt.verify(token, env._jwt_access_token_secret_key);
+        const decoded = jwt.verify(token, env._jwt_refresh_token_secret_key);
         const isAuth = await logedinModel.findOne({ user: (<any>decoded).id }).exec()
         if (isAuth) {
             if (isAuth.isLoggedin === false) {
@@ -49,7 +43,7 @@ const authorization = async (req: Request, res: Response, next: NextFunction) =>
         }
     }
     catch (error) {
-        console.log(error)
+        console.log('-----error-----',error)
         return res.status(401).json({
             success: false,
             message: "Unauthorized",

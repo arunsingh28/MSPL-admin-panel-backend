@@ -3,7 +3,7 @@ import env from '../../config/env'
 
 const accessToken = (id: string,role:any) => {
     return jwt.sign({ id ,role}, env._jwt_access_token_secret_key, {
-        expiresIn: env._jwt_new_token_expire_time
+        expiresIn: env._jwt_access_token_expire_time
     })
 }
 

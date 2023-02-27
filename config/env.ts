@@ -17,7 +17,7 @@ const env = {
     _jwt_login_token_secret_key: '7b459667c56b631f147d1650e8f734ecffc533a713f5d1f7aae4d235cffb09811bc9fa0b18',
 
     // jwt expire time
-    _jwt_new_token_expire_time: '1h',
+    _jwt_access_token_expire_time: '1h',
     _jwt_refresh_token_expire_time: '1d',
     _jwt_login_token_expire_time: '5m',
 
