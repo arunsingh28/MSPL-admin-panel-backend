@@ -3,8 +3,7 @@ const router = express.Router()
 import registerController from '../Controllers/regsiter.controller'
 import loginController from '../Controllers/login.controller'
 import loginWithPassword from '../Controllers/loginWithPassword'
-
-
+import endUserController from '../Controllers/endUser.controller'
 
 
 /**
@@ -82,6 +81,8 @@ router.route('/login')
 
 
 
+// end user apis
+router.route('/create-end-user').post(endUserController.regsiterEndUser)
 
 
 export default router

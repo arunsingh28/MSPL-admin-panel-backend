@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import env from "../../config/env";
-import user from "../Models/emp.model";
+import user from "../Models/emp.Model";
 import token from '../Utils/tokens'
 import mobilePort from "../Utils/isMobile";
 import bcrypt from 'bcrypt'

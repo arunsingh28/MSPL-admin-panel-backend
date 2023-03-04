@@ -1,5 +1,5 @@
 import { Response } from 'express'
-import _user from '../Models/emp.model'
+import _user from '../Models/emp.Model'
 
 
 export default async function otpGenrator(_id: string, res: Response) {

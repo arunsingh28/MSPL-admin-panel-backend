@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken'
-import registerUser from '../Models/emp.model'
-import logedinModel from '../Models/logedin.model'
-import { RegisterDocument } from '../Interface/User.interface'
+import registerUser from '../Models/emp.Model'
+import logedinModel from '../Models/logedin.Model'
+import { RegisterDocument } from '../Interface/emp.interface'
 import { Response, Request, NextFunction } from 'express'
 import env from '../../config/env'
 
 const authorization = async (req: Request, res: Response, next: NextFunction) => {
     let token;
-    if (req.cookies.rf_session) { 
+    if (req.cookies.rf_session) {
         token = req.cookies.rf_session
     }
     // token not found in header
@@ -39,11 +39,12 @@ const authorization = async (req: Request, res: Response, next: NextFunction) =>
             /* 
              create new session with current user
             */
+            req.session.user = user
             next()
         }
     }
     catch (error) {
-        console.log('-----error-----',error)
+        console.log('-----error-----', error)
         return res.status(401).json({
             success: false,
             message: "Unauthorized",

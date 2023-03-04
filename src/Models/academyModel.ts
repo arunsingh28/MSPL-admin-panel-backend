@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {academyDocument} from '../Interface/academy.interface'
+import { academyDocument } from '../Interface/academy.interface'
 
 
 const academySchema = new mongoose.Schema({
@@ -7,70 +7,41 @@ const academySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    ownerName: {
+    academyEmail:{
         type: String,
         required: true,
+        unique: true,
     },
-    email: {
+    uid: {
         type: String,
         required: true,
+        unique: true,
     },
-    phone: {
-        type: Number,
-        required: true,
+    password: String,
+    referalCode: String,
+    sports: {
+        isCricket: Boolean,
+        isTennis: Boolean,
+        isFootball: Boolean,
+        isBadminton: Boolean,
+        isBasketball: Boolean,
+        other: String,
     },
-    password: {
-        type: String,
-        required: true,
+    contestPerson: {
+        name: String,
+        number: Number,
+        email: String,
     },
     address: {
-        type: String,
-        required: true,
+        city: String,
+        address: String,
     },
-    city: {
-        type: String,
-        required: true,
+    links: {
+        google: String,
+        website: String,
+        playO: String,
     },
-    state: {
-        type: String,
-        required: true,
-    },
-    country: {
-        type: String,
-        required: true,
-    },
-    logo: {
-        type: String,
-        required: true,
-    },
-    status: {
-        type: String,
-        required: true,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    website: {
-        type: String,
-        required: true,
-    },
-    coaches: [
-        {
-            name: {
-                type: String,
-                required: true,
-            },
-            email: {
-                type: String,
-                required: true,
-            },
-            phone: {
-                type: Number,
-                required: true,
-            }
-        }
-    ]
+    coches: []
 })
 
 export default mongoose.model<academyDocument>("Academy", academySchema);

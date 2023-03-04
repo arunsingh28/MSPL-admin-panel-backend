@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import userModel from "../Models/emp.model";
+import userModel from "../Models/emp.Model";
 import token from '../Utils/tokens'
 import jwt from 'jsonwebtoken'
 import env from "../../config/env";
 import otpGenrator from "../Utils/otpGenrator";
 import mobilePort from '../Utils/isMobile'
 import bcrypt from 'bcrypt'
-import { RegisterDocument } from "../Interface/User.interface";
+import { RegisterDocument } from "../Interface/emp.interface";
 
 
 const sendOtp = async (req: Request, res: Response) => {
