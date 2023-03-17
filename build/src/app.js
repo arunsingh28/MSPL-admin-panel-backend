@@ -16,6 +16,7 @@ const DB_connection_1 = require("./Utils/DB.connection");
 const Public_Router_1 = __importDefault(require("./Routers/Public.Router"));
 const Private_Router_1 = __importDefault(require("./Routers/Private.Router"));
 const Tutorial_Router_1 = __importDefault(require("./Routers/Tutorial.Router"));
+const Nutrition_Router_1 = __importDefault(require("./Routers/Nutrition.Router"));
 const auth_middleware_1 = __importDefault(require("./middlewares/auth.middleware"));
 const cors_config_1 = __importDefault(require("../config/cors.config"));
 const credentials_1 = __importDefault(require("./Utils/credentials"));
@@ -56,9 +57,11 @@ app.use((req, res, next) => {
 // public router
 app.use('/v1/api', Public_Router_1.default);
 // priavte router with authorization middleware
-app.use('/v2/api/', Private_Router_1.default);
+app.use('/v2/api/', auth_middleware_1.default, Private_Router_1.default);
 // tutorial router
 app.use('/v2/tutorial', auth_middleware_1.default, Tutorial_Router_1.default);
+// nutriotion router
+app.use('/v2/nutrition', auth_middleware_1.default, Nutrition_Router_1.default);
 // wrong url or incorrect url
 app.get('*', (req, res) => {
     return res.send(`<p style="font-family:monospace"><mark style="border-radius:4px;padding:5px 10px;margin-right:5px;">${req.protocol}://${req.rawHeaders[1]}${req.url} </mark> is not valid.</p>`);

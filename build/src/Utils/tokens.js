@@ -20,4 +20,14 @@ const loginToken = (id, role) => {
         expiresIn: env_1.default._jwt_login_token_expire_time
     });
 };
-exports.default = { accessToken, refreshToken, loginToken };
+const mobileToken = (id) => {
+    return jsonwebtoken_1.default.sign({ id }, env_1.default._jwt_mobile_token_secret_key, {
+        expiresIn: env_1.default._jwt_mobile_token_expire_time
+    });
+};
+const mobileOtpToken = (id) => {
+    return jsonwebtoken_1.default.sign({ id }, env_1.default._jwt_mobile_token_secret_key, {
+        expiresIn: env_1.default._jwt_mobile_otp_token_expire_time
+    });
+};
+exports.default = { accessToken, refreshToken, loginToken, mobileToken, mobileOtpToken };

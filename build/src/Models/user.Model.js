@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
 const userSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
@@ -28,11 +27,24 @@ const userSchema = new mongoose_1.default.Schema({
         required: true,
         unique: true,
     },
-    sex: {
+    gender: {
         type: String,
         required: true,
     },
-    password: String,
+    profileImage: {
+        location: {
+            type: String,
+            default: null,
+        },
+        key: {
+            type: String,
+            default: null,
+        },
+    },
+    language: {
+        type: String,
+        default: "en"
+    },
     referal_code: String,
     dob: Date,
     measurement: {
@@ -70,7 +82,7 @@ userSchema.pre('save', function (next) {
         user.otp = Math.floor(100000 + Math.random() * 900000);
         user.oldOtp = Math.floor(100000 + Math.random() * 900000);
         // encrypt the password
-        user.password = yield bcrypt_1.default.hash(user.password, bcrypt_1.default.genSaltSync(10));
+        // user.password = await bcrypt.hash(user.password, bcrypt.genSaltSync(10))
         return next();
     });
 });

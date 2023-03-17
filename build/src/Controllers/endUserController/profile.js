@@ -12,29 +12,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_Model_1 = __importDefault(require("../Models/user.Model"));
-function otpGenrator(_id, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        // genrate 6 digit new otp
-        const otp = Math.floor(100000 + Math.random() * 900000);
-        // fetch old otp
-        const user = yield user_Model_1.default.findById(_id);
-        try {
-            // update otp in DB
-            yield user_Model_1.default.findOneAndUpdate({ _id }, {
-                $set: {
-                    oldOtp: user === null || user === void 0 ? void 0 : user.otp,
-                    otp
-                }
+const user_Model_1 = __importDefault(require("../../Models/user.Model"));
+const profile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield user_Model_1.default.findById(req.params.id);
+        if (user) {
+            return res.status(200).json({
+                success: true,
+                data: user,
+                statusCode: res.statusCode,
             });
         }
-        catch (error) {
-            console.log('****Error from OTP genrator modules****', error);
-            return res.status(500).json({
-                message: 'server error',
-                statusCode: res.statusCode
+        else {
+            return res.status(200).json({
+                message: "User not found",
+                success: false,
+                data: null,
+                statusCode: res.statusCode,
             });
         }
-    });
-}
-exports.default = otpGenrator;
+    }
+    catch (error) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message,
+            success: false,
+            statusCode: res.statusCode,
+        });
+    }
+});
+exports.default = { profile };

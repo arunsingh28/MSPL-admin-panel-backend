@@ -12,7 +12,8 @@ const sound_controller_1 = __importDefault(require("../Controllers/sound.control
 const multer_1 = __importDefault(require("multer"));
 const registerWithFile_1 = __importDefault(require("../Controllers/registerWithFile"));
 const academy_controller_1 = __importDefault(require("../Controllers/academy.controller"));
-const endUser_controller_1 = __importDefault(require("../Controllers/endUser.controller"));
+const endUser_controller_1 = __importDefault(require("../Controllers/endUserController/endUser.controller"));
+const food_controller_1 = __importDefault(require("../Controllers/Nutrition/food.controller"));
 const router = express_1.default.Router();
 var storage = multer_1.default.diskStorage({
     destination: (req, file, cb) => {
@@ -44,4 +45,10 @@ router.route('/get-user-info/:id').get(endUser_controller_1.default.getUserById)
 // academy apis
 router.route('/create-academy').post(academy_controller_1.default.registerAcademy);
 router.route('/create-coache').post(academy_controller_1.default.createCoach);
+router.route('/create-ingridient-from-file').post(upload.single('file'), food_controller_1.default.addIngridientWithFile);
+router.route('/create-ingridient').post(food_controller_1.default.addIngridient);
+router.route('/create-recipe-category').post(food_controller_1.default.recipieCategory);
+router.route('/fetch-recipie-category').get(food_controller_1.default.sendrecipieCategory);
+router.route('/delete-recipe-category/:id').delete(food_controller_1.default.deleteRecipeCategory);
+router.route('/update-recipe-category/:id').put(food_controller_1.default.updateRecipeCategory);
 exports.default = router;
