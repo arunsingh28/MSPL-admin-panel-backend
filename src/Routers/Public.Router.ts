@@ -3,8 +3,9 @@ const router = express.Router()
 import registerController from '../Controllers/regsiter.controller'
 import loginController from '../Controllers/login.controller'
 import loginWithPassword from '../Controllers/loginWithPassword'
-import endUserController from '../Controllers/endUser.controller'
+import endUserController from '../Controllers/endUserController/endUser.controller'
 
+import endUserLoginController from '../Controllers/endUserController/login'
 
 /**
  * register api
@@ -83,6 +84,10 @@ router.route('/login')
 
 // end user apis
 router.route('/create-end-user').post(endUserController.regsiterEndUser)
+
+// send the otp
+router.route('/send-otp').post(endUserLoginController.loginWithPhone)
+router.route('/verify-otp').post(endUserLoginController.verifyOTP)
 
 
 export default router

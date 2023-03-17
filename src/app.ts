@@ -11,6 +11,7 @@ import { connectDB } from './Utils/DB.connection'
 import publicRouter from './Routers/Public.Router'
 import privateRouter from './Routers/Private.Router'
 import tutorialRouter from './Routers/Tutorial.Router'
+import NutritionRouter from './Routers/Nutrition.Router';
 import authorization from './middlewares/auth.middleware';
 import corsOptions from '../config/cors.config';
 import credentials from './Utils/credentials';
@@ -64,9 +65,11 @@ session(app)
 // public router
 app.use('/v1/api', publicRouter)
 // priavte router with authorization middleware
-app.use('/v2/api/', privateRouter)
+app.use('/v2/api/', authorization, privateRouter)
 // tutorial router
 app.use('/v2/tutorial', authorization, tutorialRouter)
+// nutriotion router
+app.use('/v2/nutrition', authorization, NutritionRouter)
 
 
 // wrong url or incorrect url

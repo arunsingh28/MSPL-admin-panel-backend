@@ -34,6 +34,7 @@ const loginWithPassword = async (req: Request, res: Response) => {
         else {
             const newLogedin = new LoggedInModel({
                 user: user._id,
+                data: user,
                 token: refreshToken,
                 isLoggedin: true,
             })
@@ -44,6 +45,8 @@ const loginWithPassword = async (req: Request, res: Response) => {
         if (isMobile) {
             return res.status(200).json({
                 success: true, message: 'login successfully', accessToken, refreshToken,
+                data: user,
+                isAuthenticated:true,
                 user: {
                     name: user.name,
                     email: user.email,
@@ -61,6 +64,8 @@ const loginWithPassword = async (req: Request, res: Response) => {
             })
             return res.status(200).json({
                 success: true, message: 'login successfully', accessToken,
+                data: user,
+                isAuthenticated:true,
                 user: {
                     name: user.name,
                     email: user.email,

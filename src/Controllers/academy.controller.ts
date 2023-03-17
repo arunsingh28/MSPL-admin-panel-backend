@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import academyModel from "../Models/academyModel";
+import academyModel from "../Models/academy.Model";
 import { Coache } from "../Models/coache.Model";
 
 const registerAcademy = async (req: Request, res: Response) => {

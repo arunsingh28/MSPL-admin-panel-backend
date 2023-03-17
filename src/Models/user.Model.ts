@@ -16,11 +16,24 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    sex: {
+    gender: {
         type: String,
         required: true,
     },
-    password: String,
+    profileImage: {
+        location: {
+            type: String,
+            default: null,
+        },
+        key: {
+            type: String,
+            default: null,
+        },
+    },
+    language: {
+        type: String,
+        default: "en"
+    },
     referal_code: String,
     dob: Date,
     measurement: {
@@ -59,7 +72,7 @@ userSchema.pre('save', async function (next) {
     user.otp = Math.floor(100000 + Math.random() * 900000)
     user.oldOtp = Math.floor(100000 + Math.random() * 900000)
     // encrypt the password
-    user.password = await bcrypt.hash(user.password, bcrypt.genSaltSync(10))
+    // user.password = await bcrypt.hash(user.password, bcrypt.genSaltSync(10))
     return next()
 })
 

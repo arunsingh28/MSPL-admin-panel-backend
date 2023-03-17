@@ -7,8 +7,8 @@ import soundController from '../Controllers/sound.controller'
 import multer from 'multer'
 import regsiterWithFileController from '../Controllers/registerWithFile'
 import academyController from '../Controllers/academy.controller'
-import endUserController from '../Controllers/endUser.controller'
-
+import endUserController from '../Controllers/endUserController/endUser.controller'
+import foodController from '../Controllers/Nutrition/food.controller'
 
 const router = express.Router()
 
@@ -48,5 +48,13 @@ router.route('/get-user-info/:id').get(endUserController.getUserById)
 // academy apis
 router.route('/create-academy').post(academyController.registerAcademy)
 router.route('/create-coache').post(academyController.createCoach)
+
+
+router.route('/create-ingridient-from-file').post(upload.single('file'), foodController.addIngridientWithFile)
+router.route('/create-ingridient').post(foodController.addIngridient)
+router.route('/create-recipe-category').post(foodController.recipieCategory)
+router.route('/fetch-recipie-category').get(foodController.sendrecipieCategory)
+router.route('/delete-recipe-category/:id').delete(foodController.deleteRecipeCategory)
+router.route('/update-recipe-category/:id').put(foodController.updateRecipeCategory)
 
 export default router 
