@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import userModel from './emp.model'
+import userModel from './emp.Model'
 
 
 const loginScreen = new mongoose.Schema({

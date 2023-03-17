@@ -10,11 +10,15 @@ import logger from './Utils/logger';
 import { connectDB } from './Utils/DB.connection'
 import publicRouter from './Routers/Public.Router'
 import privateRouter from './Routers/Private.Router'
+import tutorialRouter from './Routers/Tutorial.Router'
+import NutritionRouter from './Routers/Nutrition.Router';
 import authorization from './middlewares/auth.middleware';
 import corsOptions from '../config/cors.config';
 import credentials from './Utils/credentials';
 import swaggerUI from 'swagger-ui-express'
 import swaggerDocs from '../docs/swagger';
+import session from './Utils/session'
+
 
 const app: Express = express();
 
@@ -55,11 +59,17 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // api docs route
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
+// session
+session(app)
+
 // public router
 app.use('/v1/api', publicRouter)
 // priavte router with authorization middleware
 app.use('/v2/api/', authorization, privateRouter)
-
+// tutorial router
+app.use('/v2/tutorial', authorization, tutorialRouter)
+// nutriotion router
+app.use('/v2/nutrition', authorization, NutritionRouter)
 
 
 // wrong url or incorrect url

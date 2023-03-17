@@ -1,26 +1,32 @@
 import mongoose from 'mongoose'
 
-
-export interface academyDocument extends mongoose.Document  {
+export interface academyDocument extends mongoose.Document {
     academyName: string,
-    ownerName: string,
-    email: string,
-    phone: number,
+    academyEmail: string,
     password: string,
-    address: string,
-    city: string,
-    state: string,
-    country: string,
-    logo: string,
-    status: string,
-    createdAt: Date,
-    website: string,
-    coaches: [
-        {
-            name: string,
-            email: string,
-            phone: number,
-            password: string,   
-        }
-    ]
+    referalCode: string,
+    uid: string,
+    sports:{
+        isCricket: boolean,
+        isTennis: boolean,
+        isFootball: boolean,
+        isBadminton: boolean,
+        isBasketball: boolean,
+        other: string
+    },
+    contestPerson: {
+        name: string,
+        number: number,
+        email: string
+    },
+    address:{
+        city: string,
+        address: string,
+    },
+    links:{
+        google: string,
+        website: string,
+        playO: string,
+    },
+    coches: []
 }

@@ -1,33 +1,27 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-export interface RegisterDocument extends mongoose.Document {
-    // firstName: String
-    // lastName: String
-    // phone: number
-    password: string
-    name: string
-    // dob: String
-    otp: Number
-    oldOtp: Number
-    email: String
-    // gender: String
-    // address: {
-    //     street: String
-    //     state: String
-    //     pincode: Number
-    //     city: String
-    // },
-    referral_code: String
-    accessToken: String
-    created_date: Date
-    status: Boolean
-    role: number
-    empId: String
-    updated_date: Date,
-    isMute:{
-        loginNotification: Boolean
-        logoutNotification: Boolean
-        deleteNotification: Boolean
+export interface IUser extends mongoose.Document {
+    name: string;
+    email: string;
+    phone: number;
+    dob: Date;
+    referal_code: string;
+    planType: string;
+    gender: string;
+    measurement: {
+        height: number;
+        weight: number;
+    };
+    profileImage:{
+        location: string;
+        key: string;
     }
-    timestamps: Date
+    language: string
+    isPaid: boolean;
+    sportList: string[]
+    isVerified: boolean;
+    isBlocked: boolean;
+    isDeleted: boolean;
+    otp: number
+    oldOtp: number
 }

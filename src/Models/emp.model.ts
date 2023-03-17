@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { RegisterDocument } from '../Interface/User.interface'
+import { RegisterDocument } from '../Interface/emp.interface'
 import bcrypt from 'bcrypt'
 
-const userSchema = new mongoose.Schema({
+const empSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'this field required'],
@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         //     message: (props: any) => `${props.value} is not valid email`
         // }                        
     },
-    empId:{
+    empId: {
         type: String,
         required: true,
     },
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
     //     type: String,
     //     required: true,
     // },
-    name:{
+    name: {
         type: String,
         required: true
     },
@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema({
     //     },
     //     required: true,
     // },
-    password:{
+    password: {
         type: String,
         required: true
     },
@@ -72,7 +72,7 @@ const userSchema = new mongoose.Schema({
     referral_code: {
         type: String,
     },
-    isMute:{
+    isMute: {
         loginNotification: {
             type: Boolean,
             default: false
@@ -94,13 +94,35 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    status:{
+    status: {
         type: Boolean,
         default: true
     },
-    profile_image:{
+    profile_image: {
         location: String,
         key: String,
+    },
+    tutorialTimeline: {
+        initTutorial: {
+            type: Boolean,
+            default: true
+        },
+        createModule: {
+            type: Boolean,
+            default: false
+        },
+        nameModule: {
+            type: Boolean,
+            default: false
+        },
+        designModule: {
+            type: Boolean,
+            default: false
+        },
+        writeModule: {
+            type: Boolean,
+            default: false
+        },
     },
     // gender:{
     //     type: String,
@@ -111,7 +133,7 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 })
 
-userSchema.pre('save', async function (next: mongoose.HookNextFunction) {
+empSchema.pre('save', async function (next: mongoose.HookNextFunction) {
     const user = this as RegisterDocument
     // set randmon referral code
     // place default genrated value to otp
@@ -123,13 +145,13 @@ userSchema.pre('save', async function (next: mongoose.HookNextFunction) {
 })
 
 // perform on every query 
-userSchema.post("init", async function () {
+empSchema.post("init", async function () {
     // update the time of updated_date
     const user = this as RegisterDocument
     // (<any>user).updated_date = Date.now()
     // console.log('UPDATED USER', user)
 })
 
-const registerModel = mongoose.model<RegisterDocument>('emp', userSchema)
+const registerModel = mongoose.model<RegisterDocument>('emp', empSchema)
 
 export default registerModel
