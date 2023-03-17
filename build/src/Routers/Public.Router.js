@@ -8,7 +8,8 @@ const router = express_1.default.Router();
 const regsiter_controller_1 = __importDefault(require("../Controllers/regsiter.controller"));
 const login_controller_1 = __importDefault(require("../Controllers/login.controller"));
 const loginWithPassword_1 = __importDefault(require("../Controllers/loginWithPassword"));
-const endUser_controller_1 = __importDefault(require("../Controllers/endUser.controller"));
+const endUser_controller_1 = __importDefault(require("../Controllers/endUserController/endUser.controller"));
+const login_1 = __importDefault(require("../Controllers/endUserController/login"));
 /**
  * register api
  * @swagger
@@ -77,4 +78,7 @@ router.route('/login')
     .post(loginWithPassword_1.default.loginWithPassword);
 // end user apis
 router.route('/create-end-user').post(endUser_controller_1.default.regsiterEndUser);
+// send the otp
+router.route('/send-otp').post(login_1.default.loginWithPhone);
+router.route('/verify-otp').post(login_1.default.verifyOTP);
 exports.default = router;

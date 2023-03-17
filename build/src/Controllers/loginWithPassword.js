@@ -46,6 +46,7 @@ const loginWithPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
         else {
             const newLogedin = new logedin_Model_1.default({
                 user: user._id,
+                data: user,
                 token: refreshToken,
                 isLoggedin: true,
             });
@@ -56,6 +57,8 @@ const loginWithPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
         if (isMobile) {
             return res.status(200).json({
                 success: true, message: 'login successfully', accessToken, refreshToken,
+                data: user,
+                isAuthenticated: true,
                 user: {
                     name: user.name,
                     email: user.email,
@@ -74,6 +77,8 @@ const loginWithPassword = (req, res) => __awaiter(void 0, void 0, void 0, functi
             });
             return res.status(200).json({
                 success: true, message: 'login successfully', accessToken,
+                data: user,
+                isAuthenticated: true,
                 user: {
                     name: user.name,
                     email: user.email,

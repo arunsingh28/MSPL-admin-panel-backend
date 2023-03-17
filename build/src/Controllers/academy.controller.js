@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const academyModel_1 = __importDefault(require("../Models/academyModel"));
+const academy_Model_1 = __importDefault(require("../Models/academy.Model"));
 const coache_Model_1 = require("../Models/coache.Model");
 const registerAcademy = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { academyEmail, academyName, cricket, football, badminton, baskitball, tennis, otherSport, address, city, contactNumber, contactName, contactEmail, website, googleLink, playoLink } = req.body;
@@ -38,7 +38,7 @@ const registerAcademy = (req, res) => __awaiter(void 0, void 0, void 0, function
         if (req.body.playoLink === '') {
             playoLink = null;
         }
-        const academy = yield academyModel_1.default.create({
+        const academy = yield academy_Model_1.default.create({
             academyName,
             academyEmail,
             uid,
