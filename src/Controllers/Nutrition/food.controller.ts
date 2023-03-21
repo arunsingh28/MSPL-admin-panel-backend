@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ingridienentsModel } from "../../Models/ingridienents.Model";
 import recipeCategoryModel from "../../Models/recipiCategory.Model";
+import DietFrequencyModel from "../../Models/DietFrequency.Model";
 import xlsx from 'xlsx'
 import fs from 'fs'
 
@@ -68,6 +69,16 @@ const addIngridient = async (req: Request, res: Response) => {
     }
 }
 
+// fetch all ingridients
+const sendIngridients = async (req: Request, res: Response) => {
+    try {
+        const data = await ingridienentsModel.find({})
+        return res.status(200).json({ data, success: true })
+    } catch (error: any) {
+        console.log(error)
+        return res.status(500).json({ message: 'Internal server error', success: false })
+    }
+}
 
 const recipieCategory = async (req: Request, res: Response) => {
     // save the ingridient to the database
@@ -118,4 +129,62 @@ const updateRecipeCategory = async (req: Request, res: Response) => {
     }
 }
 
-export default { addIngridientWithFile, addIngridient, recipieCategory, sendrecipieCategory, deleteRecipeCategory, updateRecipeCategory }
+// save the diet frequency
+const addDietFrequency = async (req: Request, res: Response) => {
+    // save the ingridient to the database
+    try {
+        await DietFrequencyModel.create({
+            name: req.body.name,
+        })
+        return res.status(200).json({ message: req.body.name + ' is added', success: true })
+    } catch (error: any) {
+        if (error.code === 11000) {
+            return res.status(400).json({ message: 'Diet already exist', success: false })
+        }
+        return res.status(500).json({ message: 'Internal server error', success: false })
+    }
+}
+
+// send all the deit frequency
+const sendDietFrequency = async (req: Request, res: Response) => {
+    // save the ingridient to the database
+    try {
+        const data = await DietFrequencyModel.find({})
+        return res.status(200).json({ data, success: true })
+    } catch (error: any) {
+        console.log(error)
+        return res.status(500).json({ message: 'Internal server error', success: false })
+    }
+}
+
+// delte the diet frequency
+const deleteDietFrequency = async (req: Request, res: Response) => {
+    try {
+        await DietFrequencyModel.deleteOne({ _id: req.params.id })
+        return res.status(200).json({ success: true, message: 'Delete successfully' })
+    } catch (error: any) {
+        console.log(error)
+        return res.status(500).json({ message: 'Internal server error', success: false })
+    }
+}
+
+// update the diet frequency
+const updateDietFrequency = async (req: Request, res: Response) => {
+    try {
+        await DietFrequencyModel.updateOne({ _id: req.params.id }, { $set: { name: req.body.name } })
+        const data = await DietFrequencyModel.find({})
+        return res.status(200).json({ success: true, data, message: 'Update successfully' })
+    } catch (error: any) {
+        if (error.code === 11000) {
+            return res.status(400).json({ message: 'Diet already exist', success: false })
+        }
+        return res.status(500).json({ message: 'Internal server error', success: false })
+    }
+}
+
+export default {
+    addIngridientWithFile, addIngridient,
+    recipieCategory, sendrecipieCategory,sendIngridients,
+    deleteRecipeCategory, updateRecipeCategory, updateDietFrequency,
+    addDietFrequency, sendDietFrequency, deleteDietFrequency
+}

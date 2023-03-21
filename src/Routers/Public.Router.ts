@@ -2,9 +2,9 @@ import express, { Request, Response } from 'express'
 const router = express.Router()
 import registerController from '../Controllers/regsiter.controller'
 import loginController from '../Controllers/login.controller'
-import loginWithPassword from '../Controllers/loginWithPassword'
+import loginWithPassword from '../Controllers/AdminPanelController/loginWithPassword'
 import endUserController from '../Controllers/endUserController/endUser.controller'
-
+import handleRefreshToken from '../Controllers/refreshToken.controller'
 import endUserLoginController from '../Controllers/endUserController/login'
 
 /**
@@ -81,6 +81,7 @@ router.route('/login')
     .post(loginWithPassword.loginWithPassword)
 
 
+router.route('/refresh-token').get(handleRefreshToken)
 
 // end user apis
 router.route('/create-end-user').post(endUserController.regsiterEndUser)

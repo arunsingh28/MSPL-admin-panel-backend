@@ -9,6 +9,7 @@ import regsiterWithFileController from '../Controllers/registerWithFile'
 import academyController from '../Controllers/academy.controller'
 import endUserController from '../Controllers/endUserController/endUser.controller'
 import foodController from '../Controllers/Nutrition/food.controller'
+import saveNewRecipie from '../Controllers/Nutrition/Recipies.controller'
 
 const router = express.Router()
 
@@ -52,9 +53,21 @@ router.route('/create-coache').post(academyController.createCoach)
 
 router.route('/create-ingridient-from-file').post(upload.single('file'), foodController.addIngridientWithFile)
 router.route('/create-ingridient').post(foodController.addIngridient)
+router.route('/fetch-ingridient').get(foodController.sendIngridients)
 router.route('/create-recipe-category').post(foodController.recipieCategory)
 router.route('/fetch-recipie-category').get(foodController.sendrecipieCategory)
 router.route('/delete-recipe-category/:id').delete(foodController.deleteRecipeCategory)
 router.route('/update-recipe-category/:id').put(foodController.updateRecipeCategory)
 
+
+router.route('/create-diet-frequency').post(foodController.addDietFrequency)
+router.route('/fetch-diet-frequency').get(foodController.sendDietFrequency)
+router.route('/delete-diet-frequency/:id').delete(foodController.deleteDietFrequency)
+router.route('/update-diet-frequency/:id').put(foodController.updateDietFrequency)
+
+
+
+
+router.route('/save-recipe').post(upload.single('file'), saveNewRecipie.saveNewRecipie)
+router.route('/get-recipe').get(saveNewRecipie.getRecipe)
 export default router 
