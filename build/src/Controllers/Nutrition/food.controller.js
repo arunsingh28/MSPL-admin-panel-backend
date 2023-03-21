@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const ingridienents_Model_1 = require("../../Models/ingridienents.Model");
 const recipiCategory_Model_1 = __importDefault(require("../../Models/recipiCategory.Model"));
+const DietFrequency_Model_1 = __importDefault(require("../../Models/DietFrequency.Model"));
 const xlsx_1 = __importDefault(require("xlsx"));
 const fs_1 = __importDefault(require("fs"));
 const addIngridientWithFile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -80,6 +81,17 @@ const addIngridient = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return res.status(500).json({ message: 'Internal server error', success: false });
     }
 });
+// fetch all ingridients
+const sendIngridients = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield ingridienents_Model_1.ingridienentsModel.find({});
+        return res.status(200).json({ data, success: true });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Internal server error', success: false });
+    }
+});
 const recipieCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // save the ingridient to the database
     try {
@@ -129,4 +141,62 @@ const updateRecipeCategory = (req, res) => __awaiter(void 0, void 0, void 0, fun
         return res.status(500).json({ message: 'Internal server error', success: false });
     }
 });
-exports.default = { addIngridientWithFile, addIngridient, recipieCategory, sendrecipieCategory, deleteRecipeCategory, updateRecipeCategory };
+// save the diet frequency
+const addDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // save the ingridient to the database
+    try {
+        yield DietFrequency_Model_1.default.create({
+            name: req.body.name,
+        });
+        return res.status(200).json({ message: req.body.name + ' is added', success: true });
+    }
+    catch (error) {
+        if (error.code === 11000) {
+            return res.status(400).json({ message: 'Diet already exist', success: false });
+        }
+        return res.status(500).json({ message: 'Internal server error', success: false });
+    }
+});
+// send all the deit frequency
+const sendDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // save the ingridient to the database
+    try {
+        const data = yield DietFrequency_Model_1.default.find({});
+        return res.status(200).json({ data, success: true });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Internal server error', success: false });
+    }
+});
+// delte the diet frequency
+const deleteDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield DietFrequency_Model_1.default.deleteOne({ _id: req.params.id });
+        return res.status(200).json({ success: true, message: 'Delete successfully' });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Internal server error', success: false });
+    }
+});
+// update the diet frequency
+const updateDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield DietFrequency_Model_1.default.updateOne({ _id: req.params.id }, { $set: { name: req.body.name } });
+        const data = yield DietFrequency_Model_1.default.find({});
+        return res.status(200).json({ success: true, data, message: 'Update successfully' });
+    }
+    catch (error) {
+        if (error.code === 11000) {
+            return res.status(400).json({ message: 'Diet already exist', success: false });
+        }
+        return res.status(500).json({ message: 'Internal server error', success: false });
+    }
+});
+exports.default = {
+    addIngridientWithFile, addIngridient,
+    recipieCategory, sendrecipieCategory, sendIngridients,
+    deleteRecipeCategory, updateRecipeCategory, updateDietFrequency,
+    addDietFrequency, sendDietFrequency, deleteDietFrequency
+};

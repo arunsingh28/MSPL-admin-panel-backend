@@ -26,6 +26,8 @@ const app = (0, express_1.default)();
 (0, errorHandler_1.default)();
 // database connection
 (0, DB_connection_1.connectDB)();
+// private data sharing
+app.use(credentials_1.default);
 // middlewares ------------------------------------------------------------
 // body parser
 app.use(express_1.default.json({ limit: '50MB' }));
@@ -36,8 +38,6 @@ app.use(body_parser_1.default.json());
 app.use((0, cookie_parser_1.default)());
 // user agent middleware
 app.use(express_useragent_1.default.express());
-// private data sharing
-app.use(credentials_1.default);
 // cors
 app.use((0, cors_1.default)(cors_config_1.default));
 // file logger

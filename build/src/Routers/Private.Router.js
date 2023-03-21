@@ -14,6 +14,7 @@ const registerWithFile_1 = __importDefault(require("../Controllers/registerWithF
 const academy_controller_1 = __importDefault(require("../Controllers/academy.controller"));
 const endUser_controller_1 = __importDefault(require("../Controllers/endUserController/endUser.controller"));
 const food_controller_1 = __importDefault(require("../Controllers/Nutrition/food.controller"));
+const Recipies_controller_1 = __importDefault(require("../Controllers/Nutrition/Recipies.controller"));
 const router = express_1.default.Router();
 var storage = multer_1.default.diskStorage({
     destination: (req, file, cb) => {
@@ -47,8 +48,15 @@ router.route('/create-academy').post(academy_controller_1.default.registerAcadem
 router.route('/create-coache').post(academy_controller_1.default.createCoach);
 router.route('/create-ingridient-from-file').post(upload.single('file'), food_controller_1.default.addIngridientWithFile);
 router.route('/create-ingridient').post(food_controller_1.default.addIngridient);
+router.route('/fetch-ingridient').get(food_controller_1.default.sendIngridients);
 router.route('/create-recipe-category').post(food_controller_1.default.recipieCategory);
 router.route('/fetch-recipie-category').get(food_controller_1.default.sendrecipieCategory);
 router.route('/delete-recipe-category/:id').delete(food_controller_1.default.deleteRecipeCategory);
 router.route('/update-recipe-category/:id').put(food_controller_1.default.updateRecipeCategory);
+router.route('/create-diet-frequency').post(food_controller_1.default.addDietFrequency);
+router.route('/fetch-diet-frequency').get(food_controller_1.default.sendDietFrequency);
+router.route('/delete-diet-frequency/:id').delete(food_controller_1.default.deleteDietFrequency);
+router.route('/update-diet-frequency/:id').put(food_controller_1.default.updateDietFrequency);
+router.route('/save-recipe').post(upload.single('file'), Recipies_controller_1.default.saveNewRecipie);
+router.route('/get-recipe').get(Recipies_controller_1.default.getRecipe);
 exports.default = router;
