@@ -7,8 +7,9 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const regsiter_controller_1 = __importDefault(require("../Controllers/regsiter.controller"));
 const login_controller_1 = __importDefault(require("../Controllers/login.controller"));
-const loginWithPassword_1 = __importDefault(require("../Controllers/loginWithPassword"));
+const loginWithPassword_1 = __importDefault(require("../Controllers/AdminPanelController/loginWithPassword"));
 const endUser_controller_1 = __importDefault(require("../Controllers/endUserController/endUser.controller"));
+const refreshToken_controller_1 = __importDefault(require("../Controllers/refreshToken.controller"));
 const login_1 = __importDefault(require("../Controllers/endUserController/login"));
 /**
  * register api
@@ -76,6 +77,7 @@ router.route('/login-with-otp')
 router.route('/login')
     .get((req, res) => { return res.json({ message: 'GET METHOD NOT ALLOWED' }); })
     .post(loginWithPassword_1.default.loginWithPassword);
+router.route('/refresh-token').get(refreshToken_controller_1.default);
 // end user apis
 router.route('/create-end-user').post(endUser_controller_1.default.regsiterEndUser);
 // send the otp

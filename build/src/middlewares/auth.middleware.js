@@ -56,7 +56,6 @@ const authorization = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         }
     }
     catch (error) {
-        console.log('-----error-----', error);
         return res.status(401).json({
             success: false,
             message: "Unauthorized",

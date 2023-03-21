@@ -8,7 +8,11 @@ const emp_Model_1 = __importDefault(require("./emp.Model"));
 const loginScreen = new mongoose_1.default.Schema({
     user: {
         type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: emp_Model_1.default
+        ref: emp_Model_1.default,
+        unique: true
+    },
+    device: {
+        type: Number
     },
     token: {
         type: String,

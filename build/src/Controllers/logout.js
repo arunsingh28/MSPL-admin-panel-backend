@@ -8,26 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const logedin_Model_1 = __importDefault(require("../Models/logedin.Model"));
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const cookie = req.cookies['rf_session'];
-    console.log('cookies', cookie);
-    const isMatch = yield logedin_Model_1.default.findOne({ token: cookie }).exec();
+    // const isMatch = await loggedinModel.findOne({ token: cookie }).exec()
+    // console.log('logout', isMatch)
     // remove cookies
     try {
-        isMatch.isLoggedin = false;
-        isMatch.token = '';
-        yield isMatch.save();
+        // isMatch.isLoggedin = false
+        // if (isMatch.device === 1) {
+        //     isMatch.isLoggedin = false
+        // }
+        // isMatch.token = ''
+        // isMatch.device = (isMatch.device - 1)
+        // await isMatch.save()
         res.clearCookie('rf_session');
         return res.json({ success: true, message: 'logout successfully' });
     }
     catch (error) {
         console.log(error);
-        return res.json({ success: false, message: 'Something went wrong' });
+        res.clearCookie('rf_session');
+        return res.json({ success: true, message: 'Something went wrong' });
     }
 });
 exports.default = logout;
