@@ -28,6 +28,9 @@ errorHandler()
 // database connection
 connectDB()
 
+// private data sharing
+app.use(credentials)
+
 // middlewares ------------------------------------------------------------
 // body parser
 app.use(express.json({ limit: '50MB' }))
@@ -38,8 +41,7 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 // user agent middleware
 app.use(userAgent.express())
-// private data sharing
-app.use(credentials)
+
 // cors
 app.use(cors(corsOptions))
 
@@ -54,7 +56,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   })
   next()
 })
-
 
 // api docs route
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))

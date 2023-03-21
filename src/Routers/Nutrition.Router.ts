@@ -1,6 +1,6 @@
 import express from 'express'
 import multer from 'multer'
-import foodController from '../Controllers/Nutrition/food.controller'
+import saveNewRecipie from '../Controllers/Nutrition/Recipies.controller'
 const router = express.Router()
 
 
@@ -15,6 +15,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage })
 
-// router.route('/add-ingridienents').post(upload.single('file'), foodController.addIngridient)
+router.route('/save-recipie').post(upload.single('file'), saveNewRecipie.saveNewRecipie)
 
 export default router

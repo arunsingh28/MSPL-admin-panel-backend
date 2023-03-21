@@ -3,29 +3,33 @@ import userModel from './emp.Model'
 
 
 const loginScreen = new mongoose.Schema({
-    user:{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: userModel
+        ref: userModel,
+        unique: true
     },
-    token:{
+    device: {
+        type: Number
+    },
+    token: {
         type: String,
     },
-    isLoggedin:{
+    isLoggedin: {
         type: Boolean,
         default: false,
-        require:true
+        require: true
     },
-    from:{
+    from: {
         type: String
     },
-    to:{
+    to: {
         type: String
     },
-    updatedAt:{
+    updatedAt: {
         type: Date,
         default: Date.now
     },
-    firstLogin:{
+    firstLogin: {
         type: Date,
         default: Date.now
     }
