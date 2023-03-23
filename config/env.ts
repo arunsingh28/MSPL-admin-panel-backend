@@ -3,7 +3,7 @@ const env = {
     _NAMESPACE: 'server',
     _port: process.env.PORT || 4000,
     // _databse_url: 'mongodb://mongo:27017/sportylife',
-    _databse_url: 'mongodb://localhost:27017/emp-server',
+    _databse_url: 'mongodb+srv://arun:1234@cluster0.t3qon.mongodb.net/emp-server?retryWrites=true&w=majority',
 
     // aws s3
     accessKeyId: '',
