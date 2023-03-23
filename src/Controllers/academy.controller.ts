@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import academyModel from "../Models/academy.Model";
-import { Coache } from "../Models/coache.Model";
+import academyModel from "../Models/academy.model";
+import { Coache } from "../Models/coache.model";
 
 const registerAcademy = async (req: Request, res: Response) => {
     const { academyEmail, academyName, cricket, football, badminton, baskitball, tennis, otherSport, address, city, contactNumber, contactName, contactEmail, website, googleLink, playoLink } = req.body;

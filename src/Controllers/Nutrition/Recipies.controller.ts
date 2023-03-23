@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import recipeDB from '../../Models/Recipies.Model'
+import recipeDB from '../../Models/Recipies.model'
 
 
 // form.append('name', recipeDate.name)

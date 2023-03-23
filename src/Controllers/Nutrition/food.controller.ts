@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { ingridienentsModel } from "../../Models/ingridienents.Model";
-import recipeCategoryModel from "../../Models/recipiCategory.Model";
-import DietFrequencyModel from "../../Models/DietFrequency.Model";
+import { ingridienentsModel } from "../../Models/ingridienents.model";
+import recipeCategoryModel from "../../Models/recipiCategory.model";
+import DietFrequencyModel from "../../Models/DietFrequency.model";
 import xlsx from 'xlsx'
 import fs from 'fs'
 

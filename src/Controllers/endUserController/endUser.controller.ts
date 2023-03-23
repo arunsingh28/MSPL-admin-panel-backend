@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import userModel from '../../Models/user.Model';
+import userModel from '../../Models/user.model';
 
 
 // Register End User

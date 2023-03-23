@@ -1,4 +1,4 @@
-import empModel from '../Models/emp.Model';
+import empModel from '../Models/emp.model';
 import { Request, Response } from 'express';
 
 

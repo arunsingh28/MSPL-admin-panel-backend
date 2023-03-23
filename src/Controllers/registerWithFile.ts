@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import xlsx from 'xlsx';
 import fs from 'fs'
-import schoolModel from '../Models/school.Model';
-import empModel from '../Models/emp.Model'
+import schoolModel from '../Models/school.model';
+import empModel from '../Models/emp.model'
 import { generatePassword } from './regsiter.controller';
 
 const registerSchoolWithFile = async (req: Request, res: Response) => {

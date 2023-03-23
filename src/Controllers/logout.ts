@@ -1,4 +1,4 @@
-import loggedinModel from '../Models/logedin.Model';
+import loggedinModel from '../Models/logedin.model';
 import { Request, Response } from 'express';
 
 

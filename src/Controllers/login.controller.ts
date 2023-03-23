@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import userModel from "../Models/emp.Model";
+import userModel from "../Models/emp.model";
 import token from '../Utils/tokens'
 import jwt from 'jsonwebtoken'
 import env from "../../config/env";

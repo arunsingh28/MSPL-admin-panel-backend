@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import schoolModel from '../Models/school.Model';
+import schoolModel from '../Models/school.model';
 
 const getAllSchool = async (req: Request, res: Response) => {
     const school = await schoolModel.find();

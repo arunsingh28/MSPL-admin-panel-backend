@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { Tutorial } from '../Models/Tutorial.LMS'
-import empModel from '../Models/emp.Model'
+import empModel from '../Models/emp.model'
 
 
 // get info

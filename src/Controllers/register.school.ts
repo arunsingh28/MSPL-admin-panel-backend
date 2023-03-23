@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import schoolModel from '../Models/school.Model';
+import schoolModel from '../Models/school.model';
 
 const registerForSchool = async (req: Request, res: Response) => {
     const { schoolName, schoolArea, schoolCity, pinCode, contactName, contactPhone, contactEmail,cricket:isCricket, tennis: isTennis, isFootball,badminton:isBadminton,basketball:isBasketball,otherSport:other } = req.body;
