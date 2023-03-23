@@ -3,7 +3,7 @@ import userModel from "../../Models/emp.model";
 import bcrypt from 'bcrypt';
 import token from '../../Utils/tokens'
 import env from "../../../config/env";
-import LoggedInModel from '../../Models/logedin.model'
+// import LoggedInModel from '../../Models/logedin.model'
 
 
 interface IisAlreadyLogedin {

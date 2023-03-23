@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import registerUser from '../Models/emp.model'
-import logedinModel from '../Models/logedin.Model'
+import logedinModel from '../Models/logedin.model'
 import { RegisterDocument } from '../Interface/emp.interface'
 import { Response, Request, NextFunction } from 'express'
 import env from '../../config/env'

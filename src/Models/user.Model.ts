@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IUser } from "../Interface/user.interface";
+import { IUser } from "../Interface/User.interface";
 import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
