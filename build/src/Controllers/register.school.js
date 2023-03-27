@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const school_Model_1 = __importDefault(require("../Models/school.Model"));
+const school_model_1 = __importDefault(require("../Models/school.model"));
 const registerForSchool = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { schoolName, schoolArea, schoolCity, pinCode, contactName, contactPhone, contactEmail, cricket: isCricket, tennis: isTennis, isFootball, badminton: isBadminton, basketball: isBasketball, otherSport: other } = req.body;
     // value validation
     if (!schoolName || !schoolArea || !schoolCity || !pinCode || !contactName || !contactPhone || !contactEmail)
         return res.status(403).json({ message: 'All fields are required', sucess: false });
     try {
-        const newSchool = new school_Model_1.default({
+        const newSchool = new school_model_1.default({
             schoolName,
             schoolAddress: { schoolArea, schoolCity, pinCode },
             contestPerson: { contactName, contactPhone, contactEmail },

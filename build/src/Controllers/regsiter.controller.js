@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generatePassword = void 0;
 const env_1 = __importDefault(require("../../config/env"));
-const emp_Model_1 = __importDefault(require("../Models/emp.Model"));
+const emp_model_1 = __importDefault(require("../Models/emp.model"));
 const tokens_1 = __importDefault(require("../Utils/tokens"));
 const isMobile_1 = __importDefault(require("../Utils/isMobile"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -44,7 +44,7 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         // save to db
         try {
             // check user is already registerd
-            const isExist = yield emp_Model_1.default.findOne({ email: email, empId: id }).exec();
+            const isExist = yield emp_model_1.default.findOne({ email: email, empId: id }).exec();
             if (isExist) {
                 return res.status(409).json({ success: false, message: 'Already registerd. Please login' });
             }
@@ -52,7 +52,7 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             const password = (0, exports.generatePassword)();
             const referral_code = Math.random().toString(36).substr(5);
             const encrypt = yield bcrypt_1.default.hash(password, bcrypt_1.default.genSaltSync(10));
-            const newUser = new emp_Model_1.default({
+            const newUser = new emp_model_1.default({
                 // firstName, lastName, email, phone, dob, gender, password,
                 // address: { city, state, street },
                 name, email, phone, password: encrypt, role, empId: id, referral_code

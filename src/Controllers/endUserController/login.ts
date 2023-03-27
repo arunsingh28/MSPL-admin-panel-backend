@@ -5,6 +5,8 @@ import otpGenrator from '../../Utils/otpGenrator';
 import jwt from 'jsonwebtoken'
 import env from '../../../config/env';
 import sendOTP from '../../services/sendOTP';
+import newUser from '../../Models/newUser.model';
+
 
 // login with phone number return otp to mobile number
 const loginWithPhone = async (req: Request, res: Response) => {
@@ -12,7 +14,8 @@ const loginWithPhone = async (req: Request, res: Response) => {
     try {
         if (isUser) {
             // send the otp to mobile number
-            sendOTP(isUser.oldOtp, isUser.phone);
+            const otpres = sendOTP(isUser.oldOtp, isUser.phone);
+            console.log('otp first', otpres)
             /* 
             send the access token to the user with 
             payload:  user id      
@@ -28,14 +31,42 @@ const loginWithPhone = async (req: Request, res: Response) => {
                 stautsCode: res.statusCode
             })
         } else {
-            // user not exist
-            return res.status(200).json({
-                message: 'User not found',
-                success: false,
-                isExists: false,
-                data: null,
-                stautsCode: res.statusCode
-            })
+            const isNewUser = await newUser.findOne({ phone: req.body.phone }).exec();
+            if (isNewUser) {
+                // send the otp to mobile number
+                const otpres =  sendOTP(isNewUser.oldOtp, isNewUser.phone);
+                console.log('otp middle', otpres)
+                /* 
+                send the access token to the user with 
+                payload:  user id      
+                */
+                const otpAccessToken = tokens.mobileOtpToken(isNewUser._id); // time 5 min
+                // send the respoonse to client
+                return res.status(200).json({
+                    message: 'OTP send to your mobile number',
+                    accessToken: otpAccessToken,
+                    success: true,
+                    isExists: true,
+                    data: null,
+                    stautsCode: res.statusCode
+                })
+            } else {
+                // user not exist
+                const user = await new newUser({ phone: req.body.phone }).save()
+                // send the token to client
+                const otpAccessToken = tokens.mobileOtpToken(user._id);
+                // send the otp to mobile number
+                const otpres = sendOTP(user.oldOtp, user.phone);
+                console.log('otp last', otpres)
+                return res.status(200).json({
+                    message: 'OTP send to your mobile number',
+                    accessToken: otpAccessToken,
+                    success: true,
+                    isExists: false,
+                    data: null,
+                    stautsCode: res.statusCode
+                })
+            }
         }
     } catch (error: any) {
         return res.status(500).json({

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_Model_1 = __importDefault(require("../../Models/user.Model"));
+const user_model_1 = __importDefault(require("../../Models/user.model"));
 // Register End User
 const regsiterEndUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, phone, dob, height, weight, gender } = req.body;
@@ -20,7 +20,7 @@ const regsiterEndUser = (req, res) => __awaiter(void 0, void 0, void 0, function
         return res.status(400).json({ message: 'Please fill all the fields', success: false, stautsCode: 400 });
     }
     try {
-        const newUser = new user_Model_1.default({
+        const newUser = new user_model_1.default({
             name,
             email,
             phone,
@@ -44,7 +44,7 @@ const regsiterEndUser = (req, res) => __awaiter(void 0, void 0, void 0, function
 // Get all users
 const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield user_Model_1.default.find();
+        const users = yield user_model_1.default.find();
         return res.status(200).json(users);
     }
     catch (error) {
@@ -54,7 +54,7 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 // get user by ID
 const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield user_Model_1.default.findById(req.params.id);
+        const user = yield user_model_1.default.findById(req.params.id);
         return res.status(200).json(user);
     }
     catch (error) {

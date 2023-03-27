@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const xlsx_1 = __importDefault(require("xlsx"));
 const fs_1 = __importDefault(require("fs"));
-const school_Model_1 = __importDefault(require("../Models/school.Model"));
-const emp_Model_1 = __importDefault(require("../Models/emp.Model"));
+const school_model_1 = __importDefault(require("../Models/school.model"));
+const emp_model_1 = __importDefault(require("../Models/emp.model"));
 const regsiter_controller_1 = require("./regsiter.controller");
 const registerSchoolWithFile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
@@ -37,7 +37,7 @@ const registerSchoolWithFile = (req, res) => __awaiter(void 0, void 0, void 0, f
                 if (!data.schoolName || !data.schoolArea || !data.schoolCity || !data.pinCode || !data.contactName || !data.contactPhone || !data.contactEmail)
                     return res.status(403).json({ message: 'All fields are required', success: false });
                 try {
-                    const newSchool = new school_Model_1.default({
+                    const newSchool = new school_model_1.default({
                         schoolName: data.schoolName,
                         schoolAddress: {
                             schoolArea: data.schoolArea,
@@ -107,7 +107,7 @@ const registerEmpWithFile = (req, res) => __awaiter(void 0, void 0, void 0, func
                     const converRole = data.role.split(";").map((item) => Number(item));
                     // generate password
                     const password = (0, regsiter_controller_1.generatePassword)();
-                    const newEmp = new emp_Model_1.default({
+                    const newEmp = new emp_model_1.default({
                         id: data.id,
                         name: data.name,
                         email: data.email,

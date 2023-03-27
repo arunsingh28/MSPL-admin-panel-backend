@@ -15,7 +15,9 @@ export interface IUser extends mongoose.Document {
     profileImage:{
         location: string;
         key: string;
-    }
+    },
+    BMI: number;
+    BMR: number;
     language: string
     isPaid: boolean;
     sportList: string[]

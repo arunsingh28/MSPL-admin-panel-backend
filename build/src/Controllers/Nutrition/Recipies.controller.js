@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Recipies_Model_1 = __importDefault(require("../../Models/Recipies.Model"));
+const Recipies_model_1 = __importDefault(require("../../Models/Recipies.model"));
 // form.append('name', recipeDate.name)
 // form.append('ingredients', JSON.stringify(recipeDate.ingredients))
 // form.append('tags', JSON.stringify(recipeDate.tags))
@@ -39,7 +39,7 @@ const saveNewRecipie = (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
     };
     try {
-        yield Recipies_Model_1.default.create(recipe);
+        yield Recipies_model_1.default.create(recipe);
         return res.status(201).json({ success: true, message: 'Recipi Save' });
     }
     catch (err) {
@@ -48,7 +48,7 @@ const saveNewRecipie = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 const getRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const recipe = yield Recipies_Model_1.default.find({});
+        const recipe = yield Recipies_model_1.default.find({});
         return res.status(200).json({ success: true, recipe });
     }
     catch (err) {

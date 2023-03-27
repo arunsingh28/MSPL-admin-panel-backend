@@ -16,6 +16,14 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    BMI:{
+        type: Number,
+        default: 0
+    },
+    BMR:{
+        type: Number,
+        default: 0
+    },
     gender: {
         type: String,
         required: true,

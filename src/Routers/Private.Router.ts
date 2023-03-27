@@ -1,5 +1,4 @@
 import express from 'express'
-import logout from '../Controllers/logout'
 import schoolController from '../Controllers/school.controller'
 import registerForSchool from '../Controllers/register.school'
 import loginController from '../Controllers/login.controller'
@@ -40,7 +39,7 @@ router.route('/change-password/:_id').post(loginController.changePassword)
 router.route('/sound-change/:_id').post(soundController.updateSoundSetting)
 router.route('/sound-change/grab/:_id').get(soundController.sendSoundSetting)
 router.route('/create-emp-from-file').post(upload.single('file'), regsiterWithFileController.registerEmpWithFile)
-router.route('/logout').get(logout)
+
 
 // user
 router.route('/get-all-user').get(endUserController.getAllUsers)

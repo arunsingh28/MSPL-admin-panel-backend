@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const academy_Model_1 = __importDefault(require("../Models/academy.Model"));
-const coache_Model_1 = require("../Models/coache.Model");
+const academy_model_1 = __importDefault(require("../Models/academy.model"));
+const coache_model_1 = require("../Models/coache.model");
 const registerAcademy = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { academyEmail, academyName, cricket, football, badminton, baskitball, tennis, otherSport, address, city, contactNumber, contactName, contactEmail, website, googleLink, playoLink } = req.body;
     if (!academyEmail || !academyName || !address || !city || !contactNumber || !contactName || !contactEmail) {
@@ -38,7 +38,7 @@ const registerAcademy = (req, res) => __awaiter(void 0, void 0, void 0, function
         if (req.body.playoLink === '') {
             playoLink = null;
         }
-        const academy = yield academy_Model_1.default.create({
+        const academy = yield academy_model_1.default.create({
             academyName,
             academyEmail,
             uid,
@@ -79,7 +79,7 @@ const createCoach = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         return res.status(400).json({ message: "All fields are required", success: false });
     }
     try {
-        const coach = yield coache_Model_1.Coache.create({
+        const coach = yield coache_model_1.Coache.create({
             name,
             email,
             phone,

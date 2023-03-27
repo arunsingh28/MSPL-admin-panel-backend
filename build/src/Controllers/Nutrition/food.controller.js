@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ingridienents_Model_1 = require("../../Models/ingridienents.Model");
-const recipiCategory_Model_1 = __importDefault(require("../../Models/recipiCategory.Model"));
-const DietFrequency_Model_1 = __importDefault(require("../../Models/DietFrequency.Model"));
+const ingridienents_model_1 = require("../../Models/ingridienents.model");
+const recipiCategory_model_1 = __importDefault(require("../../Models/recipiCategory.model"));
+const DietFrequency_model_1 = __importDefault(require("../../Models/DietFrequency.model"));
 const xlsx_1 = __importDefault(require("xlsx"));
 const fs_1 = __importDefault(require("fs"));
 const addIngridientWithFile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -42,7 +42,7 @@ const addIngridientWithFile = (req, res) => __awaiter(void 0, void 0, void 0, fu
         let count = 0;
         while (i < xlData.length) {
             count++;
-            const isInsert = yield ingridienents_Model_1.ingridienentsModel.create({
+            const isInsert = yield ingridienents_model_1.ingridienentsModel.create({
                 name: xlData[i].name,
                 unit: xlData[i].unit,
                 quantity: xlData[i].quantity,
@@ -65,7 +65,7 @@ const addIngridientWithFile = (req, res) => __awaiter(void 0, void 0, void 0, fu
 const addIngridient = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // save the ingridient to the database
     try {
-        const isInsert = yield ingridienents_Model_1.ingridienentsModel.create({
+        const isInsert = yield ingridienents_model_1.ingridienentsModel.create({
             name: req.body.name,
             unit: req.body.unit,
             quantity: req.body.quantity,
@@ -84,7 +84,7 @@ const addIngridient = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 // fetch all ingridients
 const sendIngridients = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield ingridienents_Model_1.ingridienentsModel.find({});
+        const data = yield ingridienents_model_1.ingridienentsModel.find({});
         return res.status(200).json({ data, success: true });
     }
     catch (error) {
@@ -95,7 +95,7 @@ const sendIngridients = (req, res) => __awaiter(void 0, void 0, void 0, function
 const recipieCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // save the ingridient to the database
     try {
-        yield recipiCategory_Model_1.default.create({
+        yield recipiCategory_model_1.default.create({
             name: req.body.name,
         });
         return res.status(200).json({ message: req.body.name + ' is added', success: true });
@@ -110,7 +110,7 @@ const recipieCategory = (req, res) => __awaiter(void 0, void 0, void 0, function
 const sendrecipieCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // save the ingridient to the database
     try {
-        const data = yield recipiCategory_Model_1.default.find({});
+        const data = yield recipiCategory_model_1.default.find({});
         return res.status(200).json({ data, success: true });
     }
     catch (error) {
@@ -120,7 +120,7 @@ const sendrecipieCategory = (req, res) => __awaiter(void 0, void 0, void 0, func
 });
 const deleteRecipeCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield recipiCategory_Model_1.default.deleteOne({ _id: req.params.id });
+        yield recipiCategory_model_1.default.deleteOne({ _id: req.params.id });
         return res.status(200).json({ success: true, message: 'Delete successfully' });
     }
     catch (error) {
@@ -130,8 +130,8 @@ const deleteRecipeCategory = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 const updateRecipeCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield recipiCategory_Model_1.default.updateOne({ _id: req.params.id }, { $set: { name: req.body.name } });
-        const data = yield recipiCategory_Model_1.default.find({});
+        yield recipiCategory_model_1.default.updateOne({ _id: req.params.id }, { $set: { name: req.body.name } });
+        const data = yield recipiCategory_model_1.default.find({});
         return res.status(200).json({ success: true, data, message: 'Update successfully' });
     }
     catch (error) {
@@ -145,7 +145,7 @@ const updateRecipeCategory = (req, res) => __awaiter(void 0, void 0, void 0, fun
 const addDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // save the ingridient to the database
     try {
-        yield DietFrequency_Model_1.default.create({
+        yield DietFrequency_model_1.default.create({
             name: req.body.name,
         });
         return res.status(200).json({ message: req.body.name + ' is added', success: true });
@@ -161,7 +161,7 @@ const addDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, functio
 const sendDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // save the ingridient to the database
     try {
-        const data = yield DietFrequency_Model_1.default.find({});
+        const data = yield DietFrequency_model_1.default.find({});
         return res.status(200).json({ data, success: true });
     }
     catch (error) {
@@ -172,7 +172,7 @@ const sendDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, functi
 // delte the diet frequency
 const deleteDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield DietFrequency_Model_1.default.deleteOne({ _id: req.params.id });
+        yield DietFrequency_model_1.default.deleteOne({ _id: req.params.id });
         return res.status(200).json({ success: true, message: 'Delete successfully' });
     }
     catch (error) {
@@ -183,8 +183,8 @@ const deleteDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, func
 // update the diet frequency
 const updateDietFrequency = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield DietFrequency_Model_1.default.updateOne({ _id: req.params.id }, { $set: { name: req.body.name } });
-        const data = yield DietFrequency_Model_1.default.find({});
+        yield DietFrequency_model_1.default.updateOne({ _id: req.params.id }, { $set: { name: req.body.name } });
+        const data = yield DietFrequency_model_1.default.find({});
         return res.status(200).json({ success: true, data, message: 'Update successfully' });
     }
     catch (error) {

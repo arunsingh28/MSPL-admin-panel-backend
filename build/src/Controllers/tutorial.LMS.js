@@ -13,13 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Tutorial_LMS_1 = require("../Models/Tutorial.LMS");
-const emp_Model_1 = __importDefault(require("../Models/emp.Model"));
+const emp_model_1 = __importDefault(require("../Models/emp.model"));
 // get info
 const getTutorialInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const userId = yield ((_a = req.session.user) === null || _a === void 0 ? void 0 : _a._id);
     try {
-        const info = yield emp_Model_1.default.findById(userId).exec();
+        const info = yield emp_model_1.default.findById(userId).exec();
         const tutorial = yield Tutorial_LMS_1.Tutorial.findOne({ intiater: userId }).exec();
         return res.status(200).json({ info: info === null || info === void 0 ? void 0 : info.tutorialTimeline, tutorial, success: false });
     }
@@ -41,7 +41,7 @@ const initTutorial = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             return res.status(400).json({ message: 'Tutorial already exists', success: false });
         }
         // update user tutorialTimeline initTutorial to true
-        const emp = yield emp_Model_1.default.findById(userId).exec();
+        const emp = yield emp_model_1.default.findById(userId).exec();
         if (emp) {
             emp.tutorialTimeline.initTutorial = false;
             emp.tutorialTimeline.createModule = true;
@@ -68,7 +68,7 @@ const initModule = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     try {
         const tutorial = yield Tutorial_LMS_1.Tutorial.findOne({ TutorialTitle: name });
-        const emp = yield emp_Model_1.default.findById(userId).exec();
+        const emp = yield emp_model_1.default.findById(userId).exec();
         if (emp) {
             emp.tutorialTimeline.createModule = false;
             emp.tutorialTimeline.nameModule = true;
@@ -94,7 +94,7 @@ const initModuleName = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     try {
         const tutorial = yield Tutorial_LMS_1.Tutorial.findOne({ TutorialTitle: name });
-        const emp = yield emp_Model_1.default.findById(userId).exec();
+        const emp = yield emp_model_1.default.findById(userId).exec();
         if (emp) {
             emp.tutorialTimeline.nameModule = false;
             emp.tutorialTimeline.designModule = true;
@@ -126,7 +126,7 @@ const tutorialComplete = (req, res) => __awaiter(void 0, void 0, void 0, functio
     var _e;
     const userId = yield ((_e = req.session.user) === null || _e === void 0 ? void 0 : _e._id);
     try {
-        const emp = yield emp_Model_1.default.findById(userId).exec();
+        const emp = yield emp_model_1.default.findById(userId).exec();
         if (emp) {
             emp.tutorialTimeline.initTutorial = true;
             emp.tutorialTimeline.createModule = false;

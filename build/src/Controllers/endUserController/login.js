@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_Model_1 = __importDefault(require("../../Models/user.Model"));
+const user_model_1 = __importDefault(require("../../Models/user.model"));
 const tokens_1 = __importDefault(require("../../Utils/tokens"));
 const otpGenrator_1 = __importDefault(require("../../Utils/otpGenrator"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -20,7 +20,7 @@ const env_1 = __importDefault(require("../../../config/env"));
 const sendOTP_1 = __importDefault(require("../../services/sendOTP"));
 // login with phone number return otp to mobile number
 const loginWithPhone = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const isUser = yield user_Model_1.default.findOne({ phone: req.body.phone }).exec();
+    const isUser = yield user_model_1.default.findOne({ phone: req.body.phone }).exec();
     try {
         if (isUser) {
             // send the otp to mobile number
@@ -67,7 +67,7 @@ const verifyOTP = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // debug the token
         const userId = jsonwebtoken_1.default.verify(token, env_1.default._jwt_mobile_token_secret_key);
-        const user = yield user_Model_1.default.findById(userId.id).exec();
+        const user = yield user_model_1.default.findById(userId.id).exec();
         if (user) {
             // checking the otp
             if (otp == (user === null || user === void 0 ? void 0 : user.oldOtp)) {

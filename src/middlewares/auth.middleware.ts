@@ -7,8 +7,8 @@ import env from '../../config/env'
 
 const authorization = async (req: Request, res: Response, next: NextFunction) => {
     let token;
-    if (req.cookies.rf_session) {
-        token = req.cookies.rf_session
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        token = req.headers.authorization.split(' ')[1]
     }
     // token not found in header
     if (!token) {
@@ -18,7 +18,7 @@ const authorization = async (req: Request, res: Response, next: NextFunction) =>
         })
     }
     try {
-        const decoded = jwt.verify(token, env._jwt_refresh_token_secret_key);
+        const decoded = jwt.verify(token, env._jwt_access_token_secret_key);
         const isAuth = await logedinModel.findOne({ user: (<any>decoded).id }).exec()
         if (isAuth) {
             if (isAuth.isLoggedin === false) {

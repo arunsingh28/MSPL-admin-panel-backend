@@ -17,13 +17,13 @@ const saveNewRecipie = async (req: Request, res: Response) => {
     const data = JSON.parse(req.body.data)
     // create object
     const recipe = {
-        name: req.body.name,
+        name: data.name,
         ingredients: data.ingredients,
         tags: data.tags,
-        preparationTime: req.body.preparationTime,
-        status: req.body.status,
-        sourceLink: req.body.sourceLink,
-        nutritionName: req.body.nutritionName,
+        preparationTime: data.preparationTime,
+        status: data.status,
+        sourceLink: data.sourceLink,
+        nutritionName: data.nutritionName,
         image: {
             location: 'location',
             key: 'key'

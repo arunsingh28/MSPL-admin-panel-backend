@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const emp_Model_1 = __importDefault(require("../Models/emp.Model"));
+const emp_model_1 = __importDefault(require("../Models/emp.model"));
 const tokens_1 = __importDefault(require("../Utils/tokens"));
 const env_1 = __importDefault(require("../../config/env"));
 const email_1 = require("../Utils/email");
@@ -22,7 +22,7 @@ const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
         if (!email || email === '') {
             return res.status(400).json({ message: 'Email is required', success: false });
         }
-        const isUser = yield emp_Model_1.default.findOne({ email: email }).exec();
+        const isUser = yield emp_model_1.default.findOne({ email: email }).exec();
         if (!isUser) {
             return res.status(400).json({ message: 'Email is not registered', success: false });
         }

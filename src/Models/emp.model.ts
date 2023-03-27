@@ -69,6 +69,8 @@ const empSchema = new mongoose.Schema({
     //     type: String,
     //     required: true,
     // },
+
+
     referral_code: {
         type: String,
     },
@@ -94,6 +96,9 @@ const empSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
+    lastLogin:{
+        type: Date,
+    },
     status: {
         type: Boolean,
         default: true
@@ -101,6 +106,9 @@ const empSchema = new mongoose.Schema({
     profile_image: {
         location: String,
         key: String,
+    },
+    refreshToken: {
+        type: String,
     },
     tutorialTimeline: {
         initTutorial: {
@@ -124,10 +132,6 @@ const empSchema = new mongoose.Schema({
             default: false
         },
     },
-    // gender:{
-    //     type: String,
-    //     default: 'Male'
-    // },
     role: [],
 }, {
     timestamps: true

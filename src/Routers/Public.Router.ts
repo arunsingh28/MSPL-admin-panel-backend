@@ -6,6 +6,7 @@ import loginWithPassword from '../Controllers/AdminPanelController/loginWithPass
 import endUserController from '../Controllers/endUserController/endUser.controller'
 import handleRefreshToken from '../Controllers/refreshToken.controller'
 import endUserLoginController from '../Controllers/endUserController/login'
+import logout from '../Controllers/logout'
 
 /**
  * register api
@@ -28,6 +29,7 @@ router.route('/register')
     .post(registerController)
 
 
+router.route('/logout').get(logout)
 
 
 /**

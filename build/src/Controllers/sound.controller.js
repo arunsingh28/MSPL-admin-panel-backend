@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const emp_Model_1 = __importDefault(require("../Models/emp.Model"));
+const emp_model_1 = __importDefault(require("../Models/emp.model"));
 const updateSoundSetting = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { loginNotification, logoutNotification, deleteNotification } = req.body;
     const { _id } = req.params;
     try {
-        const isUser = yield emp_Model_1.default.findOne({ _id }).exec();
+        const isUser = yield emp_model_1.default.findOne({ _id }).exec();
         if (!isUser) {
             return res.json({ success: false, message: 'User not found' });
         }
@@ -35,7 +35,7 @@ const updateSoundSetting = (req, res) => __awaiter(void 0, void 0, void 0, funct
 const sendSoundSetting = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id } = req.params;
     try {
-        const isSoundNotification = yield emp_Model_1.default.findOne({ _id }).exec();
+        const isSoundNotification = yield emp_model_1.default.findOne({ _id }).exec();
         if (!isSoundNotification) {
             return res.json({ success: false, message: 'User not found' });
         }

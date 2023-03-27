@@ -6,6 +6,7 @@ export interface RegisterDocument extends mongoose.Document {
     // phone: number
     password: string
     name: string
+    refreshToken: string
     // dob: String
     otp: Number
     oldOtp: Number

@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const emp_Model_1 = __importDefault(require("../Models/emp.Model"));
-const logedin_Model_1 = __importDefault(require("../Models/logedin.Model"));
+const emp_model_1 = __importDefault(require("../Models/emp.model"));
+const logedin_model_1 = __importDefault(require("../Models/logedin.model"));
 const env_1 = __importDefault(require("../../config/env"));
 const authorization = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let token;
@@ -30,7 +30,7 @@ const authorization = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
     try {
         const decoded = jsonwebtoken_1.default.verify(token, env_1.default._jwt_refresh_token_secret_key);
-        const isAuth = yield logedin_Model_1.default.findOne({ user: decoded.id }).exec();
+        const isAuth = yield logedin_model_1.default.findOne({ user: decoded.id }).exec();
         if (isAuth) {
             if (isAuth.isLoggedin === false) {
                 return res.status(203).json({
@@ -39,7 +39,7 @@ const authorization = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                 });
             }
         }
-        const user = yield emp_Model_1.default.findById(decoded.id).exec();
+        const user = yield emp_model_1.default.findById(decoded.id).exec();
         if (!user) {
             return res.status(203).json({
                 success: false,

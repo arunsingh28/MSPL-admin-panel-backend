@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import userModel from '../../Models/user.model';
-
+import Formula from '../../services/Formula'
 
 // Register End User
 const regsiterEndUser = async (req: Request, res: Response) => {
@@ -9,12 +9,16 @@ const regsiterEndUser = async (req: Request, res: Response) => {
         return res.status(400).json({ message: 'Please fill all the fields', success: false, stautsCode: 400 })
     }
     try {
+        const BMR = await Formula.BMR(gender, height, weight, dob)
+        const BMI = await Formula.BMI(height, weight)
         const newUser = new userModel({
             name,
             email,
             phone,
             dob,
             gender,
+            BMR,
+            BMI,
             measurement: {
                 height,
                 weight,

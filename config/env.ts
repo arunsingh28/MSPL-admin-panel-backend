@@ -3,8 +3,8 @@ const env = {
     _NAMESPACE: 'server',
     _port: process.env.PORT || 4000,
     // _databse_url: 'mongodb://mongo:27017/sportylife',
-    _databse_url: 'mongodb://localhost:27017/emp-server',
-
+    _databse_url: 'mongodb+srv://doadmin:aL9F820Np1wB536J@mspl-db-030d6e66.mongo.ondigitalocean.com/admin?tls=true&authSource=admin',
+    // @Apple1397root
     // aws s3
     accessKeyId: '',
     secretAccessKey: '',
@@ -18,7 +18,7 @@ const env = {
     _jwt_mobile_token_secret_key: '14681f63eb6b66e0459662099500e2fke80cffb09816e8b634ae2227d9c763ae',
 
     // jwt expire time
-    _jwt_access_token_expire_time: '1h',
+    _jwt_access_token_expire_time: '12h',
     _jwt_refresh_token_expire_time: '30d',
     _jwt_login_token_expire_time: '5m',
     _jwt_mobile_token_expire_time: '1h',
