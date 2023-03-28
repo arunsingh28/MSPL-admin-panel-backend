@@ -2,8 +2,8 @@ const env = {
     // env
     _NAMESPACE: 'server',
     _port: process.env.PORT || 4000,
-    // _databse_url: 'mongodb://mongo:27017/sportylife',
-    _databse_url: 'mongodb+srv://doadmin:aL9F820Np1wB536J@mspl-db-030d6e66.mongo.ondigitalocean.com/admin?tls=true&authSource=admin',
+    _databse_url: 'mongodb://localhost:27017/emp-server',
+    // _databse_url: 'mongodb+srv://doadmin:aL9F820Np1wB536J@mspl-db-030d6e66.mongo.ondigitalocean.com/admin?tls=true&authSource=admin',
     // @Apple1397root
     // aws s3
     accessKeyId: '',

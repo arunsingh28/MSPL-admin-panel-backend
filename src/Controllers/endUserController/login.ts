@@ -14,8 +14,8 @@ const loginWithPhone = async (req: Request, res: Response) => {
     try {
         if (isUser) {
             // send the otp to mobile number
-            const otpres = sendOTP(isUser.oldOtp, isUser.phone);
-            console.log('otp first', otpres)
+            sendOTP(isUser.oldOtp, isUser.phone);
+
             /* 
             send the access token to the user with 
             payload:  user id      
@@ -34,8 +34,7 @@ const loginWithPhone = async (req: Request, res: Response) => {
             const isNewUser = await newUser.findOne({ phone: req.body.phone }).exec();
             if (isNewUser) {
                 // send the otp to mobile number
-                const otpres =  sendOTP(isNewUser.oldOtp, isNewUser.phone);
-                console.log('otp middle', otpres)
+                const otpres = sendOTP(isNewUser.oldOtp, isNewUser.phone);
                 /* 
                 send the access token to the user with 
                 payload:  user id      
@@ -56,8 +55,8 @@ const loginWithPhone = async (req: Request, res: Response) => {
                 // send the token to client
                 const otpAccessToken = tokens.mobileOtpToken(user._id);
                 // send the otp to mobile number
-                const otpres = sendOTP(user.oldOtp, user.phone);
-                console.log('otp last', otpres)
+                sendOTP(user.oldOtp, user.phone);
+
                 return res.status(200).json({
                     message: 'OTP send to your mobile number',
                     accessToken: otpAccessToken,
@@ -85,6 +84,7 @@ const verifyOTP = async (req: Request, res: Response) => {
         // debug the token
         const userId: any = jwt.verify(token, env._jwt_mobile_token_secret_key)
         const user = await userModel.findById(userId.id).exec();
+        console.log('user', user)
         if (user) {
             // checking the otp
             if (otp == user?.oldOtp) {
@@ -112,8 +112,54 @@ const verifyOTP = async (req: Request, res: Response) => {
                     stautsCode: res.statusCode
                 })
             }
+        } else {
+            const tt = await newUser.findById(userId.id).exec();
+            if (tt) {
+                console.log('tt', tt)
+                // checking the otp
+                if (otp == tt?.oldOtp) {
+                    // send the access token to the user with 
+                    // payload:  user id      
+                    const accessToken = tokens.mobileToken(tt._id);
+                    // reset the otp
+                    // await otpGenrator(tt._id, res);
+                    await newUser.findByIdAndUpdate(tt._id, {
+                        $set: {
+                            oldOtp: tt?.otp,
+                            otp: Math.floor(100000 + Math.random() * 900000)
+                        }
+                    }).exec()
+
+                    await userModel.create({
+                        phone: tt.phone,
+                    })
+
+                    // delete the user from new user collection
+                    await newUser.findByIdAndDelete(tt._id).exec()
+
+                    // send the respoonse to client
+                    return res.status(200).json({
+                        message: 'OTP verified',
+                        accessToken,
+                        success: true,
+                        isExists: true,
+                        isAuthenticated: true,
+                        data: tt,
+                        stautsCode: res.statusCode
+                    })
+                } else {
+                    return res.status(200).json({
+                        message: 'Incorect OTP',
+                        success: false,
+                        isAuthenticated: false,
+                        isExists: true,
+                        stautsCode: res.statusCode
+                    })
+                }
+            }
         }
     } catch (error: any) {
+        console.log('error', error)
         if (error.name == 'TokenExpiredError') return res.status(401).json({
             message: 'OTP expired',
             success: false,

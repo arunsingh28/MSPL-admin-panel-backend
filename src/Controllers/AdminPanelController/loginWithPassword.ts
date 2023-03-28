@@ -38,6 +38,7 @@ const loginWithPassword = async (req: Request, res: Response) => {
             maxAge: env._rf_cookies_max_age,
             secure: true,
             httpOnly: true,
+            domain: 'sportylife.in',
             sameSite: 'none',
         })
         return res.status(200).json({

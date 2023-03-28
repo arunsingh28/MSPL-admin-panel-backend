@@ -5,11 +5,15 @@ import bcrypt from "bcrypt";
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        // required: true,
     },
     email: {
         type: String,
-        required: true,
+        // required: true,
+    },
+    profileTimeline:{
+        type: String,
+        default: 'init'
     },
     phone: {
         type: Number,
@@ -26,7 +30,7 @@ const userSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        required: true,
+        // required: true,
     },
     profileImage: {
         location: {

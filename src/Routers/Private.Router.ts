@@ -9,6 +9,8 @@ import academyController from '../Controllers/academy.controller'
 import endUserController from '../Controllers/endUserController/endUser.controller'
 import foodController from '../Controllers/Nutrition/food.controller'
 import saveNewRecipie from '../Controllers/Nutrition/Recipies.controller'
+import PackageController from '../Controllers/Package.controller'
+
 
 const router = express.Router()
 
@@ -69,4 +71,8 @@ router.route('/update-diet-frequency/:id').put(foodController.updateDietFrequenc
 
 router.route('/save-recipe').post(upload.single('file'), saveNewRecipie.saveNewRecipie)
 router.route('/get-recipe').get(saveNewRecipie.getRecipe)
+
+
+// package apis
+router.route('/create-package').post(PackageController.handleSavePackage)
 export default router 
