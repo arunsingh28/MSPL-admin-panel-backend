@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Tutorial } from '../Models/Tutorial.LMS'
+import { Tutorial } from '../Models/tutorial.lms'
 import empModel from '../Models/emp.model'
 
 

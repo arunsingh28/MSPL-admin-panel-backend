@@ -2,15 +2,15 @@ import express from 'express'
 import schoolController from '../Controllers/school.controller'
 import registerForSchool from '../Controllers/register.school'
 import loginController from '../Controllers/login.controller'
-import soundController from '../Controllers/sound.controller'
+import soundController from '../Controllers/AdminPanelController/sound.controller'
 import multer from 'multer'
 import regsiterWithFileController from '../Controllers/registerWithFile'
-import academyController from '../Controllers/academy.controller'
+import academyController from '../Controllers/AdminPanelController/academy.controller'
 import endUserController from '../Controllers/endUserController/endUser.controller'
 import foodController from '../Controllers/Nutrition/food.controller'
 import saveNewRecipie from '../Controllers/Nutrition/Recipies.controller'
-import PackageController from '../Controllers/Package.controller'
-
+import PackageController from '../Controllers/AdminPanelController/Package.controller'
+import nutrisistController from '../Controllers/AdminPanelController/nutrisist.controller'
 
 const router = express.Router()
 
@@ -45,6 +45,8 @@ router.route('/create-emp-from-file').post(upload.single('file'), regsiterWithFi
 
 // user
 router.route('/get-all-user').get(endUserController.getAllUsers)
+// filter user
+router.route('/filter-user').post(endUserController.filterUser)
 router.route('/get-user-info/:id').get(endUserController.getUserById)
 
 // academy apis
@@ -55,6 +57,7 @@ router.route('/create-coache').post(academyController.createCoach)
 router.route('/create-ingridient-from-file').post(upload.single('file'), foodController.addIngridientWithFile)
 router.route('/create-ingridient').post(foodController.addIngridient)
 router.route('/fetch-ingridient').get(foodController.sendIngridients)
+router.route('/delete-ingridient/:id').delete(foodController.deleteIngridients)
 router.route('/create-recipe-category').post(foodController.recipieCategory)
 router.route('/fetch-recipie-category').get(foodController.sendrecipieCategory)
 router.route('/delete-recipe-category/:id').delete(foodController.deleteRecipeCategory)
@@ -71,8 +74,18 @@ router.route('/update-diet-frequency/:id').put(foodController.updateDietFrequenc
 
 router.route('/save-recipe').post(upload.single('file'), saveNewRecipie.saveNewRecipie)
 router.route('/get-recipe').get(saveNewRecipie.getRecipe)
+router.route('/delete-recipe/:id').delete(saveNewRecipie.deleteRecipe)
+router.route('/get-recipe-by-id/:id').get(saveNewRecipie.getRecipeById)
+router.route('/update-recipe').post(upload.single('file'), saveNewRecipie.updateRecipe)
 
+
+// nutritist profile
+router.route('/update-nutritist-profile/:id').put(upload.single('file'), nutrisistController.updateProfile)
+router.route('/get-nutritist-profile/:id').get(nutrisistController.getNutritionProfile)
+// remove profile iamge
+router.route('/remove-profile-image/:key/:id').delete(nutrisistController.removeImage)
 
 // package apis
 router.route('/create-package').post(PackageController.handleSavePackage)
+router.route('/get-all-package').get(PackageController.handleGetAllPackages)
 export default router 

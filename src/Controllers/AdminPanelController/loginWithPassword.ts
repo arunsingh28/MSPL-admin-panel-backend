@@ -6,13 +6,13 @@ import env from "../../../config/env";
 // import LoggedInModel from '../../Models/logedin.model'
 
 
-interface IisAlreadyLogedin {
-    user: string
-    token: string
-    _id: string
-    isLoggedin: boolean
-    device: number
-}
+// interface IisAlreadyLogedin {
+//     user: string
+//     token: string
+//     _id: string
+//     isLoggedin: boolean
+//     device: number
+// }
 
 const loginWithPassword = async (req: Request, res: Response) => {
     const { email, password } = req.body
@@ -51,7 +51,8 @@ const loginWithPassword = async (req: Request, res: Response) => {
                 email: user.email,
                 role: user.role,
                 _id: user._id,
-                isMute: user.isMute
+                isMute: user.isMute,
+                profilePic: user.profile.profileImage.location,
             }
         })
     } catch (error) {

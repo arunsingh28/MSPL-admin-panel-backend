@@ -8,6 +8,8 @@ export interface IUser extends mongoose.Document {
     referal_code: string;
     planType: string;
     gender: string;
+    profileTimeline: string;
+    waterIntake: number;
     measurement: {
         height: number;
         weight: number;

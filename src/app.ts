@@ -19,6 +19,8 @@ import swaggerUI from 'swagger-ui-express'
 import swaggerDocs from '../docs/swagger';
 import session from './Utils/session'
 import compress from 'compression'
+import { mobileAuth } from './middlewares/mobileAuth.middleware';
+import mobileRouter from './Routers/mobile.Router';
 
 
 const app: Express = express();
@@ -80,13 +82,15 @@ app.use(compress({
 
 // public router
 app.use('/v1/api', publicRouter)
+
 // priavte router with authorization middleware
 app.use('/v2/api/', authorization, privateRouter)
 // tutorial router
 app.use('/v2/tutorial', authorization, tutorialRouter)
 // nutriotion router
 app.use('/v2/nutrition', authorization, NutritionRouter)
-
+// mobile apis
+app.use('/v2/mobile', mobileAuth, mobileRouter)
 
 // wrong url or incorrect url
 app.get('*', (req: Request, res: Response) => {

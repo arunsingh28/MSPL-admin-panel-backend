@@ -8,6 +8,7 @@ export interface RegisterDocument extends mongoose.Document {
     packageDurationUnit: string
     packageDesc: string
     packagePoint: []
+    packageChild: []
 }
 
 const packageSchema = new mongoose.Schema({
@@ -32,7 +33,8 @@ const packageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    packagePoint: []
+    packagePoint: [],
+    packageChild: []
 })
 
 export default mongoose.model<RegisterDocument>('package', packageSchema)

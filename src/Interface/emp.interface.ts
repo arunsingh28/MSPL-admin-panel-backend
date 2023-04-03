@@ -37,6 +37,18 @@ export interface RegisterDocument extends mongoose.Document {
         logoutNotification: Boolean
         deleteNotification: Boolean
     }
+    profile: {
+        bio: String,
+        profileImage: {
+            location: String
+            key: String
+        }
+        education: String
+        qualification: String
+        experience: number
+        language: []
+        specialisation: []
+    }
     timestamps: Date
 }
 

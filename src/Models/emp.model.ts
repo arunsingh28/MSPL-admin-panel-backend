@@ -2,7 +2,21 @@ import mongoose from "mongoose";
 import { RegisterDocument } from '../Interface/emp.interface'
 import bcrypt from 'bcrypt'
 
+
 const empSchema = new mongoose.Schema({
+    profile: {
+        profileImage: {
+            location: String,
+            key: String
+        },
+        bio: String,
+        // qualification: String,
+        experience: Number,
+        language: [],
+        specialisation: [],
+        education: String,
+    },
+
     email: {
         type: String,
         required: [true, 'this field required'],
@@ -18,6 +32,7 @@ const empSchema = new mongoose.Schema({
         //     message: (props: any) => `${props.value} is not valid email`
         // }                        
     },
+
     empId: {
         type: String,
         required: true,
@@ -56,19 +71,7 @@ const empSchema = new mongoose.Schema({
     phone: {
         type: Number,
         required: true,
-        // validate: {
-        //     validator: (val: number) => {
-        //         let condition = (val == 1111111111 || 2222222222 || 333333333 || 444444444) ? false : true
-        //         return condition
-        //     },
-        //     message: (props: any) => `${props.value} is not valid number`
-        // },
-        // set: setCountryCode
     },
-    // dob: {
-    //     type: String,
-    //     required: true,
-    // },
 
 
     referral_code: {
@@ -96,16 +99,12 @@ const empSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    lastLogin:{
+    lastLogin: {
         type: Date,
     },
     status: {
         type: Boolean,
         default: true
-    },
-    profile_image: {
-        location: String,
-        key: String,
     },
     refreshToken: {
         type: String,

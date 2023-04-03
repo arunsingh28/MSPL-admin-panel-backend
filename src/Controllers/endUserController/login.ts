@@ -15,7 +15,6 @@ const loginWithPhone = async (req: Request, res: Response) => {
         if (isUser) {
             // send the otp to mobile number
             sendOTP(isUser.oldOtp, isUser.phone);
-
             /* 
             send the access token to the user with 
             payload:  user id      
@@ -120,7 +119,6 @@ const verifyOTP = async (req: Request, res: Response) => {
                 if (otp == tt?.oldOtp) {
                     // send the access token to the user with 
                     // payload:  user id      
-                    const accessToken = tokens.mobileToken(tt._id);
                     // reset the otp
                     // await otpGenrator(tt._id, res);
                     await newUser.findByIdAndUpdate(tt._id, {
@@ -130,10 +128,12 @@ const verifyOTP = async (req: Request, res: Response) => {
                         }
                     }).exec()
 
-                    await userModel.create({
+                    const convetuser = await userModel.create({
                         phone: tt.phone,
+                        profileTimeline: 'init'
                     })
-
+                    // send the access token to the user with
+                    const accessToken = tokens.mobileToken(convetuser._id);
                     // delete the user from new user collection
                     await newUser.findByIdAndDelete(tt._id).exec()
 
@@ -144,7 +144,7 @@ const verifyOTP = async (req: Request, res: Response) => {
                         success: true,
                         isExists: true,
                         isAuthenticated: true,
-                        data: tt,
+                        data: null,
                         stautsCode: res.statusCode
                     })
                 } else {

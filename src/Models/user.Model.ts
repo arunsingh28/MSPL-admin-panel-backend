@@ -11,20 +11,19 @@ const userSchema = new mongoose.Schema({
         type: String,
         // required: true,
     },
-    profileTimeline:{
+    profileTimeline: {
         type: String,
-        default: 'init'
     },
     phone: {
         type: Number,
         required: true,
         unique: true,
     },
-    BMI:{
+    BMI: {
         type: Number,
         default: 0
     },
-    BMR:{
+    BMR: {
         type: Number,
         default: 0
     },
@@ -45,6 +44,10 @@ const userSchema = new mongoose.Schema({
     language: {
         type: String,
         default: "en"
+    },
+    waterIntake: {
+        type: Number,
+        default: 0
     },
     referal_code: String,
     dob: Date,

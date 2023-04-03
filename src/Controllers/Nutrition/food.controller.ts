@@ -1,12 +1,21 @@
 import { Request, Response } from "express";
 import { ingridienentsModel } from "../../Models/ingridienents.model";
 import recipeCategoryModel from "../../Models/recipiCategory.model";
-import DietFrequencyModel from "../../Models/DietFrequency.model";
+import DietFrequencyModel from "../../Models/dietFrequency.model";
 import xlsx from 'xlsx'
+import Pdfparser from "pdf2json";
+import pdf from 'pdf-parse'
+
 import fs from 'fs'
 
 const addIngridientWithFile = async (req: Request, res: Response) => {
     // save the ingridient to the database from file
+
+    // const dataBuffer = fs.readFileSync((req.file as any).path)
+    // pdf(dataBuffer).then((data: any) => {
+    //     console.log('pdf', data.text)
+    // })
+
 
     if (req.file?.originalname.split('.').pop() !== 'xlsx') {
         // remove the file from server
@@ -182,9 +191,20 @@ const updateDietFrequency = async (req: Request, res: Response) => {
     }
 }
 
+const deleteIngridients = async (req: Request, res: Response) => {
+    try {
+        const isDelete = await ingridienentsModel.findOneAndDelete({ _id: req.params.id }).exec()
+        if (isDelete) {
+            return res.status(200).json({ success: true, message: 'Delete successfully' })
+        }
+    } catch (err: any) {
+        return res.status(500).json({ message: 'Internal server error', error: err.message, success: false })
+    }
+}
+
 export default {
-    addIngridientWithFile, addIngridient,
-    recipieCategory, sendrecipieCategory,sendIngridients,
+    addIngridientWithFile, addIngridient, deleteIngridients,
+    recipieCategory, sendrecipieCategory, sendIngridients,
     deleteRecipeCategory, updateRecipeCategory, updateDietFrequency,
     addDietFrequency, sendDietFrequency, deleteDietFrequency
 }

@@ -3,6 +3,8 @@ const env = {
     _NAMESPACE: 'server',
     _port: process.env.PORT || 4000,
     _databse_url: 'mongodb://localhost:27017/emp-server',
+    // _databse_url: 'mongodb+srv://doadmin:PI6A3mSN2s419X58@db-mongodb-blr1-61098-3799b11a.mongo.ondigitalocean.com/admin?authSource=admin&tls=true',
+
     // _databse_url: 'mongodb+srv://doadmin:aL9F820Np1wB536J@mspl-db-030d6e66.mongo.ondigitalocean.com/admin?tls=true&authSource=admin',
     // @Apple1397root
     // aws s3
@@ -21,7 +23,7 @@ const env = {
     _jwt_access_token_expire_time: '12h',
     _jwt_refresh_token_expire_time: '30d',
     _jwt_login_token_expire_time: '5m',
-    _jwt_mobile_token_expire_time: '1h',
+    _jwt_mobile_token_expire_time: '12h',
     _jwt_mobile_otp_token_expire_time: '5m',
 
     // maxage for cookie
