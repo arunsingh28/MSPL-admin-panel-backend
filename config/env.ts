@@ -4,7 +4,6 @@ const env = {
     _port: process.env.PORT || 4000,
 
     // _databse_url: 'mongodb://mongo:27017/sportylife',
-    _databse_url: 'mongodb+srv://arun:1234@cluster0.t3qon.mongodb.net/emp-server?retryWrites=true&w=majority',
 
     // _databse_url: 'mongodb://localhost:27017/emp-server',
     _databse_url: 'mongodb+srv://doadmin:PI6A3mSN2s419X58@db-mongodb-blr1-61098-3799b11a.mongo.ondigitalocean.com/admin?authSource=admin&tls=true',

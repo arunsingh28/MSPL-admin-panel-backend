@@ -5,15 +5,13 @@ import { v4 } from 'uuid'
 import sharp from 'sharp';
 
 
-// endpoint: 'https://sg3storage.sgp1.digitaloceanspaces.com',
-
 const s3Credentials = {
     forcePathStyle: false,
     endpoint: 'https://sgp1.digitaloceanspaces.com',
     region: 'us-east-1',
     credentials: {
-        accessKeyId: 'DO009QJDG6QM43C8J49N',
-        secretAccessKey: 'IKDEDdmtPfGDEf+B72RaCT1P338dqCDJHM32xRpQZIE',
+        accessKeyId: 'AKIAYZ4KOWAOXEGT4TGR',
+        secretAccessKey: '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',
     }
 }
 
@@ -32,7 +30,7 @@ export const uploadFile = async (file: any) => {
     const fileName = renameFile();
     // create buffer from file
     const params = {
-        Bucket: 'arunsingh28',
+        Bucket: 'sgbucket-a.s3',
         Key: fileName,
         Body: buffer,
         ACL: 'public-read'
@@ -41,7 +39,7 @@ export const uploadFile = async (file: any) => {
         const data = await s3.send(new PutObjectCommand(params));
         if (data) {
             return {
-                location: `https://arunsingh28.sgp1.digitaloceanspaces.com/${fileName}`,
+                location: `https://sgbucket-a.s3.ap-south-1.amazonaws.com/${fileName}`,
                 key: fileName
             }
         }
