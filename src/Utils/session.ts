@@ -1,10 +1,19 @@
 import session from 'express-session'
-import { RegisterDocument } from '../Interface/emp.interface'
+import { EmpDocument } from '../Interface/emp.interface'
 import { Express } from 'express'
+
+
+interface IToken {
+    id: string;
+    iat: number;
+    exp: number;
+}
+
 
 declare module 'express-session' {
     interface SessionData {
-        user: RegisterDocument
+        user: EmpDocument
+        decoded: IToken
     }
 }
 

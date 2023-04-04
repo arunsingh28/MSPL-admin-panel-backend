@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
-import { ingridienentsModel } from "../../Models/ingridienents.Model";
-import recipeCategoryModel from "../../Models/recipiCategory.Model";
-import DietFrequencyModel from "../../Models/DietFrequency.Model";
+import { ingridienentsModel } from "../../Models/ingridienents.model";
+import recipeCategoryModel from "../../Models/recipiCategory.model";
+import DietFrequencyModel from "../../Models/dietFrequency.model";
 import xlsx from 'xlsx'
 import fs from 'fs'
 
 const addIngridientWithFile = async (req: Request, res: Response) => {
     // save the ingridient to the database from file
-
     if (req.file?.originalname.split('.').pop() !== 'xlsx') {
         // remove the file from server
         fs.unlinkSync((req as any).file.path)
@@ -44,9 +43,10 @@ const addIngridientWithFile = async (req: Request, res: Response) => {
         fs.unlinkSync(req.file.path)
         return res.status(200).json({ message: count + ' records are inserted', success: true })
     } catch (error: any) {
+        console.log(error)
         // remove file from server
         fs.unlinkSync(req.file.path)
-        return res.status(500).json({ message: 'Internal server error', success: false })
+        return res.status(500).json({ message: error.message, success: false })
     }
 }
 
@@ -182,9 +182,20 @@ const updateDietFrequency = async (req: Request, res: Response) => {
     }
 }
 
+const deleteIngridients = async (req: Request, res: Response) => {
+    try {
+        const isDelete = await ingridienentsModel.findOneAndDelete({ _id: req.params.id }).exec()
+        if (isDelete) {
+            return res.status(200).json({ success: true, message: 'Delete successfully' })
+        }
+    } catch (err: any) {
+        return res.status(500).json({ message: 'Internal server error', error: err.message, success: false })
+    }
+}
+
 export default {
-    addIngridientWithFile, addIngridient,
-    recipieCategory, sendrecipieCategory,sendIngridients,
+    addIngridientWithFile, addIngridient, deleteIngridients,
+    recipieCategory, sendrecipieCategory, sendIngridients,
     deleteRecipeCategory, updateRecipeCategory, updateDietFrequency,
     addDietFrequency, sendDietFrequency, deleteDietFrequency
 }

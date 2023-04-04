@@ -1,11 +1,11 @@
 import express, { Request, Response } from 'express'
 const router = express.Router()
 import registerController from '../Controllers/regsiter.controller'
-import loginController from '../Controllers/login.controller'
 import loginWithPassword from '../Controllers/AdminPanelController/loginWithPassword'
-import endUserController from '../Controllers/endUserController/endUser.controller'
 import handleRefreshToken from '../Controllers/refreshToken.controller'
+import logout from '../Controllers/logout'
 import endUserLoginController from '../Controllers/endUserController/login'
+import nutrisistController from '../Controllers/AdminPanelController/nutrisist.controller'
 
 /**
  * register api
@@ -28,6 +28,7 @@ router.route('/register')
     .post(registerController)
 
 
+router.route('/logout').get(logout)
 
 
 /**
@@ -70,10 +71,6 @@ router.route('/register')
  *        access token:
  *           description: access token (valid for 10-20 min. After that it will expire)
  */
-router.route('/login-with-otp')
-    .get((req: Request, res: Response) => { return res.json({ message: 'GET METHOD NOT ALLOWED' }) })
-    .post(loginController.sendOtp)
-    .put(loginController.verifyOtp)
 
 // login with password
 router.route('/login')
@@ -83,12 +80,17 @@ router.route('/login')
 
 router.route('/refresh-token').get(handleRefreshToken)
 
+
+
 // end user apis
-router.route('/create-end-user').post(endUserController.regsiterEndUser)
+// router.route('/create-end-user').post(endUserController.regsiterEndUser)
 
 // send the otp
 router.route('/send-otp').post(endUserLoginController.loginWithPhone)
 router.route('/verify-otp').post(endUserLoginController.verifyOTP)
 
+
+
+router.route('/diet-plan/:id').post(nutrisistController.dietPlanner)
 
 export default router

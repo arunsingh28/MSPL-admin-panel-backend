@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import env from "../../config/env";
-import user from "../Models/emp.Model";
+import user from "../Models/emp.model";
 import token from '../Utils/tokens'
 import mobilePort from "../Utils/isMobile";
 import bcrypt from 'bcrypt'
@@ -23,6 +23,29 @@ export const generatePassword = () => {
 
 // auto generate id and password
 const registerUser = async (req: Request, res: Response) => {
+
+    const Roles = {
+        'tl': [92, 91, 921, 922, 923, 924, 925, 926],
+        'admin': [999, 91, 92, 921, 922, 923, 924, 925, 926, 93, 931, 932, 94, 941, 71, 942, 98, 981, 982, 983, 90, 901],
+        'superAdmin': [999, 91, 92, 921, 922, 923, 924, 925, 926, 93, 931, 932, 94, 941, 71, 942, 95, 951, 952, 96, 97, 971, 972, 98, 981, 982, 983, 90, 901, 81, 811, 812, 813, 814, 815]
+    }
+
+    const permission = [
+        {
+            "role": "tl",
+            "permision": Roles.tl
+        },
+        {
+            "role": "superAdmin",
+            "permision": Roles.superAdmin
+        }
+    ]
+
+    const desireRole = (role: any) => {
+        const roleIndex = permission.findIndex((item: any) => item.role === role)
+        return permission[roleIndex].permision
+    }
+
     const { email, phone, name, id, role } = req.body
 
     // data check if not null
@@ -42,9 +65,13 @@ const registerUser = async (req: Request, res: Response) => {
             const referral_code = Math.random().toString(36).substr(5)
             const encrypt = await bcrypt.hash(password, bcrypt.genSaltSync(10))
             const newUser = new user({
-                // firstName, lastName, email, phone, dob, gender, password,
-                // address: { city, state, street },
-                name, email, phone, password: encrypt, role, empId: id, referral_code
+                name,
+                email,
+                phone,
+                password: encrypt,
+                role: desireRole(role),
+                empId: id,
+                referral_code
             })
             // save to db
             await newUser.save()

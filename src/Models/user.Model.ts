@@ -1,24 +1,36 @@
 import mongoose from "mongoose";
-import { IUser } from "../Interface/user.interface";
+import { IUser } from "../Interface/User.interface";
 import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        // required: true,
     },
     email: {
         type: String,
-        required: true,
+        default: null
+        // required: true,
+    },
+    profileTimeline: {
+        type: String,
     },
     phone: {
         type: Number,
         required: true,
         unique: true,
     },
+    BMI: {
+        type: Number,
+        default: 0
+    },
+    BMR: {
+        type: Number,
+        default: 0
+    },
     gender: {
         type: String,
-        required: true,
+        // required: true,
     },
     profileImage: {
         location: {
@@ -30,9 +42,23 @@ const userSchema = new mongoose.Schema({
             default: null,
         },
     },
+    nutritionist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'emp',
+        default: null
+    },
+    academy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Academy',
+        default: null
+    },
     language: {
         type: String,
         default: "en"
+    },
+    waterIntake: {
+        type: Number,
+        default: 0
     },
     referal_code: String,
     dob: Date,

@@ -1,11 +1,16 @@
-import express, { Request, Response } from 'express'
-import tutorialController from '../Controllers/tutorial.LMS'
+import express, { Router } from 'express'
+import lmsController from '../Controllers/LMS/lms.controller'
+
 const router = express.Router()
 
-router.route('/get-info').get(tutorialController.getTutorialInfo)
-router.route('/init').post(tutorialController.initTutorial)
-router.route('/init-module').post(tutorialController.initModule)
-router.route('/init-module-name').post(tutorialController.initModuleName)
+
+router.route('/init-course').post(lmsController.saveModuleName)
+router.route('/update-course/:id').put(lmsController.updateModuleName)
+router.route('/get-all-course').get(lmsController.getAllModules)
+router.route('/fetch-course/:id').get(lmsController.getModuleById)
+router.route('/fetch-modules/:id').get(lmsController.sendModules)
+router.route('/update-lesson/:id').put(lmsController.updateLesson)
+
 
 
 export default router

@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 import xlsx from 'xlsx';
 import fs from 'fs'
-import schoolModel from '../Models/school.Model';
-import empModel from '../Models/emp.Model'
+import schoolModel from '../Models/school.model';
+import empModel from '../Models/emp.model'
 import { generatePassword } from './regsiter.controller';
+import Roles from '../../config/role';
+
 
 const registerSchoolWithFile = async (req: Request, res: Response) => {
     try {
@@ -66,6 +68,23 @@ const registerSchoolWithFile = async (req: Request, res: Response) => {
 }
 
 const registerEmpWithFile = async (req: Request, res: Response) => {
+
+    const permission = [
+        {
+            "role": "tl",
+            "permision": Roles.tl
+        },
+        {
+            "role": "superAdmin",
+            "permision": Roles.superAdmin
+        }
+    ]
+
+    const desireRole = (role: any) => {
+        const roleIndex = permission.findIndex((item: any) => item.role === role)
+        return permission[roleIndex].permision
+    }
+
     try {
         // check if file is uploaded
         if (req.file === undefined) {
@@ -85,7 +104,7 @@ const registerEmpWithFile = async (req: Request, res: Response) => {
                 }
                 try {
                     // conver the role into number
-                    const converRole = data.role.split(";").map((item: any) => Number(item))
+                    // const converRole = Roles.includes(data.role)
                     // generate password
                     const password = generatePassword()
                     const newEmp = new empModel({
@@ -93,7 +112,7 @@ const registerEmpWithFile = async (req: Request, res: Response) => {
                         name: data.name,
                         email: data.email,
                         phone: data.phone,
-                        role: converRole,
+                        role: desireRole(data.role),
                         password: password
                     })
                     // save the file into db

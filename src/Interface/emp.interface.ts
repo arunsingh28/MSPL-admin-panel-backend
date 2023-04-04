@@ -1,11 +1,12 @@
 import mongoose from 'mongoose'
 
-export interface RegisterDocument extends mongoose.Document {
+export interface EmpDocument extends mongoose.Document {
     // firstName: String
     // lastName: String
     // phone: number
     password: string
     name: string
+    refreshToken: string
     // dob: String
     otp: Number
     oldOtp: Number
@@ -35,6 +36,18 @@ export interface RegisterDocument extends mongoose.Document {
         loginNotification: Boolean
         logoutNotification: Boolean
         deleteNotification: Boolean
+    }
+    profile: {
+        bio: String,
+        profileImage: {
+            location: String
+            key: String
+        }
+        education: String
+        qualification: String
+        experience: number
+        language: []
+        specialisation: []
     }
     timestamps: Date
 }
