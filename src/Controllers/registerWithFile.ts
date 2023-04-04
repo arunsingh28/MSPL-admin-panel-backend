@@ -66,6 +66,26 @@ const registerSchoolWithFile = async (req: Request, res: Response) => {
 }
 
 const registerEmpWithFile = async (req: Request, res: Response) => {
+    const Roles = {
+        'tl': [92, 921, 922, 923, 924, 925, 926],
+        'superAdmin': [99, 91, 92, 921, 922, 923, 924, 925, 926, 93, 931, 932, 94, 941, 942, 95, 951, 952, 96, 97, 971, 972, 98, 981, 982, 983, 90, 901, 81, 811, 812, 813, 814, 815]
+    }
+    const permission = [
+        {
+            "role": "tl",
+            "permision": Roles.tl
+        },
+        {
+            "role": "superAdmin",
+            "permision": Roles.superAdmin
+        }
+    ]
+
+    const desireRole = (role: any) => {
+        const roleIndex = permission.findIndex((item: any) => item.role === role)
+        return permission[roleIndex].permision
+    }
+
     try {
         // check if file is uploaded
         if (req.file === undefined) {
@@ -85,7 +105,7 @@ const registerEmpWithFile = async (req: Request, res: Response) => {
                 }
                 try {
                     // conver the role into number
-                    const converRole = data.role.split(";").map((item: any) => Number(item))
+                    // const converRole = Roles.includes(data.role)
                     // generate password
                     const password = generatePassword()
                     const newEmp = new empModel({
@@ -93,7 +113,7 @@ const registerEmpWithFile = async (req: Request, res: Response) => {
                         name: data.name,
                         email: data.email,
                         phone: data.phone,
-                        role: converRole,
+                        role: desireRole(data.role),
                         password: password
                     })
                     // save the file into db

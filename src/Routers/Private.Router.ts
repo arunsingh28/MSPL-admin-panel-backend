@@ -1,12 +1,12 @@
 import express from 'express'
 import schoolController from '../Controllers/school.controller'
 import registerForSchool from '../Controllers/register.school'
-import loginController from '../Controllers/login.controller'
+import loginController from '../Controllers/AdminPanelController/settings.controller'
 import soundController from '../Controllers/AdminPanelController/sound.controller'
 import multer from 'multer'
 import regsiterWithFileController from '../Controllers/registerWithFile'
 import academyController from '../Controllers/AdminPanelController/academy.controller'
-import endUserController from '../Controllers/endUserController/endUser.controller'
+import endUserController from '../Controllers/AdminPanelController/user.controller'
 import foodController from '../Controllers/Nutrition/food.controller'
 import saveNewRecipie from '../Controllers/Nutrition/Recipies.controller'
 import PackageController from '../Controllers/AdminPanelController/Package.controller'
@@ -88,4 +88,8 @@ router.route('/remove-profile-image/:key/:id').delete(nutrisistController.remove
 // package apis
 router.route('/create-package').post(PackageController.handleSavePackage)
 router.route('/get-all-package').get(PackageController.handleGetAllPackages)
+
+
+// attach user
+router.route('/attach-user-to-nutritionist/:id').post(nutrisistController.attachUser)
 export default router 

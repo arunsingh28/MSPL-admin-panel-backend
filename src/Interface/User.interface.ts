@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 export interface IUser extends mongoose.Document {
     name: string;
     email: string;
+    academy: mongoose.Schema.Types.ObjectId;
     phone: number;
     dob: Date;
     referal_code: string;
@@ -14,10 +15,11 @@ export interface IUser extends mongoose.Document {
         height: number;
         weight: number;
     };
-    profileImage:{
+    profileImage: {
         location: string;
         key: string;
     },
+    nutritionist: mongoose.Schema.Types.ObjectId;
     BMI: number;
     BMR: number;
     language: string

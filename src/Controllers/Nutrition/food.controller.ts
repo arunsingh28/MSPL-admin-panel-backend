@@ -3,20 +3,10 @@ import { ingridienentsModel } from "../../Models/ingridienents.model";
 import recipeCategoryModel from "../../Models/recipiCategory.model";
 import DietFrequencyModel from "../../Models/dietFrequency.model";
 import xlsx from 'xlsx'
-import Pdfparser from "pdf2json";
-import pdf from 'pdf-parse'
-
 import fs from 'fs'
 
 const addIngridientWithFile = async (req: Request, res: Response) => {
     // save the ingridient to the database from file
-
-    // const dataBuffer = fs.readFileSync((req.file as any).path)
-    // pdf(dataBuffer).then((data: any) => {
-    //     console.log('pdf', data.text)
-    // })
-
-
     if (req.file?.originalname.split('.').pop() !== 'xlsx') {
         // remove the file from server
         fs.unlinkSync((req as any).file.path)
@@ -53,9 +43,10 @@ const addIngridientWithFile = async (req: Request, res: Response) => {
         fs.unlinkSync(req.file.path)
         return res.status(200).json({ message: count + ' records are inserted', success: true })
     } catch (error: any) {
+        console.log(error)
         // remove file from server
         fs.unlinkSync(req.file.path)
-        return res.status(500).json({ message: 'Internal server error', success: false })
+        return res.status(500).json({ message: error.message, success: false })
     }
 }
 

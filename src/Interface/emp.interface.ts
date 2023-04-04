@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-export interface RegisterDocument extends mongoose.Document {
+export interface EmpDocument extends mongoose.Document {
     // firstName: String
     // lastName: String
     // phone: number

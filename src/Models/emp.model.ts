@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import { RegisterDocument } from '../Interface/emp.interface'
-import bcrypt from 'bcrypt'
+import { EmpDocument } from '../Interface/emp.interface'
 
 
 const empSchema = new mongoose.Schema({
@@ -10,13 +9,11 @@ const empSchema = new mongoose.Schema({
             key: String
         },
         bio: String,
-        // qualification: String,
         experience: Number,
         language: [],
         specialisation: [],
         education: String,
     },
-
     email: {
         type: String,
         required: [true, 'this field required'],
@@ -137,7 +134,7 @@ const empSchema = new mongoose.Schema({
 })
 
 empSchema.pre('save', async function (next: mongoose.HookNextFunction) {
-    const user = this as RegisterDocument
+    const user = this as EmpDocument
     // set randmon referral code
     // place default genrated value to otp
     user.otp = Math.floor(100000 + Math.random() * 900000)
@@ -150,11 +147,11 @@ empSchema.pre('save', async function (next: mongoose.HookNextFunction) {
 // perform on every query 
 empSchema.post("init", async function () {
     // update the time of updated_date
-    const user = this as RegisterDocument
+    const user = this as EmpDocument
     // (<any>user).updated_date = Date.now()
     // console.log('UPDATED USER', user)
 })
 
-const registerModel = mongoose.model<RegisterDocument>('emp', empSchema)
+const registerModel = mongoose.model<EmpDocument>('emp', empSchema)
 
 export default registerModel

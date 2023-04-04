@@ -83,7 +83,6 @@ const verifyOTP = async (req: Request, res: Response) => {
         // debug the token
         const userId: any = jwt.verify(token, env._jwt_mobile_token_secret_key)
         const user = await userModel.findById(userId.id).exec();
-        console.log('user', user)
         if (user) {
             // checking the otp
             if (otp == user?.oldOtp) {

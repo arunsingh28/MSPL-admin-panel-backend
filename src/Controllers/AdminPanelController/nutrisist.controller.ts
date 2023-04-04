@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import empDB from '../../Models/emp.model';
+import userModel from "../../Models/user.model";
 import { uploadFile, deleteFile } from '../../services/aws.s3'
 
 interface IUpload {
@@ -140,4 +141,22 @@ const dietPlanner = async (req: Request, res: Response) => {
     console.log('req.body', JSON.stringify(req.body))
 }
 
-export default { updateProfile, getNutritionProfile, removeImage, dietPlanner } 
+
+
+const attachUser = async (req: Request, res: Response) => {
+    try {
+        const isUser = await userModel.findByIdAndUpdate(req.params.id, {
+            $set: {
+                nutritionist: req.body.nutritionist
+            }
+        }).exec()
+        console.log('isUser', isUser)
+        if (isUser) {
+            return res.status(200).json({ success: true, message: 'User attached' })
+        }
+    } catch (err: any) {
+        return res.status(500).json({ message: err.message, success: false })
+    }
+}
+
+export default { updateProfile, getNutritionProfile, removeImage, dietPlanner, attachUser } 

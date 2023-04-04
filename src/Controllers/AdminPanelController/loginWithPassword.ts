@@ -29,6 +29,7 @@ const loginWithPassword = async (req: Request, res: Response) => {
         const refreshToken = token.refreshToken(user._id, user.role)
         const accessToken = token.accessToken(user._id, user.role)
 
+
         // update the token and time in db
         await empModel.findOneAndUpdate({ _id: user._id }, { $set: { refreshToken, lastLogin: Date.now() } }).exec()
 
@@ -38,7 +39,6 @@ const loginWithPassword = async (req: Request, res: Response) => {
             maxAge: env._rf_cookies_max_age,
             secure: true,
             httpOnly: true,
-            domain: 'sportylife.in',
             sameSite: 'none',
         })
         return res.status(200).json({

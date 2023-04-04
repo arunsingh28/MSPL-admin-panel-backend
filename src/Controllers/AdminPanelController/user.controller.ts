@@ -61,12 +61,17 @@ const getAllUsers = async (req: Request, res: Response) => {
 const getUserById = async (req: Request, res: Response) => {
     try {
         const user = await userModel.findById(req.params.id)
+        console.log('user::',user)
+        if (!user) {
+            return res.status(404).json({ message: 'User not found', success: false, statusCode: 404 })
+        }
         return res.status(200).json(user)
     } catch (error: any) {
         return res.status(500).json({ message: 'Internal Server Error', error: error.message, success: false, statusCode: 500 })
     }
 }
 
+// user table filter
 const filterUser = async (req: Request, res: Response) => {
     // status : 'init' | 'active' | 'inactive' | 'all'
     // name : string
@@ -102,8 +107,26 @@ const filterUser = async (req: Request, res: Response) => {
             return res.status(200).json({ filterData })
         }
         filterData = await userModel.find({ isPaid: false }).exec()
+        filterData = filterData.filter((user: IUser) => user.profileTimeline !== 'init')
     }
-    console.log('all', filterData)
+    if (req.body.status === 'free') {
+        if (req.body.name) {
+            // filter data by name letter by letter with regex
+            filterData = await userModel.find({ name: { $regex: req.body.name, $options: 'i' } }).exec()
+            return res.status(200).json({ filterData })
+        }
+        filterData = await userModel.find({ nutritionist: undefined }).exec()
+        // remove the lead user
+        filterData = filterData.filter((user: IUser) => user.profileTimeline !== 'init')
+    }
+    if (req.body.status === 'attached') {
+        if (req.body.name) {
+            // filter data by name letter by letter with regex
+            filterData = await userModel.find({ name: { $regex: req.body.name, $options: 'i' } }).exec()
+            return res.status(200).json({ filterData })
+        }
+        filterData = await userModel.find({ nutritionist: { $exists: true } })
+    }
     return res.status(200).json({ filterData })
 }
 

@@ -1,12 +1,10 @@
 import express, { Request, Response } from 'express'
 const router = express.Router()
 import registerController from '../Controllers/regsiter.controller'
-import loginController from '../Controllers/login.controller'
 import loginWithPassword from '../Controllers/AdminPanelController/loginWithPassword'
 import handleRefreshToken from '../Controllers/refreshToken.controller'
 import logout from '../Controllers/logout'
 import endUserLoginController from '../Controllers/endUserController/login'
-
 import nutrisistController from '../Controllers/AdminPanelController/nutrisist.controller'
 
 /**
@@ -73,10 +71,6 @@ router.route('/logout').get(logout)
  *        access token:
  *           description: access token (valid for 10-20 min. After that it will expire)
  */
-router.route('/login-with-otp')
-    .get((req: Request, res: Response) => { return res.json({ message: 'GET METHOD NOT ALLOWED' }) })
-    .post(loginController.sendOtp)
-    .put(loginController.verifyOtp)
 
 // login with password
 router.route('/login')

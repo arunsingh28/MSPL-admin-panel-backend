@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
+        default: null
         // required: true,
     },
     profileTimeline: {
@@ -40,6 +41,16 @@ const userSchema = new mongoose.Schema({
             type: String,
             default: null,
         },
+    },
+    nutritionist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'emp',
+        default: null
+    },
+    academy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Academy',
+        default: null
     },
     language: {
         type: String,
