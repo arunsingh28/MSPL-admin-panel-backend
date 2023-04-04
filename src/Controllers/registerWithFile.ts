@@ -4,6 +4,8 @@ import fs from 'fs'
 import schoolModel from '../Models/school.model';
 import empModel from '../Models/emp.model'
 import { generatePassword } from './regsiter.controller';
+import Roles from '../../config/role';
+
 
 const registerSchoolWithFile = async (req: Request, res: Response) => {
     try {
@@ -66,10 +68,7 @@ const registerSchoolWithFile = async (req: Request, res: Response) => {
 }
 
 const registerEmpWithFile = async (req: Request, res: Response) => {
-    const Roles = {
-        'tl': [92, 921, 922, 923, 924, 925, 926],
-        'superAdmin': [99, 91, 92, 921, 922, 923, 924, 925, 926, 93, 931, 932, 94, 941, 942, 95, 951, 952, 96, 97, 971, 972, 98, 981, 982, 983, 90, 901, 81, 811, 812, 813, 814, 815]
-    }
+
     const permission = [
         {
             "role": "tl",
