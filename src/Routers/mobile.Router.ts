@@ -4,7 +4,7 @@ import endUserController from '../Controllers/AdminPanelController/user.controll
 import PackageController from '../Controllers/AdminPanelController/Package.controller'
 import mobileController from "../Controllers/Mobile/mobile.controller";
 import lmsController from '../Controllers/LMS/lms.controller'
-
+import editUserController from "../Controllers/Mobile/editUser.controller";
 
 
 router.route('/create-end-user').post(endUserController.regsiterEndUser)
@@ -39,6 +39,9 @@ router.route('/get-banner').get(mobileController.getBanner)
 
 // home api
 router.route('/home/:id').get(mobileController.homePage)
+
+// edit profile
+router.route('/update-profile/:id').post(editUserController.updateUserProfile)
 
 // get all food category
 router.route('/get-all-food-category').get(mobileController.getFoodCategory)

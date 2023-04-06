@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import bannerModel from '../../Models/mobile.banner.model'
 import { uploadFile, deleteFile } from '../../services/aws.s3'
-
 import fs from 'fs'
 
 const uploadBanner = async (req: Request, res: Response) => {

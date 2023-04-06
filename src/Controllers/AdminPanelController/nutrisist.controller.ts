@@ -11,8 +11,6 @@ interface IUpload {
 const updateProfile = async (req: Request, res: Response) => {
     const data = JSON.parse(req.body.data)
     const file = req.file
-    console.log('data', data.change)
-    console.log('file', data.education)
     if (data.change) {
         // profile change
         try {
