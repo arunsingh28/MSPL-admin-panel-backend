@@ -3,7 +3,7 @@ import userModel from "../../Models/user.model";
 import empModel from '../../Models/emp.model'
 import RecipeModel from "../../Models/recipies.model";
 import bannerModel from '../../Models/mobile.banner.model'
-
+import recipeCategoryModel from '../../Models/recipiCategory.model'
 
 const saveWaterIntake = async (req: Request, res: Response) => {
     try {
@@ -112,4 +112,13 @@ const homePage = async (req: Request, res: Response) => {
     }
 }
 
-export default { saveWaterIntake, nutritionProfile, homePage, sendAllRecipie, getBanner, sendRecipieByCategory, saveWaterOuttake }
+const getFoodCategory = async (req: Request, res: Response) => {
+    try {
+        const foodCategory = await recipeCategoryModel.find().exec()
+        res.status(200).json({ success: true, data: foodCategory })
+    } catch (err: any) {
+        res.status(500).json({ success: false, message: err.message })
+    }
+}
+
+export default { saveWaterIntake, nutritionProfile, getFoodCategory, homePage, sendAllRecipie, getBanner, sendRecipieByCategory, saveWaterOuttake }

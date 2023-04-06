@@ -40,4 +40,7 @@ router.route('/get-banner').get(mobileController.getBanner)
 // home api
 router.route('/home/:id').get(mobileController.homePage)
 
+// get all food category
+router.route('/get-all-food-category').get(mobileController.getFoodCategory)
+
 export default router

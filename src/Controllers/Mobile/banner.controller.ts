@@ -2,11 +2,13 @@ import { Request, Response } from 'express'
 import bannerModel from '../../Models/mobile.banner.model'
 import { uploadFile, deleteFile } from '../../services/aws.s3'
 
+import fs from 'fs'
+
 const uploadBanner = async (req: Request, res: Response) => {
-    console.log(req.query.key)
+    let banner: any
     try {
-        const banner: any = await uploadFile(req.file)
-        console.log({banner})
+        banner = await uploadFile(req.file)
+        console.log({ banner })
         const bannerData = new bannerModel({
             bannerImage: {
                 location: banner?.location,
@@ -18,6 +20,7 @@ const uploadBanner = async (req: Request, res: Response) => {
         res.status(200).json({ success: true, message: 'Banner uploaded successfully' })
     } catch (err: any) {
         if (err.code === 11000) {
+            const isDelete = await deleteFile(banner.key)
             return res.status(400).json({ success: false, message: 'Banner already exists' })
         }
         res.status(500).json({ success: false, message: err.message })
@@ -32,5 +35,7 @@ const getBanner = async (req: Request, res: Response) => {
         res.status(500).json({ success: false, message: err.message })
     }
 }
+
+
 
 export default { uploadBanner, getBanner }
