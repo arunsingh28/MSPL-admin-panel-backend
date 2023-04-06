@@ -4,7 +4,7 @@ import empModel from '../../Models/emp.model'
 import RecipeModel from "../../Models/recipies.model";
 import bannerModel from '../../Models/mobile.banner.model'
 import recipeCategoryModel from '../../Models/recipiCategory.model'
-
+import { sportsListDB } from "../../Models/sportsList.model";
 
 const saveWaterIntake = async (req: Request, res: Response) => {
     try {
@@ -93,13 +93,14 @@ const getBanner = async (req: Request, res: Response) => {
 const homePage = async (req: Request, res: Response) => {
     try {
         const user = await userModel.findById(req.params.id).exec()
+        const sportList = await sportsListDB.find().exec()
         const banner = await bannerModel.find().exec()
         if (user) {
             return res.status(200).json({
                 success: true, data: {
                     calories: 0,
                     user: user,
-                    sportsList: ['Cricket', 'Badminton', 'Football'],
+                    sportsList: sportList,
                     banner: banner
                 }, statusCode: res.statusCode
             })

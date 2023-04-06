@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 import env from '../../../config/env';
 import sendOTP from '../../services/sendOTP';
 import newUser from '../../Models/newUser.model';
-
+import { sendEmail } from '../../services/mail';
 
 // login with phone number return otp to mobile number
 const loginWithPhone = async (req: Request, res: Response) => {

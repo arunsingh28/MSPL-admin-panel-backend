@@ -3,6 +3,7 @@ import empModel from "../../Models/emp.model";
 import bcrypt from 'bcrypt';
 import token from '../../Utils/tokens'
 import env from "../../../config/env";
+import { sendEmail } from '../../services/mail'
 // import LoggedInModel from '../../Models/logedin.model'
 
 
@@ -41,6 +42,8 @@ const loginWithPassword = async (req: Request, res: Response) => {
             httpOnly: true,
             sameSite: 'none',
         })
+        // const isSend = await sendEmail('app@sportylife.in', 'You have successfully login in your account')
+        // console.log('isSend',isSend)
         return res.status(200).json({
             success: true, message: 'login successfully',
             accessToken,
