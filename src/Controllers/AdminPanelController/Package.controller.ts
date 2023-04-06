@@ -3,7 +3,6 @@ import packageModel from "../../Models/package.model";
 
 // Save package
 const handleSavePackage = async (req: Request, res: Response) => {
-    console.log(req.body)
     const { packageData, points } = req.body
     try {
         await packageModel.create({

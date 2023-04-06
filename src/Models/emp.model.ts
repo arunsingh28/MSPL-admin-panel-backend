@@ -29,7 +29,13 @@ const empSchema = new mongoose.Schema({
         //     message: (props: any) => `${props.value} is not valid email`
         // }                        
     },
-
+    myClient: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            unique: true
+        }
+    ],
     empId: {
         type: String,
         required: true,

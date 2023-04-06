@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import recipeDB from '../../Models/recipies.model'
 import { uploadFile, deleteFile } from '../../services/aws.s3'
-
+import removeFile from '../../Utils/removeFile'
 
 
 const saveNewRecipie = async (req: Request, res: Response) => {
@@ -10,6 +10,8 @@ const saveNewRecipie = async (req: Request, res: Response) => {
 
     const upload: any = await uploadFile(req.file)
     console.log({ upload })
+    // remove the file from server
+    removeFile(req.file?.path)
     // create object
     const recipe = {
         name: data.name,
@@ -96,6 +98,8 @@ const updateRecipe = async (req: Request, res: Response) => {
         }
     } else {
         upload = await uploadFile(req.file)
+        // remove the file from server
+        removeFile(req.file?.path)
         const isDelete = await deleteFile(req.body.key)
         if (!isDelete) return res.status(200).json({ message: 'Error in updating file', success: false })
 

@@ -12,7 +12,8 @@ import saveNewRecipie from '../Controllers/Nutrition/Recipies.controller'
 import PackageController from '../Controllers/AdminPanelController/Package.controller'
 import nutrisistController from '../Controllers/AdminPanelController/nutrisist.controller'
 import bannerController from '../Controllers/Mobile/banner.controller'
-
+import sportsListController from "../Controllers/AdminPanelController/sportsList.controller";
+import myClientController from '../Controllers/Nutrition/client.controller'
 
 const router = express.Router()
 
@@ -79,8 +80,8 @@ router.route('/get-recipe').get(saveNewRecipie.getRecipe)
 router.route('/delete-recipe/:id').delete(saveNewRecipie.deleteRecipe)
 router.route('/get-recipe-by-id/:id').get(saveNewRecipie.getRecipeById)
 router.route('/update-recipe')
-.post(upload.single('file'), saveNewRecipie.updateRecipe)
-.put(upload.single('file'), saveNewRecipie.updateRecipe)
+    .post(upload.single('file'), saveNewRecipie.updateRecipe)
+    .put(upload.single('file'), saveNewRecipie.updateRecipe)
 
 
 // nutritist profile
@@ -95,10 +96,25 @@ router.route('/get-all-package').get(PackageController.handleGetAllPackages)
 
 
 // attach user
-router.route('/attach-user-to-nutritionist/:id').post(nutrisistController.attachUser)
+router.route('/attach-user-to-nutritionist/:id/:nutriID').post(nutrisistController.attachUser)
 
+router.route('/fetch-all-client/:id').get(myClientController.fetchClient)
 
 // mobile banner
 router.route('/create-banner').post(upload.single('file'), bannerController.uploadBanner)
+
+// get all sport by category
+router.route('/get-all-sportlist').get(sportsListController.sportsList)
+// get save sport intake
+router.route('/save-sportlist').post(upload.single('file'), sportsListController.saveSportsList)
+
+
+// update sport 
+// :id is sport id
+router.route('/update-sportlist/:id').put(upload.single('file'), sportsListController.updateSportsList)
+
+// delete sport
+router.route('/delete-sportlist/:id').delete(sportsListController.deleteSportsList)
+
 
 export default router 

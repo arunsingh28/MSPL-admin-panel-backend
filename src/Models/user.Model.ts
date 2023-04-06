@@ -47,6 +47,34 @@ const userSchema = new mongoose.Schema({
         ref: 'emp',
         default: null
     },
+    nutritionData: {
+        dietStatus: {
+            type: Boolean,
+            default: false
+        },
+        lastAssisted: {
+            type: Date,
+            default: null
+        },
+        nextAssisted: {
+            type: Date,
+            default: null
+        },
+        dietPlan: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'package',
+            default: null
+        },
+        dietPlanName: {
+            type: String,
+            default: null
+        },
+        weekReport: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'weekReport',
+            default: null
+        },
+    },
     academy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Academy',

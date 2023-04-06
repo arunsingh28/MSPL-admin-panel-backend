@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
 import xlsx from 'xlsx';
-import fs from 'fs'
 import schoolModel from '../Models/school.model';
 import empModel from '../Models/emp.model'
 import { generatePassword } from './regsiter.controller';
 import Roles from '../../config/role';
-
+import removeFile from '../Utils/removeFile';
 
 const registerSchoolWithFile = async (req: Request, res: Response) => {
     try {
@@ -58,15 +57,14 @@ const registerSchoolWithFile = async (req: Request, res: Response) => {
                 }
             })
             // delete the file after saving it into db
-            const path: any = req?.file?.path
-            fs.unlinkSync(path)
+            removeFile(req?.file?.path)
         }
     } catch (error: any) {
-        console.log('error', error)
         res.status(500).json({ message: error.message, success: false })
     }
 }
 
+// employee register with file
 const registerEmpWithFile = async (req: Request, res: Response) => {
 
     const permission = [
@@ -132,8 +130,7 @@ const registerEmpWithFile = async (req: Request, res: Response) => {
                 }
             })
             // delete the file after saving it into db
-            const path: any = req?.file?.path
-            fs.unlinkSync(path)
+            removeFile(req?.file?.path)
         }
     } catch (error: any) {
         console.log('error', error)

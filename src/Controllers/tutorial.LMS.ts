@@ -16,14 +16,13 @@ const getTutorialInfo = async (req: Request, res: Response) => {
 }
 
 const initTutorial = async (req: Request, res: Response) => {
-    const { name, description } = req.body
     const userId = await req.session.user?._id
     // console.log(req.user)
-    if (!name || !description) {
+    if (!req.body.name || !req.body.description) {
         return res.status(400).json({ message: 'All fields are required', success: false })
     }
     try {
-        const isExits = await Tutorial.findOne({ TutorialTitle: name })
+        const isExits = await Tutorial.findOne({ TutorialTitle: req.body.name })
         if (isExits) {
             return res.status(400).json({ message: 'Tutorial already exists', success: false })
         }
@@ -35,9 +34,9 @@ const initTutorial = async (req: Request, res: Response) => {
             await emp.save()
         }
         const tutorial = new Tutorial({
-            TutorialTitle: name,
+            TutorialTitle: req.body.name,
             intiater: userId,
-            TutorialDescription: description
+            TutorialDescription: req.body.description
         })
         await tutorial.save()
         return res.status(201).json({ message: 'Tutorial Initiate Successfully', success: true })
@@ -47,13 +46,12 @@ const initTutorial = async (req: Request, res: Response) => {
 }
 
 const initModule = async (req: Request, res: Response) => {
-    const { modules, name } = req.body
     const userId = await req.session.user?._id
-    if (!modules || !name) {
+    if (!req.body.modules || !req.body.name) {
         return res.status(400).json({ message: 'All fields are required', success: false })
     }
     try {
-        const tutorial = await Tutorial.findOne({ TutorialTitle: name })
+        const tutorial = await Tutorial.findOne({ TutorialTitle: req.body.name })
         const emp = await empModel.findById(userId).exec()
         if (emp) {
             emp.tutorialTimeline.createModule = false
@@ -63,22 +61,21 @@ const initModule = async (req: Request, res: Response) => {
         if (!tutorial) {
             return res.status(404).json({ message: 'Tutorial not found', success: false })
         }
-        tutorial.moduleNumber = modules
+        tutorial.moduleNumber = req.body.modules
         await tutorial.save()
-        return res.status(201).json({ message: modules + ' Module Initiate Successfully', success: true })
+        return res.status(201).json({ message: req.body.modules + ' Module Initiate Successfully', success: true })
     } catch (error: any) {
         return res.status(500).json({ message: error.message, success: false })
     }
 }
 
 const initModuleName = async (req: Request, res: Response) => {
-    const { name, moduleName, moduleDescription } = req.body
     const userId = await req.session.user?._id
-    if (!name || !moduleName || !moduleDescription) {
+    if (!req.body.name || !req.body.moduleName || !req.body.moduleDescription) {
         return res.status(400).json({ message: 'All fields are required', success: false })
     }
     try {
-        const tutorial = await Tutorial.findOne({ TutorialTitle: name })
+        const tutorial = await Tutorial.findOne({ TutorialTitle: req.body.name })
         const emp = await empModel.findById(userId).exec()
         if (emp) {
             emp.tutorialTimeline.nameModule = false
@@ -89,10 +86,10 @@ const initModuleName = async (req: Request, res: Response) => {
             return res.status(404).json({ message: 'Tutorial not found', success: false })
         }
         const intoDB = new Promise((resolve, reject) => {
-            Object.keys(moduleName).map((name: any) => {
+            Object.keys(req.body.moduleName).map((name: any) => {
                 reject(tutorial.module.push({
-                    moduleTitle: moduleName[name],
-                    moduleDescription: moduleDescription[name]
+                    moduleTitle: req.body.moduleName[name],
+                    moduleDescription: req.body.moduleDescription[name]
                 }))
             })
             resolve(tutorial.save())

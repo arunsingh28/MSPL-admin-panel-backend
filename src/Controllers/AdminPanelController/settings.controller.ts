@@ -32,14 +32,13 @@ const verifyLogin = async (req: Request, res: Response) => {
 }
 
 const changePassword = async (req: Request, res: Response) => {
-    const { oldPassword, newPassword } = req.body
     const { _id } = req.params
     const isEmp = await userModel.findOne({ _id }).exec()
-    const isMatch = await bcrypt.compare(oldPassword, (isEmp as EmpDocument).password)
+    const isMatch = await bcrypt.compare(req.body.oldPassword, (isEmp as EmpDocument).password)
     if (!isMatch) {
         return res.json({ message: 'old password is incorrect', success: false })
     } else {
-        const decrpt = await bcrypt.hash(newPassword, 10)
+        const decrpt = await bcrypt.hash(req.body.newPassword, 10)
         const update = await userModel.findByIdAndUpdate(_id, { password: decrpt }).exec()
         if (update) {
             return res.json({ message: 'password change successfully', success: true })

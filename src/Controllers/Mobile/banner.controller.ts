@@ -1,12 +1,14 @@
 import { Request, Response } from 'express'
 import bannerModel from '../../Models/mobile.banner.model'
 import { uploadFile, deleteFile } from '../../services/aws.s3'
-import fs from 'fs'
+import removeFile from '../../Utils/removeFile'
 
 const uploadBanner = async (req: Request, res: Response) => {
     let banner: any
     try {
         banner = await uploadFile(req.file)
+        // remove the file from server
+        removeFile(req.file?.path)
         console.log({ banner })
         const bannerData = new bannerModel({
             bannerImage: {

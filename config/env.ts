@@ -5,8 +5,8 @@ const env = {
 
     // _databse_url: 'mongodb://mongo:27017/sportylife',
 
-    // _databse_url: 'mongodb://localhost:27017/emp-server',
-    _databse_url: 'mongodb+srv://doadmin:PI6A3mSN2s419X58@db-mongodb-blr1-61098-3799b11a.mongo.ondigitalocean.com/admin?authSource=admin&tls=true',
+    _databse_url: 'mongodb://localhost:27017/emp-server',
+    // _databse_url: 'mongodb+srv://doadmin:PI6A3mSN2s419X58@db-mongodb-blr1-61098-3799b11a.mongo.ondigitalocean.com/admin?authSource=admin&tls=true',
 
 
     // _databse_url: 'mongodb+srv://doadmin:aL9F820Np1wB536J@mspl-db-030d6e66.mongo.ondigitalocean.com/admin?tls=true&authSource=admin',

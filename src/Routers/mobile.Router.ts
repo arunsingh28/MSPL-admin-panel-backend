@@ -46,4 +46,6 @@ router.route('/update-profile/:id').post(editUserController.updateUserProfile)
 // get all food category
 router.route('/get-all-food-category').get(mobileController.getFoodCategory)
 
+
+
 export default router

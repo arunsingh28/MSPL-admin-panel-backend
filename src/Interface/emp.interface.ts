@@ -36,7 +36,13 @@ export interface EmpDocument extends mongoose.Document {
         loginNotification: Boolean
         logoutNotification: Boolean
         deleteNotification: Boolean
-    }
+    },
+    myClient: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
     profile: {
         bio: String,
         profileImage: {

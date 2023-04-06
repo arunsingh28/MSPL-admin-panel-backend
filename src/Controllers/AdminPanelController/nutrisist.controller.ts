@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import empDB from '../../Models/emp.model';
 import userModel from "../../Models/user.model";
 import { uploadFile, deleteFile } from '../../services/aws.s3'
+import removeFile from "../../Utils/removeFile";
 
 interface IUpload {
     location: string;
@@ -10,13 +11,14 @@ interface IUpload {
 
 const updateProfile = async (req: Request, res: Response) => {
     const data = JSON.parse(req.body.data)
-    const file = req.file
     if (data.change) {
         // profile change
         try {
             // delete old profile from the aws s3
             await deleteFile(data.key)
-            const isUpload = await uploadFile(file) as IUpload
+            const isUpload = await uploadFile(req.file) as IUpload
+            // remove the file from server
+            removeFile(req.file?.path)
             if (isUpload) {
                 const update = {
                     profile: {
@@ -143,14 +145,26 @@ const dietPlanner = async (req: Request, res: Response) => {
 
 const attachUser = async (req: Request, res: Response) => {
     try {
+        // add the nutritionist to the user
         const isUser = await userModel.findByIdAndUpdate(req.params.id, {
             $set: {
                 nutritionist: req.body.nutritionist
             }
-        }).exec()
-        console.log('isUser', isUser)
-        if (isUser) {
-            return res.status(200).json({ success: true, message: 'User attached' })
+        }).then(async (data) => {
+            if (data) {
+                // add the user to the nutritionist
+                const isEmp = await empDB.findByIdAndUpdate(req.params.nutriID, {
+                    $push: {
+                        myClient: req.params.id
+                    }
+                })
+                if (isEmp) {
+                    return res.status(200).json({ success: true, message: 'User attached' })
+                }
+            }
+        })
+        if (!isUser) {
+            return res.status(404).json({ success: false, message: 'User not found' })
         }
     } catch (err: any) {
         return res.status(500).json({ message: err.message, success: false })

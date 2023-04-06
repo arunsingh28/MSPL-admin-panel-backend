@@ -3,18 +3,18 @@ import { ingridienentsModel } from "../../Models/ingridienents.model";
 import recipeCategoryModel from "../../Models/recipiCategory.model";
 import DietFrequencyModel from "../../Models/dietFrequency.model";
 import xlsx from 'xlsx'
-import fs from 'fs'
+import removeFile from "../../Utils/removeFile";
 
 const addIngridientWithFile = async (req: Request, res: Response) => {
     // save the ingridient to the database from file
     if (req.file?.originalname.split('.').pop() !== 'xlsx') {
+        removeFile(req.file?.path)
         // remove the file from server
-        fs.unlinkSync((req as any).file.path)
         return res.status(400).json({ message: 'Please select file with xlsx format' })
     }
     if (req.file === undefined) {
         // remove the file from server
-        fs.unlinkSync((req as any).file.path)
+        removeFile((req.file as any).path)
         return res.status(400).json({ message: 'Please select file' })
     }
     try {
@@ -22,7 +22,7 @@ const addIngridientWithFile = async (req: Request, res: Response) => {
         const sheet_name_list = workbook.SheetNames;
         const xlData: any = xlsx.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
         if (xlData[0].name === undefined || xlData[0].unit === undefined || xlData[0].quantity === undefined || xlData[0].calories === undefined || xlData[0].protien === undefined || xlData[0].fat === undefined || xlData[0].carb === undefined) {
-            fs.unlinkSync(req.file.path)
+            removeFile(req.file.path)
             return res.status(400).json({ message: 'Require filed are missing use downloaded template', success: false })
         }
         let i = 0
@@ -40,12 +40,12 @@ const addIngridientWithFile = async (req: Request, res: Response) => {
             })
             i++
         }
-        fs.unlinkSync(req.file.path)
+        removeFile(req.file.path)
         return res.status(200).json({ message: count + ' records are inserted', success: true })
     } catch (error: any) {
         console.log(error)
         // remove file from server
-        fs.unlinkSync(req.file.path)
+        removeFile(req.file.path)
         return res.status(500).json({ message: error.message, success: false })
     }
 }

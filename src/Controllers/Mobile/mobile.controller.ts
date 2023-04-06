@@ -6,7 +6,6 @@ import bannerModel from '../../Models/mobile.banner.model'
 import recipeCategoryModel from '../../Models/recipiCategory.model'
 
 
-
 const saveWaterIntake = async (req: Request, res: Response) => {
     try {
         const user = await userModel.findById(req.session.decoded?.id);
