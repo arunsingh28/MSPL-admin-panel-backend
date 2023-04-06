@@ -63,8 +63,6 @@ const sendAllRecipie = async (req: Request, res: Response) => {
     }
 }
 
-
-
 const sendRecipieByCategory = async (req: Request, res: Response) => {
     const category = req.params.category
     const page = Number(req.query["page"]) || 1

@@ -16,6 +16,7 @@ const updateSoundSetting = async (req: Request, res: Response) => {
         return res.json({ success: true, message: 'Sound setting updated' })
     } catch (error) {
         console.log(error)
+        // return res.status(500).json({ message: 'Internal server error', success: false, statusCode: res.statusCode })
         return res.json({ success: false, message: 'Something went wrong' })
     }
 }
