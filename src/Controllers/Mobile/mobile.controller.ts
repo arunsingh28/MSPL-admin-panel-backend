@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import userModel from "../../Models/user.model";
 import empModel from '../../Models/emp.model'
 import RecipeModel from "../../Models/recipies.model";
-// 
+import bannerModel from '../../Models/mobile.banner.model'
+
+
 const saveWaterIntake = async (req: Request, res: Response) => {
     try {
         const user = await userModel.findById(req.session.decoded?.id);
@@ -79,5 +81,35 @@ const sendRecipieByCategory = async (req: Request, res: Response) => {
 }
 
 
+const getBanner = async (req: Request, res: Response) => {
+    try {
+        const banner = await bannerModel.find()
+        res.status(200).json({ success: true, data: banner })
+    } catch (err: any) {
+        res.status(500).json({ success: false, data: null })
+    }
+}
 
-export default { saveWaterIntake, nutritionProfile, sendAllRecipie, sendRecipieByCategory, saveWaterOuttake }
+
+const homePage = async (req: Request, res: Response) => {
+    try {
+        const user = await userModel.findById(req.params.id).exec()
+        const banner = await bannerModel.find().exec()
+        if (user) {
+            return res.status(200).json({
+                success: true, data: {
+                    calories: 0,
+                    user: user,
+                    sportsList: ['Cricket', 'Badminton', 'Football'],
+                    banner: banner
+                }, statusCode: res.statusCode
+            })
+        } else {
+            return res.status(200).json({ success: false, data: null, statusCode: res.statusCode })
+        }
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal server error', success: false, statusCode: res.statusCode })
+    }
+}
+
+export default { saveWaterIntake, nutritionProfile, homePage, sendAllRecipie, getBanner, sendRecipieByCategory, saveWaterOuttake }

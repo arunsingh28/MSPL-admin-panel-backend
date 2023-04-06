@@ -5,10 +5,9 @@ import PackageController from '../Controllers/AdminPanelController/Package.contr
 import mobileController from "../Controllers/Mobile/mobile.controller";
 import lmsController from '../Controllers/LMS/lms.controller'
 
+
+
 router.route('/create-end-user').post(endUserController.regsiterEndUser)
-// send the otp
-
-
 router.route('/get-user-info/:id').get(endUserController.getUserById)
 
 router.route('/get-all-package').get(PackageController.handleGetAllPackages)
@@ -33,7 +32,12 @@ router.route('/get-recpie-by-category/:category').get(mobileController.sendRecip
 router.route('/water-intake').get(mobileController.saveWaterIntake)
 router.route('/water-outtake').get(mobileController.saveWaterOuttake)
 
-
 router.route('/get-all-course').get(lmsController.getAllModules)
+
+router.route('/get-banner').get(mobileController.getBanner)
+
+
+// home api
+router.route('/home/:id').get(mobileController.homePage)
 
 export default router

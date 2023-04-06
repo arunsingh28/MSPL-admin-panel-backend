@@ -11,6 +11,8 @@ import foodController from '../Controllers/Nutrition/food.controller'
 import saveNewRecipie from '../Controllers/Nutrition/Recipies.controller'
 import PackageController from '../Controllers/AdminPanelController/Package.controller'
 import nutrisistController from '../Controllers/AdminPanelController/nutrisist.controller'
+import bannerController from '../Controllers/Mobile/banner.controller'
+
 
 const router = express.Router()
 
@@ -76,7 +78,9 @@ router.route('/save-recipe').post(upload.single('file'), saveNewRecipie.saveNewR
 router.route('/get-recipe').get(saveNewRecipie.getRecipe)
 router.route('/delete-recipe/:id').delete(saveNewRecipie.deleteRecipe)
 router.route('/get-recipe-by-id/:id').get(saveNewRecipie.getRecipeById)
-router.route('/update-recipe').post(upload.single('file'), saveNewRecipie.updateRecipe)
+router.route('/update-recipe')
+.post(upload.single('file'), saveNewRecipie.updateRecipe)
+.put(upload.single('file'), saveNewRecipie.updateRecipe)
 
 
 // nutritist profile
@@ -92,4 +96,9 @@ router.route('/get-all-package').get(PackageController.handleGetAllPackages)
 
 // attach user
 router.route('/attach-user-to-nutritionist/:id').post(nutrisistController.attachUser)
+
+
+// mobile banner
+router.route('/create-banner').post(upload.single('file'), bannerController.uploadBanner)
+
 export default router 

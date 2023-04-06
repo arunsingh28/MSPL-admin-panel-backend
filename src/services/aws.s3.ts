@@ -10,8 +10,8 @@ const s3Credentials = {
     endpoint: 'https://sgp1.digitaloceanspaces.com',
     region: 'us-east-1',
     credentials: {
-        accessKeyId: 'AKIAYZ4KOWAOXEGT4TGR',
-        secretAccessKey: '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',
+        accessKeyId: 'DO00ATPRN4T6WMGCZW4T',
+        secretAccessKey: 'lcwO4/OTZSprI4Aw+JttI/wdglSEL5/CCAKOUfIHRQI',
     }
 }
 
@@ -30,7 +30,7 @@ export const uploadFile = async (file: any) => {
     const fileName = renameFile();
     // create buffer from file
     const params = {
-        Bucket: 'sgbucket-a.s3',
+        Bucket: 'sg3storage',
         Key: fileName,
         Body: buffer,
         ACL: 'public-read'
@@ -39,7 +39,7 @@ export const uploadFile = async (file: any) => {
         const data = await s3.send(new PutObjectCommand(params));
         if (data) {
             return {
-                location: `https://sgbucket-a.s3.ap-south-1.amazonaws.com/${fileName}`,
+                location: `https://sg3storage.sgp1.digitaloceanspaces.com/${fileName}`,
                 key: fileName
             }
         }
@@ -52,7 +52,7 @@ export const uploadFile = async (file: any) => {
 
 export const deleteFile = async (key: string) => {
     const params = {
-        Bucket: 'arunsingh28',
+        Bucket: 'sg3storage',
         Key: key
     };
     try {
