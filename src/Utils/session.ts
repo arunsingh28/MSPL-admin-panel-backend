@@ -1,6 +1,6 @@
 import session from 'express-session'
 import { EmpDocument } from '../Interface/emp.interface'
-import { Express } from 'express'
+import { Express, Request, Response } from 'express'
 
 
 interface IToken {
@@ -19,14 +19,16 @@ declare module 'express-session' {
 
 export default function (app: Express) {
     app.use(session({
-        name: 'connection_id',
+        name: 'sessionInfo',
         secret: 'connectionid',
         proxy: true,
         resave: false,
         saveUninitialized: true,
-        cookie: { secure: true, maxAge: 24 * 60 * 60 * 1000 }
+        cookie: {
+            // sameSite: 'none',
+            // domain: '.google.com',
+            maxAge: 24 * 60 * 60 * 1000
+        }
     }))
-
     app.set('trust proxy', 1)
-
 }

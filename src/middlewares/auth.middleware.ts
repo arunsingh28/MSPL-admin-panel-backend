@@ -39,7 +39,6 @@ const authorization = async (req: Request, res: Response, next: NextFunction) =>
             /* 
              create new session with current user
             */
-            req.session.user = user
             next()
         }
     }

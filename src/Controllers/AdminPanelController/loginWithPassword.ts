@@ -44,6 +44,9 @@ const loginWithPassword = async (req: Request, res: Response) => {
         })
         // const isSend = await sendEmail('app@sportylife.in', 'You have successfully login in your account')
         // console.log('isSend',isSend)
+        // create session
+        // req.session.user = user
+        // req.session.save()
         return res.status(200).json({
             success: true, message: 'login successfully',
             accessToken,
