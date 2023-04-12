@@ -8,6 +8,7 @@ export interface ingridienentsDocument extends mongoose.Document {
     fat: number
     carbs: number
     protein: number
+    index: number
     // cholesterol: number
     // sodium: number
     // potassium: number

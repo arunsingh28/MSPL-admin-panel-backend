@@ -12,6 +12,10 @@ const updateUserProfile = async (req: Request, res: Response) => {
             user.academy = req.body.academy;
             user.language = req.body.language;
             user.email = req.body.email;
+            user.name = req.body.name;
+            user.dob = req.body.dob;
+            user.gender = req.body.gender;
+            user.phone = req.body.phone;
             const updatedUser = await user.save();
             res.status(200).json({ success: true, data: updatedUser });
         } else {

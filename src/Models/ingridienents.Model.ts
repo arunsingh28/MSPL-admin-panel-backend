@@ -4,7 +4,7 @@ import { ingridienentsDocument } from '../Interface/ingridienents.interface'
 const ingridienentsSchema = new mongoose.Schema({
     name: {
         type: String,
-        unique : true,
+        unique: true,
         required: true,
     },
     quantity: {
@@ -32,5 +32,7 @@ const ingridienentsSchema = new mongoose.Schema({
         required: true,
     },
 })
+
+
 
 export const ingridienentsModel = mongoose.model<ingridienentsDocument>('ingridienents', ingridienentsSchema)

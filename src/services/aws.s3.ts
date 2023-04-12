@@ -18,21 +18,23 @@ const s3Credentials = {
 const s3 = new S3(s3Credentials);
 
 
-const renameFile = () => {
-    const newFileName = `${Date.now()}.${v4()}.${'webp'}`;
+const renameFile = (file: any) => {
+    const fileExtension = file.originalname.split('.').pop();
+    const newFileName = `${Date.now()}.${v4()}.${fileExtension}`;
     return newFileName;
 }
 
 
 export const uploadFile = async (file: any) => {
-    const sharpImage = sharp(file.path).rotate().resize(500, 500).toFormat('webp').jpeg({ quality: 80 });
-    const buffer = await sharpImage.toBuffer();
-    const fileName = renameFile();
+    console.log('FIlE:',file)
+    // const sharpImage = sharp(file.path).rotate().resize(500, 500).toFormat('webp').jpeg({ quality: 80 });
+    // const buffer = await sharpImage.toBuffer();
+    const fileName = renameFile(file);
     // create buffer from file
     const params = {
         Bucket: 'sg3storage',
         Key: fileName,
-        Body: buffer,
+        Body: file.buffer,
         ACL: 'public-read'
     };
     try {

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import empDB from '../../Models/emp.model';
 import userModel from "../../Models/user.model";
 import { uploadFile, deleteFile } from '../../services/aws.s3'
-import removeFile from "../../Utils/removeFile";
+
 
 interface IUpload {
     location: string;
@@ -17,8 +17,6 @@ const updateProfile = async (req: Request, res: Response) => {
             // delete old profile from the aws s3
             await deleteFile(data.key)
             const isUpload = await uploadFile(req.file) as IUpload
-            // remove the file from server
-            removeFile(req.file?.path)
             if (isUpload) {
                 const update = {
                     profile: {

@@ -4,6 +4,7 @@ interface RecipeInterface extends mongoose.Document {
     name: string;
     category: string[];
     ingredients: [];
+    instructions: [];
     // instructions: string;
     preparationTime: number;
     image: {
@@ -22,14 +23,12 @@ const RecipeSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    preparationTime:{
+    preparationTime: {
         type: Number,
         required: true,
     },
-    ingredients: {
-        type: Array,
-        required: true,
-    },
+    instructions: [],
+    ingredients: [],
     // instructions: {
     //     type: String,
     //     required: true,

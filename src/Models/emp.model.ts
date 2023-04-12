@@ -14,28 +14,21 @@ const empSchema = new mongoose.Schema({
         specialisation: [],
         education: String,
     },
-    email: {
-        type: String,
-        required: [true, 'this field required'],
-        unique: true,
-        match: [
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        ],
-        // validate: {             
-        //     validator: function (val: string) {
-        //         let condition = (val == 'test@gmail.com' || '123@gmail.com' || 'google@gmail.com') ? false : true
-        //         return condition
-        //     },                  
-        //     message: (props: any) => `${props.value} is not valid email`
-        // }                        
-    },
     myClient: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-            unique: true
+            default: null
         }
     ],
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        match: [
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        ]
+    },
     empId: {
         type: String,
         required: true,
@@ -46,27 +39,10 @@ const empSchema = new mongoose.Schema({
     oldOtp: {
         type: Number
     },
-    // firstName: {
-    //     type: String,
-    //     required: true,
-    // },
-    // lastName: {
-    //     type: String,
-    //     required: true,
-    // },
     name: {
         type: String,
         required: true
     },
-    // address: {
-    //     type: {
-    //         street: String,
-    //         city: String,
-    //         state: String,
-    //         // pincode: Number
-    //     },
-    //     required: true,
-    // },
     password: {
         type: String,
         required: true
@@ -74,11 +50,6 @@ const empSchema = new mongoose.Schema({
     phone: {
         type: Number,
         required: true,
-    },
-
-
-    referral_code: {
-        type: String,
     },
     isMute: {
         loginNotification: {

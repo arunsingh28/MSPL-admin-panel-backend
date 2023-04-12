@@ -1,11 +1,11 @@
 import express from "express";
 const router = express.Router();
-import endUserController from '../Controllers/AdminPanelController/user.controller'
+import endUserController from '../Controllers/Mobile/account.controller'
 import PackageController from '../Controllers/AdminPanelController/Package.controller'
 import mobileController from "../Controllers/Mobile/mobile.controller";
 import lmsController from '../Controllers/LMS/lms.controller'
 import editUserController from "../Controllers/Mobile/editUser.controller";
-
+import contactController from "../Controllers/Mobile/contact.controller";
 
 router.route('/create-end-user').post(endUserController.regsiterEndUser)
 router.route('/get-user-info/:id').get(endUserController.getUserById)
@@ -45,6 +45,9 @@ router.route('/update-profile/:id').post(editUserController.updateUserProfile)
 
 // get all food category
 router.route('/get-all-food-category').get(mobileController.getFoodCategory)
+
+// contact-us api
+router.route('/contact-us/:id').post(contactController.raseNewRequest)
 
 
 

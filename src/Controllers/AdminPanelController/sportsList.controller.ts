@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { sportsListDB } from "../../Models/sportsList.model";
 import { deleteFile, uploadFile } from '../../services/aws.s3'
-import removeFile from "../../Utils/removeFile";
+
 
 
 interface IUpload {
@@ -27,7 +27,6 @@ const saveSportsList = async (req: Request, res: Response) => {
                 key: req.body.key
             }
         });
-        removeFile(req.file?.path)
         res.status(200).json({ sportsList, success: true, statusCode: res.statusCode });
     } catch (error: any) {
         if (error.code === 11000) {
@@ -40,7 +39,6 @@ const saveSportsList = async (req: Request, res: Response) => {
 const updateSportsList = async (req: Request, res: Response) => {
     try {
         const upload = await uploadFile(req.file) as IUpload
-        removeFile(req.file?.path)
         if (upload) {
             req.body.image = upload.location;
             req.body.key = upload.key;

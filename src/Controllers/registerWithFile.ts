@@ -4,7 +4,6 @@ import schoolModel from '../Models/school.model';
 import empModel from '../Models/emp.model'
 import { generatePassword } from './regsiter.controller';
 import Roles from '../../config/role';
-import removeFile from '../Utils/removeFile';
 
 const registerSchoolWithFile = async (req: Request, res: Response) => {
     try {
@@ -56,8 +55,6 @@ const registerSchoolWithFile = async (req: Request, res: Response) => {
                     return res.status(500).json({ message: error.message, success: false })
                 }
             })
-            // delete the file after saving it into db
-            removeFile(req?.file?.path)
         }
     } catch (error: any) {
         res.status(500).json({ message: error.message, success: false })
@@ -129,8 +126,6 @@ const registerEmpWithFile = async (req: Request, res: Response) => {
                     return res.status(500).json({ message: error.message, success: false })
                 }
             })
-            // delete the file after saving it into db
-            removeFile(req?.file?.path)
         }
     } catch (error: any) {
         console.log('error', error)

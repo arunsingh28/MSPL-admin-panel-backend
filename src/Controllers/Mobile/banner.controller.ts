@@ -1,14 +1,21 @@
 import { Request, Response } from 'express'
 import bannerModel from '../../Models/mobile.banner.model'
 import { uploadFile, deleteFile } from '../../services/aws.s3'
-import removeFile from '../../Utils/removeFile'
+
+interface IBanner {
+    bannerImage: {
+        location: string
+        key: string
+    }
+    bannerkey: string
+    _id: string
+}
 
 const uploadBanner = async (req: Request, res: Response) => {
     let banner: any
     try {
         banner = await uploadFile(req.file)
-        // remove the file from server
-        removeFile(req.file?.path)
+
         console.log({ banner })
         const bannerData = new bannerModel({
             bannerImage: {
@@ -37,6 +44,17 @@ const getBanner = async (req: Request, res: Response) => {
     }
 }
 
+const deleteBanner = async (req: Request, res: Response) => {
+    try {
+        const banner = await bannerModel.findOne({ _id: req.params.id }) as IBanner
+        const isDelete = await deleteFile(banner?.bannerImage.key)
+        await bannerModel.deleteOne({ _id: req.params.id })
+        res.status(200).json({ success: true, message: 'Banner deleted successfully' })
+    } catch (err: any) {
+        res.status(500).json({ success: false, message: err.message })
+    }
+}
 
 
-export default { uploadBanner, getBanner }
+
+export default { uploadBanner, getBanner, deleteBanner }

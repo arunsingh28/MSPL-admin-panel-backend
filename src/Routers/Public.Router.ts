@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 const router = express.Router()
-import registerController from '../Controllers/regsiter.controller'
+import registerEmpController from '../Controllers/regsiter.controller'
 import loginWithPassword from '../Controllers/AdminPanelController/loginWithPassword'
 import handleRefreshToken from '../Controllers/refreshToken.controller'
 import logout from '../Controllers/logout'
@@ -25,7 +25,7 @@ import nutrisistController from '../Controllers/AdminPanelController/nutrisist.c
  */
 router.route('/register')
     .get((req: Request, res: Response) => { return res.json({ message: 'GET METHOD NOT ALLOWED' }) })
-    .post(registerController)
+    .post(registerEmpController)
 
 
 router.route('/logout').get(logout)

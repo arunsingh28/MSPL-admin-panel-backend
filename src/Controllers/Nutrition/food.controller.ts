@@ -3,18 +3,14 @@ import { ingridienentsModel } from "../../Models/ingridienents.model";
 import recipeCategoryModel from "../../Models/recipiCategory.model";
 import DietFrequencyModel from "../../Models/dietFrequency.model";
 import xlsx from 'xlsx'
-import removeFile from "../../Utils/removeFile";
+import fs from 'fs'
 
 const addIngridientWithFile = async (req: Request, res: Response) => {
     // save the ingridient to the database from file
     if (req.file?.originalname.split('.').pop() !== 'xlsx') {
-        removeFile(req.file?.path)
-        // remove the file from server
         return res.status(400).json({ message: 'Please select file with xlsx format' })
     }
     if (req.file === undefined) {
-        // remove the file from server
-        removeFile((req.file as any).path)
         return res.status(400).json({ message: 'Please select file' })
     }
     try {
@@ -22,7 +18,6 @@ const addIngridientWithFile = async (req: Request, res: Response) => {
         const sheet_name_list = workbook.SheetNames;
         const xlData: any = xlsx.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
         if (xlData[0].name === undefined || xlData[0].unit === undefined || xlData[0].quantity === undefined || xlData[0].calories === undefined || xlData[0].protien === undefined || xlData[0].fat === undefined || xlData[0].carb === undefined) {
-            removeFile(req.file.path)
             return res.status(400).json({ message: 'Require filed are missing use downloaded template', success: false })
         }
         let i = 0
@@ -40,12 +35,11 @@ const addIngridientWithFile = async (req: Request, res: Response) => {
             })
             i++
         }
-        removeFile(req.file.path)
+        // remove file from server
+        fs.unlinkSync(req.file.path)
         return res.status(200).json({ message: count + ' records are inserted', success: true })
     } catch (error: any) {
         console.log(error)
-        // remove file from server
-        removeFile(req.file.path)
         return res.status(500).json({ message: error.message, success: false })
     }
 }
@@ -71,9 +65,13 @@ const addIngridient = async (req: Request, res: Response) => {
 
 // fetch all ingridients
 const sendIngridients = async (req: Request, res: Response) => {
+    const page = Number(req.query["page"]) || 1
+    const limit = Number(req.query["limit"]) || 10
+    const skip = (page - 1) * limit
     try {
-        const data = await ingridienentsModel.find({})
-        return res.status(200).json({ data, success: true })
+        const data = await ingridienentsModel.find({}).skip(skip).limit(limit).exec()
+        const totalCount = await ingridienentsModel.countDocuments({})
+        return res.status(200).json({ data, count: totalCount, success: true })
     } catch (error: any) {
         console.log(error)
         return res.status(500).json({ message: 'Internal server error', success: false })

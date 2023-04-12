@@ -21,11 +21,12 @@ import session from './Utils/session'
 import compress from 'compression'
 import mobileAuth from './middlewares/mobileAuth.middleware';
 import mobileRouter from './Routers/mobile.Router';
-
+import waterCronJob from './services/cronJob'
 
 const app: Express = express();
 
-
+// reset water intake to 0
+waterCronJob.schedule
 
 // error handler
 errorHandler()
