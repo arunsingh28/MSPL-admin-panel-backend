@@ -96,7 +96,6 @@ const updateRecipe = async (req: Request, res: Response) => {
         upload = await uploadFile(req.file)
         const isDelete = await deleteFile(req.body.key)
         if (!isDelete) return res.status(200).json({ message: 'Error in updating file', success: false })
-
         const recipe = {
             name: data.name,
             ingredients: data.ingredients,

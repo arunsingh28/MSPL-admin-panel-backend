@@ -8,7 +8,7 @@
     "start": "ts-node src/app.ts",
     "build": "tsc -p .",
     "dev": "nodemon -L src/app.ts",
-    "pm2": "pm2 build/src/app.js --name backend"
+    "pm2": "pm2 start npm --name backend -- start-prod"
   },
   "keywords": [
     "express",
