@@ -60,6 +60,7 @@ const registerEmp = async (req: Request, res: Response) => {
             email,
             phone,
             empId: id,
+            myClients: [null],
             role: desireRole(role),
             password: encrypt,
         })

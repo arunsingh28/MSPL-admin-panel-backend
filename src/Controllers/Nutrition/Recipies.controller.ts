@@ -14,6 +14,7 @@ const saveNewRecipie = async (req: Request, res: Response) => {
         tags: data.tags,
         preparationTime: data.preparationTime,
         status: data.status,
+        instructions: data.instractions,
         sourceLink: data.sourceLink,
         nutritionName: data.nutritionName,
         image: {
@@ -79,6 +80,7 @@ const updateRecipe = async (req: Request, res: Response) => {
             tags: data.tags,
             preparationTime: data.preparationTime,
             status: data.status,
+            instructions: data.instractions,
             sourceLink: data.sourceLink,
             nutritionName: data.nutritionName,
             image: {
@@ -103,6 +105,7 @@ const updateRecipe = async (req: Request, res: Response) => {
             preparationTime: data.preparationTime,
             status: data.status,
             sourceLink: data.sourceLink,
+            instructions: data.instractions,
             nutritionName: data.nutritionName,
             image: {
                 location: upload.location,

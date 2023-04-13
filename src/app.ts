@@ -86,7 +86,7 @@ app.use('/v1/api', publicRouter)
 // priavte router with authorization middleware
 app.use('/v2/api', authorization, privateRouter)
 // tutorial router
-app.use('/v2/tutorial', authorization, tutorialRouter)
+app.use('/v2/lms', authorization, tutorialRouter)
 // nutriotion router
 app.use('/v2/nutrition', authorization, NutritionRouter)
 // mobile apis

@@ -14,7 +14,7 @@ const regsiterEndUser = async (req: Request, res: Response) => {
     // decode the token
     const decodedToken: any = await jwt.verify(token, env._jwt_mobile_token_secret_key as string)
     const { name, email, dob, height, weight, gender } = req.body;
-    if (!name || !dob || !height || !weight || !gender) {
+    if (!name) {
         return res.status(400).json({ message: 'Please fill all the fields', success: false, stautsCode: 400 })
     }
     try {
@@ -22,14 +22,14 @@ const regsiterEndUser = async (req: Request, res: Response) => {
         const BMI = await Formula.BMI(height, weight)
         const newUser = await userModel.findById(decodedToken.id).exec()
         if (newUser) {
-            newUser.BMI = BMI
-            newUser.BMR = BMR
+            //newUser.BMI = BMI
+            //newUser.BMR = BMR
             newUser.name = name
-            newUser.email = email
-            newUser.measurement.height = height
-            newUser.measurement.weight = weight
-            newUser.gender = gender
-            newUser.dob = dob            
+            // newUser.email = email
+            // newUser.measurement.height = height
+            // newUser.measurement.weight = weight
+            // newUser.gender = gender
+            // newUser.dob = dob            
             newUser.profileTimeline = 'active'
             const savedUser = await newUser.save()
             return res.status(200).json({ message: 'User Registered Successfully', success: true, data: savedUser, stautsCode: 200 })

@@ -14,13 +14,12 @@ const empSchema = new mongoose.Schema({
         specialisation: [],
         education: String,
     },
-    myClient: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            default: null
-        }
-    ],
+    myClient: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        unique: false,
+        index: true
+    }],
     email: {
         type: String,
         required: true,

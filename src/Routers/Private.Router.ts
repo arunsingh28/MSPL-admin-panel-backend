@@ -14,6 +14,8 @@ import nutrisistController from '../Controllers/AdminPanelController/nutrisist.c
 import bannerController from '../Controllers/Mobile/banner.controller'
 import sportsListController from "../Controllers/AdminPanelController/sportsList.controller";
 import myClientController from '../Controllers/Nutrition/client.controller'
+import deleteUserController from '../Controllers/AdminPanelController/deleteUser.controller'
+
 
 const router = express.Router()
 
@@ -123,6 +125,9 @@ router.route('/update-sportlist/:id').put(upload.single('file'), sportsListContr
 
 // delete sport
 router.route('/delete-sportlist/:id').delete(sportsListController.deleteSportsList)
+
+// delete client from admin panel
+router.route('/delete-client/:id').delete(deleteUserController.deleteUser)
 
 
 export default router 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import courseModel from "../../Models/course.model";
-
+import { uploadFile } from '../../services/aws.s3'
 
 const saveModuleName = async (req: Request, res: Response) => {
     const { courseDescription, courseTitle } = req.body
@@ -92,5 +92,33 @@ const shareCourse = async (req: Request, res: Response) => {
     }
 }
 
+const deleteModuleName = async (req: Request, res: Response) => {
+    try {
+        const course = await courseModel.findByIdAndDelete(req.params.id)
+        res.status(200).json({ success: true, data: course })
+    } catch (error: any) {
+        res.status(500).json({ success: false, message: error.message })
+    }
+}
 
-export default { saveModuleName, getAllModules, getModuleById, updateModuleName, sendModules, shareCourse, updateLesson }
+// upload pdf
+const uploadPDF = async (req: Request, res: Response) => {
+    try {
+        const pdf = await uploadFile(req.file) as any
+        const course = await courseModel.findByIdAndUpdate(req.params.id, {
+            $push: {
+                lessons: [
+                    {
+                        lessonName: req.body.lessonName,
+                        lessonContent: pdf.Location
+                    }
+                ]
+            }
+        })
+        res.status(200).json({ success: true, data: course })
+    } catch (error: any) {
+        res.status(500).json({ success: false, message: error.message })
+    }
+}
+
+export default { saveModuleName, uploadPDF, getAllModules, deleteModuleName, getModuleById, updateModuleName, sendModules, shareCourse, updateLesson }

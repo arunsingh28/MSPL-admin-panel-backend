@@ -4,7 +4,7 @@ import tokens from '../../Utils/tokens';
 import otpGenrator from '../../Utils/otpGenrator';
 import jwt from 'jsonwebtoken'
 import env from '../../../config/env';
-import sendOTP from '../../services/sendOTP';
+import sendOTP from '../../services/mobileOTP';
 import newUser from '../../Models/newUser.model';
 import { sendEmail } from '../../services/mail';
 
