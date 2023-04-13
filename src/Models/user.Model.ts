@@ -91,8 +91,14 @@ const userSchema = new mongoose.Schema({
     referal_code: String,
     dob: Date,
     measurement: {
-        height: Number,
-        weight: Number,
+        height: {
+            type: Number,
+            default: 0
+        },
+        weight: {
+            type: Number,
+            default: 0
+        }
     },
     // bca: mongoose.Schema.Types.ObjectId,
     isPaid: {

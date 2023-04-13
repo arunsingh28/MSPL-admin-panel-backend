@@ -11,13 +11,18 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage })
 
 
-router.route('/init-course').post(lmsController.saveModuleName)
+router.route('/init-course').post(upload.single('file'), lmsController.saveModuleName)
+
+
 router.route('/update-course/:id').put(lmsController.updateModuleName)
 router.route('/delete-course/:id').delete(lmsController.deleteModuleName)
 router.route('/get-all-course').get(lmsController.getAllModules)
 router.route('/fetch-course/:id').get(lmsController.getModuleById)
 router.route('/fetch-modules/:id').get(lmsController.sendModules)
-router.route('/update-lesson/:id').put(lmsController.updateLesson)
+
+
+// lesson
+router.route('/update-lesson/:id').post(upload.single('file'), lmsController.updateLesson)
 
 
 // pdf upload

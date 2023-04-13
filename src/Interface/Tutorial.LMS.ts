@@ -4,6 +4,10 @@ import mongoose from "mongoose";
 export interface ITutorial extends mongoose.Document {
     TutorialTitle: string;
     TutorialDescription: string;
+    thumbnail: {
+        location: string;
+        key: string;
+    }
     moduleNumber: Number;
     intiater: mongoose.Schema.Types.ObjectId
     module: [
@@ -18,7 +22,6 @@ export interface ITutorial extends mongoose.Document {
             chapterDescription: string;
         }
     ];
-    thumbnail: string;
     category: string;
     isDeleted: boolean;
 }

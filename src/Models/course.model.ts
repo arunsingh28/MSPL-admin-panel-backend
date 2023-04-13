@@ -3,12 +3,21 @@ import mongoose from 'mongoose'
 interface Icourse extends mongoose.Document {
     courseTitle: string
     courseDescription: string
+    thumbnail: {
+        location: string,
+        key: string
+    }
+    creator: string
     moduleNames: [{
         id: 1,
         moduleName: '',
     }],
     lessons: [{
         lessonName: string,
+        pdf: {
+            location: string,
+            key: string,
+        }
         // lessonDescription: string,
         lessonContent: string,
         // lessonVideo: string,
@@ -23,7 +32,11 @@ interface Icourse extends mongoose.Document {
 const courseSchema = new mongoose.Schema({
     courseTitle: { type: String, required: true, unique: true },
     courseDescription: { type: String, required: true },
-
+    thumbnail: {
+        location: { type: String },
+        key: { type: String },
+    },
+    creator: { type: String, required: true },
     moduleNames: {
         type: [{
             id: { type: Number },
@@ -41,12 +54,20 @@ const courseSchema = new mongoose.Schema({
         type: [{
             lessonName: { type: String },
             lessonContent: { type: String },
+            pdf: {
+                location: { type: String },
+                key: { type: String },
+            }
         }],
         _id: false,
         default: [
             {
                 lessonName: '',
                 lessonContent: '',
+                pdf: {
+                    location: '',
+                    key: ''
+                }
             },
         ]
     }

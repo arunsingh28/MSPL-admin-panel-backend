@@ -11,11 +11,14 @@ const tutorialSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    thumbnail: {
+        location: String,
+        key: String,
+    },
     intiater: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'emp',
     },
-    moduleNumber: Number,
     module: [
         {
             moduleTitle: {
@@ -36,17 +39,11 @@ const tutorialSchema = new mongoose.Schema({
             },
         }
     ],
-    thumbnail: {
-        type: String,
-        // required: true,
-    },
     category: {
         type: String,
-        // required: true,
     },
     isDeleted: {
         type: Boolean,
-        // default: false,
     },
 }, { timestamps: true })
 
