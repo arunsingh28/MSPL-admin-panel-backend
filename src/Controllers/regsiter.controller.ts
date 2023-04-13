@@ -64,6 +64,7 @@ const registerEmp = async (req: Request, res: Response) => {
             role: desireRole(role),
             password: encrypt,
         })
+        
         // create refresh tooken with _id for 1 day
         const refreshToken = token.refreshToken(newUser._id, role)
         // create access token with _id of 10 min
