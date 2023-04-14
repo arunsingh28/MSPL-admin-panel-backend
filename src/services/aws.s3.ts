@@ -26,14 +26,13 @@ const renameFile = (file: any) => {
 
 
 export const uploadFile = async (file: any) => {
-    console.log('FIlE:',file)
     // const sharpImage = sharp(file.path).rotate().resize(500, 500).toFormat('webp').jpeg({ quality: 80 });
     // const buffer = await sharpImage.toBuffer();
     const fileName = renameFile(file);
     // create buffer from file
     const params = {
         Bucket: 'sg3storage',
-        Key: fileName,
+        Key: fileName + '/lesaons',
         Body: file.buffer,
         ACL: 'public-read'
     };
@@ -41,7 +40,7 @@ export const uploadFile = async (file: any) => {
         const data = await s3.send(new PutObjectCommand(params));
         if (data) {
             return {
-                location: `https://sg3storage.sgp1.digitaloceanspaces.com/${fileName}`,
+                location: `https://sg3storage.sgp1.digitaloceanspaces.com/lessons/${fileName}`,
                 key: fileName
             }
         }

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import courseModel from "../../Models/course.model";
-import { uploadFile } from '../../services/aws.s3'
+import { uploadFile, deleteFile } from '../../services/aws.s3'
 
 const saveModuleName = async (req: Request, res: Response) => {
     const data = JSON.parse(req.body.data)
@@ -111,7 +111,9 @@ const shareCourse = async (req: Request, res: Response) => {
 
 const deleteModuleName = async (req: Request, res: Response) => {
     try {
-        const course = await courseModel.findByIdAndDelete(req.params.id)
+        const course = await courseModel.findByIdAndDelete(req.params.id) as any
+        await deleteFile(course.thumbnail.key)
+        course.lessons.map((item: any) => deleteFile(item.pdf.key))
         res.status(200).json({ success: true, data: course })
     } catch (error: any) {
         res.status(500).json({ success: false, message: error.message })

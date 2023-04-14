@@ -1,27 +1,17 @@
 import mongoose from 'mongoose'
 
 interface DietPlan {
-    protein: number,
-    carbs: number,
-    fat: number,
-    calories: number,
-    client: mongoose.Schema.Types.ObjectId
-    recipie: [type: mongoose.Schema.Types.ObjectId, ref: 'Recipe']
+    recipe: [],
+    client: string,
 }
 
 const DietPlanSchema = new mongoose.Schema({
-    protein: Number,
-    carbs: Number,
-    fat: Number,
-    calories: Number,
     client: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        type: String,
+        required: true
     },
-    recipie: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Recipe'
-    }]
+    recipe: []
 }, { timestamps: true })
 
 const DietPlanModel = mongoose.model<DietPlan>('DietPlan', DietPlanSchema)
+export default DietPlanModel

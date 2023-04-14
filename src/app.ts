@@ -37,10 +37,13 @@ connectDB()
 // private data sharing
 app.use(credentials)
 
+
 // middlewares ------------------------------------------------------------
 // body parser
 app.use(express.json({ limit: '50MB' }))
 app.use(express.static(path.join(__dirname + '/../client/')))
+app.use(express.urlencoded({ extended: true, limit: '50MB' }))
+
 // body json parser
 app.use(bodyParser.json())
 // cookie parser
@@ -58,7 +61,7 @@ app.use(logger.logger)
 app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info(env._NAMESPACE, `METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}]`)
   res.on('finish', () => {
-    logger.info(env._NAMESPACE, `METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}], STATUS_CODE - [${req.statusCode}]`)
+    logger.info(env._NAMESPACE, `METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}], STATUS_CODE - [${res.statusCode}]`)
   })
   next()
 })
@@ -91,6 +94,10 @@ app.use('/v2/lms', authorization, tutorialRouter)
 app.use('/v2/nutrition', authorization, NutritionRouter)
 // mobile apis
 app.use('/v2/mobile', mobileAuth, mobileRouter)
+
+app.use('/lesson/:id', (req: Request, res: Response) => {
+  return res.render('index.html')
+})
 
 // wrong url or incorrect url
 app.get('*', (req: Request, res: Response) => {

@@ -16,6 +16,7 @@ import sportsListController from "../Controllers/AdminPanelController/sportsList
 import myClientController from '../Controllers/Nutrition/client.controller'
 import deleteUserController from '../Controllers/AdminPanelController/deleteUser.controller'
 
+import dietPlanController from '../Controllers/Nutrition/dietPlan.controller'
 
 const router = express.Router()
 
@@ -129,5 +130,8 @@ router.route('/delete-sportlist/:id').delete(sportsListController.deleteSportsLi
 // delete client from admin panel
 router.route('/delete-client/:id').delete(deleteUserController.deleteUser)
 
+
+// create diet plan
+router.route('/create-diet-plan').post(dietPlanController)
 
 export default router 

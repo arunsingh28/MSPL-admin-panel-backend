@@ -23,7 +23,7 @@ const env = {
     _jwt_access_token_expire_time: '30h',
     _jwt_refresh_token_expire_time: '30d',
     _jwt_login_token_expire_time: '5m',
-    _jwt_mobile_token_expire_time: '30d',
+    _jwt_mobile_token_expire_time: '1d',
     _jwt_mobile_otp_token_expire_time: '5m',
 
     // maxage for cookie

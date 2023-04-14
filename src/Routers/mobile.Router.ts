@@ -51,4 +51,8 @@ router.route('/contact-us/:id').post(contactController.raseNewRequest)
 
 
 
+// diet plan apis
+router.route('/get-diet-plan/:id').get(mobileController.getDietPlan)
+
+
 export default router
