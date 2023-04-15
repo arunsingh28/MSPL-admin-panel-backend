@@ -6,7 +6,7 @@ import { uploadFile, deleteFile } from '../../services/aws.s3'
 const saveNewRecipie = async (req: Request, res: Response) => {
     // parse the data
     const data = JSON.parse(req.body.data)
-    const upload: any = await uploadFile(req.file)
+    const upload: any = await uploadFile(req.file, 'RecipeImage')
     // create object
     const recipe = {
         name: data.name,
@@ -95,7 +95,7 @@ const updateRecipe = async (req: Request, res: Response) => {
             return res.status(200).json({ message: err.message, success: false })
         }
     } else {
-        upload = await uploadFile(req.file)
+        upload = await uploadFile(req.file, 'RecipeImage')
         const isDelete = await deleteFile(req.body.key)
         if (!isDelete) return res.status(200).json({ message: 'Error in updating file', success: false })
         const recipe = {

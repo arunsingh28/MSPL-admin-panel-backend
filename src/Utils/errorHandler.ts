@@ -1,10 +1,10 @@
 import logger from './logger'
+import { Response } from 'express'
 
 const errorHandler = () => {
     process.on('unhandledRejection', (err: any) => {
         logger.logEvents(err.message, 'UnhandleReject.csv')
         console.log('\n==== unhandle Rejection fail =====\n', err)
-
         // uncaoughtException
         process.on('uncaughtException', (err: any) => {
             logger.logEvents(err.message, 'UncaughtException.csv')

@@ -5,7 +5,7 @@ import { uploadFile, deleteFile } from '../../services/aws.s3'
 const saveModuleName = async (req: Request, res: Response) => {
     const data = JSON.parse(req.body.data)
     try {
-        const isUpload = await uploadFile(req.file) as any
+        const isUpload = await uploadFile(req.file, 'courseThumbnail') as any
         const course = await courseModel.create({
             courseTitle: data.courseTitle,
             courseDescription: data.courseDescription,
@@ -79,7 +79,7 @@ const updateLesson = async (req: Request, res: Response) => {
         return res.status(400).json({ success: false, message: 'Lesson name and content is required' })
     }
     try {
-        const isUpload = await uploadFile(req.file) as any
+        const isUpload = await uploadFile(req.file, 'pdf') as any
         const course = await courseModel.findByIdAndUpdate(req.params.id, {
             $push: {
                 lessons: [
@@ -123,7 +123,7 @@ const deleteModuleName = async (req: Request, res: Response) => {
 // upload pdf
 const uploadPDF = async (req: Request, res: Response) => {
     try {
-        const pdf = await uploadFile(req.file) as any
+        const pdf = await uploadFile(req.file, 'pdf') as any
         const course = await courseModel.findByIdAndUpdate(req.params.id, {
             $push: {
                 lessons: [

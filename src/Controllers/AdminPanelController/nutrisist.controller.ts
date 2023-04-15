@@ -16,7 +16,7 @@ const updateProfile = async (req: Request, res: Response) => {
         try {
             // delete old profile from the aws s3
             await deleteFile(data.key)
-            const isUpload = await uploadFile(req.file) as IUpload
+            const isUpload = await uploadFile(req.file, 'profileImage') as IUpload
             if (isUpload) {
                 const update = {
                     profile: {

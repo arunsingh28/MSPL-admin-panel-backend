@@ -10,6 +10,30 @@ import { sendEmail } from '../../services/mail';
 
 // login with phone number return otp to mobile number
 const loginWithPhone = async (req: Request, res: Response) => {
+
+    if (!req.body.phone) return res.status(400).json({
+        message: 'Phone number is required',
+        success: false,
+        data: null,
+        statusCode: res.statusCode
+    })
+
+    if (req.body.phone.length < 10) return res.status(400).json({
+        message: 'Phone number must be 10 digit',
+        success: false,
+        data: null,
+        statusCode: res.statusCode
+    })
+
+    // check it user entered number only or not
+    const isNumber = /^\d+$/.test(req.body.phone);
+    if (!isNumber) return res.status(400).json({
+        message: 'Phone number must be number only',
+        success: false,
+        data: null,
+        statusCode: res.statusCode
+    })
+
     const isUser = await userModel.findOne({ phone: req.body.phone }).exec();
     try {
         if (isUser) {
@@ -67,6 +91,7 @@ const loginWithPhone = async (req: Request, res: Response) => {
             }
         }
     } catch (error: any) {
+        console.log('ERROR:::::', error)
         return res.status(500).json({
             message: 'Internal Server Error',
             error: error.message,

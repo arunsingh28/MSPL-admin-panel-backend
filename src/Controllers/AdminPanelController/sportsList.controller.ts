@@ -12,7 +12,7 @@ interface IUpload {
 
 const saveSportsList = async (req: Request, res: Response) => {
     try {
-        const upload = await uploadFile(req.file) as IUpload
+        const upload = await uploadFile(req.file, 'sportsThumbnails') as IUpload
         if (upload) {
             req.body.image = upload.location;
             req.body.key = upload.key;
@@ -38,7 +38,7 @@ const saveSportsList = async (req: Request, res: Response) => {
 
 const updateSportsList = async (req: Request, res: Response) => {
     try {
-        const upload = await uploadFile(req.file) as IUpload
+        const upload = await uploadFile(req.file, 'sportsThumbnails') as IUpload
         if (upload) {
             req.body.image = upload.location;
             req.body.key = upload.key;

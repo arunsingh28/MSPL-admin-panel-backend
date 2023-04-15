@@ -7,6 +7,9 @@ import lmsController from '../Controllers/LMS/lms.controller'
 import editUserController from "../Controllers/Mobile/editUser.controller";
 import contactController from "../Controllers/Mobile/contact.controller";
 
+// add meal controller
+import { addMeal } from "../Controllers/Nutrition/addMeal";
+
 router.route('/create-end-user').post(endUserController.regsiterEndUser)
 router.route('/get-user-info/:id').get(endUserController.getUserById)
 
@@ -53,6 +56,10 @@ router.route('/contact-us/:id').post(contactController.raseNewRequest)
 
 // diet plan apis
 router.route('/get-diet-plan/:id').get(mobileController.getDietPlan)
+
+
+// add meal
+router.route('/add-meal').post(addMeal)
 
 
 export default router

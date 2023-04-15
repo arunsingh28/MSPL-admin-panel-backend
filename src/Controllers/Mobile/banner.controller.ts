@@ -14,7 +14,7 @@ interface IBanner {
 const uploadBanner = async (req: Request, res: Response) => {
     let banner: any
     try {
-        banner = await uploadFile(req.file)
+        banner = await uploadFile(req.file, 'mobileBanner')
 
         console.log({ banner })
         const bannerData = new bannerModel({

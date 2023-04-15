@@ -7,6 +7,7 @@ import logout from '../Controllers/logout'
 import endUserLoginController from '../Controllers/endUserController/login'
 import nutrisistController from '../Controllers/AdminPanelController/nutrisist.controller'
 
+
 /**
  * register api
  * @swagger
@@ -92,5 +93,8 @@ router.route('/verify-otp').post(endUserLoginController.verifyOTP)
 
 
 router.route('/diet-plan/:id').post(nutrisistController.dietPlanner)
+
+
+
 
 export default router
