@@ -18,6 +18,8 @@ import deleteUserController from '../Controllers/AdminPanelController/deleteUser
 
 import dietPlanController from '../Controllers/Nutrition/dietPlan.controller'
 
+import assismentController from '../Controllers/AdminPanelController/assisment.controller'
+
 const router = express.Router()
 
 var serverStorage = multer.diskStorage({
@@ -133,5 +135,12 @@ router.route('/delete-client/:id').delete(deleteUserController.deleteUser)
 
 // create diet plan
 router.route('/create-diet-plan').post(dietPlanController)
+
+
+// assessment 
+router.route('/save-introduction').post(assismentController.addIntroduction)
+router.route('/save-measurement').post(assismentController.addMeasurement)
+router.route('/get-assessment/:id').get(assismentController.getAssessmentForm)
+router.route('/save-medical-history').post(assismentController.saveMedicalHistory)
 
 export default router 

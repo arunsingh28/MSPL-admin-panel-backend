@@ -22,10 +22,18 @@ const addIngridientWithFile = async (req: Request, res: Response) => {
         }
         let i = 0
         let count = 0
+        let skip = 0
         while (i < xlData.length) {
             count++
+            // check if the ingridient is already exists
+            const isExists = await ingridienentsModel.findOne({ name: xlData[i].name.toLowerCase() })
+            if (isExists) {
+                i++
+                skip++
+                continue
+            }
             const isInsert = await ingridienentsModel.create({
-                name: xlData[i].name,
+                name: xlData[i].name.toLowerCase(),
                 unit: xlData[i].unit,
                 quantity: xlData[i].quantity,
                 calories: xlData[i].calories,
@@ -37,12 +45,18 @@ const addIngridientWithFile = async (req: Request, res: Response) => {
         }
         // remove file from server
         fs.unlinkSync(req.file.path)
-        return res.status(200).json({ message: count + ' records are inserted', success: true })
+        if (count === skip) return res.status(400).json({ message: 'All records are duplicate', success: false })
+        return res.status(200).json({ message: count + ' records are inserted sucessfully and ' + skip + ' Duplicate remove', success: true })
     } catch (error: any) {
         console.log(error)
+        if (error.code === 11000) {
+            return res.status(400).json({ message: error.keyValue.name + ' Duplicate entry', success: false })
+        }
+        // 
         return res.status(500).json({ message: error.message, success: false })
     }
 }
+
 
 const addIngridient = async (req: Request, res: Response) => {
     // save the ingridient to the database

@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "ac168ea8-0a7d-4fe4-a1e7-240fd0e37fe4",
+		"name": "Admin Panel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13978060"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"dev@sportylife.in\",\n    \"password\":\"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/v1/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Emp Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"apurvraj27@gmail.com\",\n    \"id\": \"MS010321\",\n    \"name\":\"app Singh\",\n    \"phone\" : 79836131441,\n    \"role\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/v1/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "End User Create Account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Arun Pratap Singh\",\n    \"email\":\"arunsingh@gmail.com\",\n    \"phone\":7983613142,\n    \"dob\":\"2000-08-27\",\n    \"weight\":82,\n    \"height\":187,\n    \"sex\":\"Male\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/v1/api/create-end-user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"api",
+						"create-end-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EndUser Profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:4000/v2/api/get-all-user",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v2",
+						"api",
+						"get-all-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EndUser Profile by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:4000/v2/api/get-user-info/----ID----",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v2",
+						"api",
+						"get-user-info",
+						"----ID----"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mobile Banner",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmE5YWNiOTkxZDA0N2M2OWU1M2RkYSIsInJvbGUiOls5OTksNzEsOTEsOTIsOTIxLDkyMiw5MjMsOTI0LDkyNSw5MjYsOTMsOTMxLDkzMiw5NCw5NDEsOTQyLDk1MSw5NTIsOTcxLDk3Miw5OCw5ODEsOTgyLDk4Myw5MCw5MDFdLCJpYXQiOjE2ODA2OTQxODMsImV4cCI6MTY4MDgwMjE4M30.CHFeesxdgkmQi2wBky0CmiMY5XXkm_rjtbFbsfSsP7s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/arunsingh/Desktop/aswin.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/v2/api/create-banner",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v2",
+						"api",
+						"create-banner"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

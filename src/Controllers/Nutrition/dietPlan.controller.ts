@@ -5,12 +5,17 @@ const createDietPlan = async (req: Request, res: Response) => {
     try {
         const { recipe, userId } = req.body;
         const dietPlan = await DietPlanModel.create({
-            recipe: recipe,
+            mealPlan: [
+                {
+                    weekPlan: recipe
+                }
+            ],
             client: userId
         });
         res.status(201).json({
             status: "success",
-            data: dietPlan
+            data: dietPlan,
+            message: 'Diet plan save successfully'
         });
     } catch (error: any) {
         res.status(500).json({

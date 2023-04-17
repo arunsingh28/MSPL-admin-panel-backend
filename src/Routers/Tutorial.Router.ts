@@ -8,7 +8,7 @@ const router = express.Router()
 
 const storage = multer.memoryStorage()
 
-const upload = multer({ storage })
+const upload = multer({ storage, limits: { fileSize: 1024 * 1024 * 10 } }) // 10 MB
 
 
 router.route('/init-course').post(upload.single('file'), lmsController.saveModuleName)

@@ -6,7 +6,7 @@ const schoolSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    schoolAddress:{
+    schoolAddress: {
         schoolArea: {
             type: String,
             required: true
@@ -33,10 +33,13 @@ const schoolSchema = new mongoose.Schema({
         contactEmail: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            match: [
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            ]
         }
     },
-    sports:{
+    sports: {
         isCricket: {
             type: Boolean,
             default: false
@@ -63,7 +66,7 @@ const schoolSchema = new mongoose.Schema({
         }
     }
 
-},{timestamps: true})
+}, { timestamps: true })
 
 
 const schoolModel = mongoose.model<schoolInterface>('school', schoolSchema)

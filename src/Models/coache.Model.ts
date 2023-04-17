@@ -26,8 +26,8 @@ const coacheSchema = new mongoose.Schema({
         required: [true, 'this field required'],
         unique: true,
         match: [
-            /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-        ],
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        ]
     },
     phone: {
         type: Number,
