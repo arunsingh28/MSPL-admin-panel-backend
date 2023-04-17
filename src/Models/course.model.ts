@@ -6,6 +6,9 @@ interface Icourse extends mongoose.Document {
     thumbnail: {
         location: string,
         key: string
+    },
+    category: {
+        type: string
     }
     creator: string
     moduleNames: [{
@@ -35,6 +38,9 @@ const courseSchema = new mongoose.Schema({
     thumbnail: {
         location: { type: String },
         key: { type: String },
+    },
+    category: {
+        type: String,
     },
     creator: { type: String, required: true },
     moduleNames: {

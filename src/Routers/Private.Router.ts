@@ -138,9 +138,15 @@ router.route('/create-diet-plan').post(dietPlanController)
 
 
 // assessment 
+router.route('/get-assessment/:id').get(assismentController.getAssessmentForm)
+
+// post apis for assessment
 router.route('/save-introduction').post(assismentController.addIntroduction)
 router.route('/save-measurement').post(assismentController.addMeasurement)
-router.route('/get-assessment/:id').get(assismentController.getAssessmentForm)
 router.route('/save-medical-history').post(assismentController.saveMedicalHistory)
+router.route('/save-lifestyle-habits').post(assismentController.saveLifestyleHabits)
+router.route('/save-food-recall').post(assismentController.saveFoodRecall)
+router.route('/save-summary').post(assismentController.saveSummary)
+
 
 export default router 

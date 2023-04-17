@@ -17,7 +17,9 @@ interface IAtheleteModel extends mongoose.Document {
             Position: string
         }
     },
-    SUMMARY: string
+    SUMMARY: {
+        Summary: string
+    }
     ANTHROPOMETRY: {
         Height: string
         Weight: string
@@ -27,7 +29,8 @@ interface IAtheleteModel extends mongoose.Document {
         FamilyHistory: string
         WeightHistory: string
         Diabetes: string
-        PMS: string
+        PMS: []
+        Gender: string
         HeartHealth: string
         Thyroid: string
         GutHealth: string
@@ -37,7 +40,7 @@ interface IAtheleteModel extends mongoose.Document {
             medicationName: string,
             time: string,
             reason: string
-        }]
+        }],
     },
     FOOD_LIFESTYLE_HABITS: {
         DietPreference: string
@@ -46,29 +49,33 @@ interface IAtheleteModel extends mongoose.Document {
         DailyWaterIntake: string
         OutsideFoodConsumption: string
         DailyActivity: string
-        TraningSchedule: [{
-            day: string,
-            time: string,
-            caloris: string
-        }]
+        SocialHabit: string
+        SleepingHours: string
+        TraningSchedule: []
+        totalHours: {
+            Monday: string,
+            Tuesday: string,
+            Wednesday: string,
+            Thursday: string,
+            Friday: string,
+            Saturday: string,
+            Sunday: string
+        }
+        totalHourss: {
+            Monday: string,
+            Tuesday: string,
+            Wednesday: string,
+            Thursday: string,
+            Friday: string,
+            Saturday: string,
+            Sunday: string
+        }
         Other: string
     },
     FOOD_RECALL: {
-        FoodRecall: [{
-            meal: string,
-            time: string,
-            menu: string
-            quantity: string,
-        }],
-        FoodFrequency: [{
-            foodGroup: string,
-            daily: boolean,
-            Frequently: boolean,
-            Occasionally: boolean,
-            OnceaMonth: boolean,
-            OnceaWeek: boolean,
-        }]
-    }
+        Meals: []
+        FoodFrequency: []
+    },
 }
 
 const AtheleteSchema = new mongoose.Schema({
@@ -113,7 +120,9 @@ const AtheleteSchema = new mongoose.Schema({
         }
     },
     SUMMARY: {
-        type: String
+        Summary: {
+            type: String
+        }
     },
     ANTHROPOMETRY: {
         Height: {
@@ -137,18 +146,36 @@ const AtheleteSchema = new mongoose.Schema({
         Diabetes: {
             type: String
         },
-
+        Gender: {
+            type: String
+        },
         HeartHealth: {
             type: String
         },
-
         Thyroid: {
             type: String
         },
-
+        PMS: [],
         GutHealth: {
             type: String
         },
+        BowelMovement: {
+            type: String
+        },
+        Other: {
+            type: String
+        },
+        OnMedications: [{
+            medicationName: {
+                type: String,
+            },
+            time: {
+                type: String,
+            },
+            reason: {
+                type: String,
+            },
+        }]
     },
     FOOD_LIFESTYLE_HABITS: {
         DietPreference: {
@@ -169,62 +196,24 @@ const AtheleteSchema = new mongoose.Schema({
         DailyActivity: {
             type: String,
         },
-        TraningSchedule: [{
-            day: {
-
-                type: String,
-            },
-            time: {
-                type: String,
-            },
-            caloris: {
-                type: String,
-            }
-        }],
+        TraningSchedule: [],
         Other: {
             type: String
+        },
+        totalHourss: {
+            Monday: { type: String, default: 0 },
+            Tuesday: { type: String, default: 0 },
+            Wednesday: { type: String, default: 0 },
+            Thursday: { type: String, default: 0 },
+            Friday: { type: String, default: 0 },
+            Saturday: { type: String, default: 0 },
+            Sunday: { type: String, default: 0 }
         }
     },
-
     FOOD_RECALL: {
-        FoodRecall: [{
-            meal: {
-                type: String,
-            },
-            time: {
-                type: String,
-            },
-            menu: {
-                type: String,
-            },
-            quantity: {
-                type: String,
-            },
-        }],
-        FoodFrequency: [{
-            foodGroup: {
-                type: String,
-            },
-            daily: {
-                type: Boolean,
-            },
-            Frequently: {
-                type: Boolean,
-            },
-
-            Occasionally: {
-                type: Boolean,
-            },
-            OnceaMonth: {
-                type: Boolean,
-            },
-            OnceaWeek: {
-                type: Boolean,
-            },
-        }]
+        Meals: [],
+        FoodFrequency: []
     },
-
-
 })
 
 export default mongoose.model<IAtheleteModel & mongoose.Document>('atheleteAssismentForm', AtheleteSchema)
